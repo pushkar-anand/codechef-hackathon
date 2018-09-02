@@ -1,5 +1,8 @@
 package hackthon.codechef.chefonphone.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,9 +17,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import hackthon.codechef.chefonphone.R;
+import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +30,17 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        preferences = getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
+
+        if(!preferences.contains(SharedPrefKeys.LOGIN_KEY))
+        {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        String useremail = preferences.getString(SharedPrefKeys.USER_EMAIL, "");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
