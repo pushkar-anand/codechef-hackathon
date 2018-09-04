@@ -7,11 +7,23 @@ import android.util.Log;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 
 public class Helpers {
+
+    private static String bytesToHexString(byte[] bytes) {
+
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < bytes.length; i++) {
+            String hex = Integer.toHexString(0xFF & bytes[i]);
+            if (hex.length() == 1) {
+                sb.append('0');
+            }
+            sb.append(hex);
+        }
+        return sb.toString();
+    }
 
     public static String buildUrl(Context context, String base_url)
     {
@@ -27,7 +39,10 @@ public class Helpers {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest((url + Internet.getSecret()).getBytes("UTF-8"));
 
-            url =  url + "&hash=" + Arrays.toString(hash);
+
+            String strhash = bytesToHexString(hash);
+
+            url =  url + "&hash=" + strhash;
             Log.d("BUILD_URL", url);
             return url;
 

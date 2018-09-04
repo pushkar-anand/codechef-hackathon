@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
@@ -31,15 +32,35 @@ public class Internet {
         }
     }
 
-    public static String getHTTPSRequestResponse(@NonNull String Url,
-                                                 @NonNull String method,
-                                                 @Nullable String data)
+    public static String getHTTPSGetRequestResponse(@NonNull String Url) throws IOException
+    {
+       URL url = new URL(Url);
+       HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+
+        InputStream in = urlConnection.getInputStream();
+
+        InputStreamReader inputStreamReader = new InputStreamReader(in);
+
+        StringBuilder builder = new StringBuilder();
+
+
+        int data = inputStreamReader.read();
+        while (data != -1) {
+            char current = (char) data;
+            data = inputStreamReader.read();
+            builder.append(current);
+        }
+
+        return builder.toString();
+    }
+
+    public static String getHTTPSPostRequestResponse(@NonNull String Url, @Nullable String data)
             throws IOException {
 
         URL url = new URL(Url);
         HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
 
-        urlConnection.setRequestMethod(method);
+        urlConnection.setRequestMethod("POST");
         urlConnection.setDoOutput(true);
 
         if (data != null) {
@@ -64,6 +85,6 @@ public class Internet {
 
     public static String getSecret()
     {
-        return "sads";
+        return "a9e73b17ztNMIvl13H7wrNNb5YFza9e73b17";
     }
 }
