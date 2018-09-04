@@ -21,6 +21,9 @@ if(isset($_GET['token']) && $_GET['user'] && $_GET['hash']) {
             $contestList = $resultObj->result->data->content->contestList;
             \PhpUseful\EasyHeaders::json_header();
             echo json_encode($contestList);
+        }else
+        {
+            error_log($result);
         }
     }else
     {
