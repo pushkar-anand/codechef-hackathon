@@ -12,6 +12,7 @@
      $rm = "&hash=$hash";
 
      $url = str_replace($rm, '', $url);
+     var_dump($url);
 
      $calc_hash = hash('sha256', $url . API_SECRET);
      var_dump($calc_hash);
