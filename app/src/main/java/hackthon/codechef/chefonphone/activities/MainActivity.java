@@ -10,6 +10,7 @@ import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
@@ -52,8 +53,20 @@ public class MainActivity extends AppCompatActivity {
         WebView loginWebView = findViewById(R.id.loginWebview);
         WebSettings webSettings = loginWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setUserAgentString("Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19");
         CookieManager.getInstance().setAcceptCookie(true);
         loginWebView.addJavascriptInterface(new WebAppInterface(this), "Register");
+        loginWebView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
         loginWebView.loadUrl(Urls.LOGIN_URL);
     }
 
