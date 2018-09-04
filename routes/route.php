@@ -11,7 +11,8 @@ try {
 
     $route->addMatch('GET', '/login', __DIR__ . '/../controllers/login.php');
     $route->addMatch('GET', '/login/redirect', __DIR__ . '/../controllers/redirect.php');
-
+    $route->addMatch('GET', '/contest/single', __DIR__ . '/../controllers/contest.single.php');
+    $route->addMatch('GET', '/recommend', __DIR__ . '/../controllers/recommend.php');
 
 
     $route->execute();
