@@ -26,10 +26,10 @@
 
 </head>
 
-<body>
+<body onload="saveToDevice();">
 <div class="center">
-<h1>Successfully registered.</h1>
-    <button>Continue</button>
+    <h1>Successfully registered.</h1>
+    <button onclick="startApp();">Continue</button>
 </div>
 <div style="display: none">
     <p id="name">{{ name }}</p>
@@ -37,5 +37,19 @@
     <p id="codechef-handle">{{ codechef_handle }}</p>
 </div>
 
+<script type="text/javascript">
+
+    let saveToDevice = function () {
+        let name = document.getElementById('name').innerText;
+        let token = document.getElementById('login-token').innerText;
+        let handle = document.getElementById('codechef-handle').innerText;
+
+        Register.saveDetails(name, token, handle);
+    };
+
+    let startApp = function () {
+        Register.startNextActivity();
+    };
+</script>
 </body>
 </html>
