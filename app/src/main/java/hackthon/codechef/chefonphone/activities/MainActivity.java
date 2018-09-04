@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        WebView loginWebView = (WebView) findViewById(R.id.loginWebview);
+        WebView loginWebView = findViewById(R.id.loginWebview);
         WebSettings webSettings = loginWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         loginWebView.addJavascriptInterface(new WebAppInterface(this), "Register");
