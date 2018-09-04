@@ -5,7 +5,7 @@ use PhpUseful\Functions;
 if(isset($_GET['token']) && $_GET['user'] && $_GET['hash']) {
 
     $hash = $_GET['hash'];
-    verify_hash($hash);
+    if(verify_hash($hash)){
 
     $token = User::getCodechefToken($_GET['token'], Functions::escape_input($_GET['user']));
     if($token !== false) {
@@ -17,12 +17,15 @@ if(isset($_GET['token']) && $_GET['user'] && $_GET['hash']) {
         $result = $apiRequest->getResult();
         $resultObj = json_decode($result);
 
-        if($resultObj->status == 'OK')
-        {
+        if ($resultObj->status == 'OK') {
             $contestList = $resultObj->result->data->content->contestList;
             \PhpUseful\EasyHeaders::json_header();
             echo json_encode($contestList);
         }
+    }else
+    {
+        \PhpUseful\EasyHeaders::bad_request();
+    }
 
     }else
     {

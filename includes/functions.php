@@ -5,15 +5,15 @@
      session_start();
  }
 
- function verify_hash(string $hash)
+ function verify_hash(string $hash):bool
  {
      $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
      error_log($url);
      $rm = "&hash=$hash";
 
      $url = str_replace($rm, '', $url);
-     var_dump($url);
+
 
      $calc_hash = hash('sha256', $url . API_SECRET);
-     var_dump($calc_hash);
+     return $calc_hash == $hash;
  }
