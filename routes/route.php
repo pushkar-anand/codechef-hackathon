@@ -24,6 +24,8 @@ try {
     $route->addMatch('GET', '/practice/challenge', __DIR__ . '/../controllers/practice.challenge.php');
     $route->addMatch('GET', '/practice/peer', __DIR__ . '/../controllers/practice.peer.php');
 
+    $route->addMatch('GET', '/ide', __DIR__ . '/../controllers/ide.php');
+
 
 
     $route->execute();
