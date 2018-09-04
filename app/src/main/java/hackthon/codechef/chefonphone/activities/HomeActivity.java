@@ -1,16 +1,15 @@
 package hackthon.codechef.chefonphone.activities;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,12 +17,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import hackthon.codechef.chefonphone.R;
+import hackthon.codechef.chefonphone.asyncloaders.ContestListLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks {
@@ -66,7 +65,7 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getSupportLoaderManager().initLoader(IDs.CONTEST_LIST_SHORT_LOADER, null,this).forceLoad();
+        getSupportLoaderManager().initLoader(IDs.CONTEST_LIST_LOADER, null, this).forceLoad();
     }
 
     @Override
@@ -143,8 +142,8 @@ public class HomeActivity extends AppCompatActivity
     @NonNull
     @Override
     public Loader onCreateLoader(int id, Bundle bundle) {
-        if(id == IDs.CONTEST_LIST_SHORT_LOADER) {
-            return new ContestListLoaderShort(HomeActivity.this);
+        if (id == IDs.CONTEST_LIST_LOADER) {
+            return new ContestListLoader(HomeActivity.this, "short");
         }else {
             return new Loader(this);
         }
