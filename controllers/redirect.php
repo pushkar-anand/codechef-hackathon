@@ -47,7 +47,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
 
                 $token_expire = date("Y-m-d H:i:s", strtotime("+3600 seconds"));
 
-                $apiRequest = new CodechefApiCall($access_token, 'https://api.codechef.com/users/me');
+                $apiRequest = new CodechefApiCall($access_token, CODECHEF_API_BASE_URL . '/users/me');
                 $apiRequest->execute();
                 $response = json_decode($apiRequest->getResult());
                 if ($response->status == 'OK') {

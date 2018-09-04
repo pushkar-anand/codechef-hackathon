@@ -17,5 +17,6 @@ define('DB_PASSWORD', 'm3Jy7^^l*C2GzE0H7wM2');
 define('DB_NAME', 'codechef');
 define('USERS_TABLE', 'users');
 
+define('CODECHEF_API_BASE_URL', 'https://api.codechef.com');
 define('CODECHEF_CLIENT_ID', '8777baaa531e12d69cc961b344c5ab2a');
 define('CODECHEF_CLIENT_SECRET', '081e091ff86ea198ea9e73b175670170');
