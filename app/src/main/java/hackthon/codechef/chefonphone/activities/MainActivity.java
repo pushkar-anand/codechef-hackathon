@@ -31,8 +31,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @JavascriptInterface
-            public void saveDetails(String name, String key,  String handle)
-            {
+            public void saveDetails(String name, String key, String handle) {
                 SharedPreferences preferences = mContext.getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
                 SharedPreferences.Editor edit = preferences.edit();
                 edit.putString(SharedPrefKeys.LOGIN_KEY, key);
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @JavascriptInterface
-            public void startNextActivity(){
+            public void startNextActivity() {
                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
