@@ -1,20 +1,23 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../logs/initiateLogger.php';
-
 use EasyRoute\Route;
+
+start_my_session();
 
 $route = new Route();
 
 try {
 
-    $route->addMatch('POST', '/register', function ()
-    {
+    $route->addMatch('GET', '/login', __DIR__ . '/../controllers/login.php');
+    $route->addMatch('GET', '/login/redirect', __DIR__ . '/../controllers/redirect.php');
 
-    });
+
+
+    $route->execute();
 
 } catch (Exception $exception) {
 
-    $log->error('Error in routes: '. $exception);
+    $log->error('Error in routes: ' . $exception);
 
 }

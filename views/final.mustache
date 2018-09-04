@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        body {
+            background-color: aqua;
+        }
+
+        button:hover {
+            background-color: green;
+        }
+
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            width: 20%;
+            height: auto;
+            font-size: 20px;
+
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="center">
+<h1>Successfully registered.</h1>
+    <button>Continue</button>
+</div>
+<div style="display: none">
+    <p id="name">{{ name }}</p>
+    <p id="login-token">{{ login_token }}</p>
+    <p id="codechef-handle">{{ codechef_handle }}</p>
+</div>
+
+</body>
+</html>
