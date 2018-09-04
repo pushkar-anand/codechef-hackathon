@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         WebView loginWebView = findViewById(R.id.loginWebview);
         WebSettings webSettings = loginWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        CookieManager.getInstance().setAcceptCookie(true);
         loginWebView.addJavascriptInterface(new WebAppInterface(this), "Register");
         loginWebView.loadUrl(Urls.LOGIN_URL);
     }
