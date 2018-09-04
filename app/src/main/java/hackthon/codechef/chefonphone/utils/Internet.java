@@ -60,4 +60,9 @@ public class Internet {
 
         return stringBuilder.toString();
     }
+
+    public static String getSecret()
+    {
+        return "sads";
+    }
 }
