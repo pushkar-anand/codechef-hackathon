@@ -24,6 +24,8 @@ import hackthon.codechef.chefonphone.asyncloaders.ContestListLoaderShort;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
+
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks {
 
@@ -78,6 +80,13 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
+    public void practice(String level){
+       Intent practice_activity = new Intent(this,PracticeActivity.class);
+       practice_activity.putExtra("level",level);
+       startActivity(practice_activity);
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -106,18 +115,24 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.beginner) {
+            practice("Beginner");
+        } else if (id == R.id.easy) {
+            practice("Easy");
+        } else if (id == R.id.medium) {
+            practice("Medium");
+        } else if (id == R.id.hard) {
+            practice("Hard");
+        } else if (id == R.id.challenge) {
+            practice("Challenge");
+        } else if (id == R.id.peer) {
+            practice("Peer");
+        } else if (id == R.id.ide) {
+            Intent ide = new Intent(this,IDE_Activity.class);
+            startActivity(ide);
+        } else if (id == R.id.contest) {
+            Intent contest = new Intent(this,ContestActivity.class);
+            startActivity(contest);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -145,4 +160,6 @@ public class HomeActivity extends AppCompatActivity
     public void onLoaderReset(@NonNull Loader loader) {
 
     }
+
+
 }

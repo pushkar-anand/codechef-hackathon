@@ -4,7 +4,7 @@
     package="hackthon.codechef.chefonphone">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -21,7 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.HomeActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activities.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.PracticeActivity" />
+        <activity android:name=".activities.IDE_Activity" />
+        <activity android:name=".activities.ContestActivity"></activity>
     </application>
 
 </manifest>
