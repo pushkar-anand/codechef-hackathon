@@ -1,13 +1,10 @@
 package hackthon.codechef.chefonphone.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import hackthon.codechef.chefonphone.R;
-import hackthon.codechef.chefonphone.asyncloaders.ContestListLoaderShort;
-import hackthon.codechef.chefonphone.constants.IDs;
-import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 
 public class PracticeActivity extends AppCompatActivity {
 
