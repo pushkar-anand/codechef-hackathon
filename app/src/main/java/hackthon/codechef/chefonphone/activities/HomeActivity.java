@@ -20,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import hackthon.codechef.chefonphone.R;
-import hackthon.codechef.chefonphone.asyncloaders.ContestListLoaderShort;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 
