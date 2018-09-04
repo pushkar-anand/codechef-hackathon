@@ -13,8 +13,8 @@ import hackthon.codechef.chefonphone.data.Contest;
 import hackthon.codechef.chefonphone.utils.Helpers;
 import hackthon.codechef.chefonphone.utils.Internet;
 
-public class SingleContestLoaders extends AsyncTaskLoader<Contest> {
-    public SingleContestLoaders(@NonNull Context context) {
+public class ContestListLoaderShort extends AsyncTaskLoader<Contest> {
+    public ContestListLoaderShort(@NonNull Context context) {
         super(context);
     }
 
@@ -26,6 +26,8 @@ public class SingleContestLoaders extends AsyncTaskLoader<Contest> {
 
 
             String result = Internet.getHTTPSRequestResponse(build_url, "GET", null);
+            Log.d(getClass().getSimpleName(), result);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
