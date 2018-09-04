@@ -30,6 +30,29 @@ class User
 
     }
 
+    public static function getCodechefToken(string $login_token, string $user)
+    {
+        $DB = new DB();
+        $query = "SELECT codechef_token FROM users WHERE login_token = ? AND codechef_username = ?";
+        $stmt = $DB->getConnection()->prepare($query);
+        $stmt->bind_param('ss', $login_token, $user);
+        $stmt->execute();
+        $stmt->store_result();
+        $num_of_rows = $stmt->num_rows;
+        $stmt->bind_result($token);
+
+        if ($num_of_rows == 0) {
+            return false;
+        } else {
+            $stmt->fetch();
+            $result = $token;
+            $stmt->free_result();
+            $stmt->close();
+            return $result;
+        }
+
+    }
+
     public static function User()
     {
 

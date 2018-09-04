@@ -23,6 +23,7 @@ class DB{
         return $this->conn;
     }
 
+
     public function insert(string $table, array $fields, string $params, string ...$vals){
 
         $fieldsSTR = implode(",", $fields);
