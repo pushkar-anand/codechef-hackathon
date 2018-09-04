@@ -65,7 +65,7 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getSupportLoaderManager().initLoader(IDs.CONTEST_LIST_SHORT_LOADER, null,this);
+        getSupportLoaderManager().initLoader(IDs.CONTEST_LIST_SHORT_LOADER, null,this).forceLoad();
     }
 
     @Override
@@ -125,10 +125,15 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
+
     @NonNull
     @Override
-    public Loader onCreateLoader(int i, Bundle bundle) {
-        return new ContestListLoaderShort(HomeActivity.this);
+    public Loader onCreateLoader(int id, Bundle bundle) {
+        if(id == IDs.CONTEST_LIST_SHORT_LOADER) {
+            return new ContestListLoaderShort(HomeActivity.this);
+        }else {
+            return new Loader(this);
+        }
     }
 
     @Override
