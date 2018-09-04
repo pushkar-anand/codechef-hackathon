@@ -5,6 +5,7 @@ use PhpUseful\Functions;
 if(isset($_GET['token']) && $_GET['user'] && $_GET['hash']) {
 
     $hash = $_GET['hash'];
+    verify_hash($hash);
 
     $token = User::getCodechefToken($_GET['token'], Functions::escape_input($_GET['user']));
     if($token !== false) {
