@@ -62,14 +62,30 @@ class User
     {
         $conn = $this->DB->getConnection();
 
-        $query = "INSERT INTO users(name, codechef_username, codechef_token, login_token, refresh_token, token_expire) VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("ssssss", $this->name, $this->codechef_handle, $this->codechef_token, $this->login_token, $this->refresh_token, $this->token_expire);
-        if ($stmt->execute()) {
-            return $this->login_token;
+        $count = $this->DB->getResultCount('users', 'codechef_username', $this->codechef_handle);
+        if ($count == 0) {
+
+
+            $query = "INSERT INTO users(name, codechef_username, codechef_token, login_token, refresh_token, token_expire) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("ssssss", $this->name, $this->codechef_handle, $this->codechef_token, $this->login_token, $this->refresh_token, $this->token_expire);
+            if ($stmt->execute()) {
+                return $this->login_token;
+            } else {
+                error_log($conn->error);
+                return false;
+            }
         } else {
-            error_log($conn->error);
-            return false;
+            $query = "UPDATE users SET codechef_token = ?, refresh_token = ?, login_token = ?, token_expire = ? WHERE codechef_username = ?";
+
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('sssss', $this->codechef_token, $this->refresh_token, $this->login_token, $this->token_expire, $this->codechef_handle);
+            if ($stmt->execute()) {
+                return $this->login_token;
+            } else {
+                error_log($conn->error);
+                return false;
+            }
         }
     }
 

@@ -23,6 +23,22 @@ class DB{
         return $this->conn;
     }
 
+    public function getResultCount(string $table, string $where_field, string $match)
+    {
+        $query = "SELECT * FROM $table WHERE $where_field = ? ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('s', $match);
+        $stmt->execute();
+        $stmt->store_result();
+
+        $num_of_rows = $stmt->num_rows;
+
+        $stmt->free_result();
+        $stmt->close();
+
+        return $num_of_rows;
+    }
+
 
     public function insert(string $table, array $fields, string $params, string ...$vals){
 
