@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity
             finish();
         }
 
-        String useremail = preferences.getString(SharedPrefKeys.USER_EMAIL, "");
+        String name = preferences.getString(SharedPrefKeys.FULLNAME, "");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
