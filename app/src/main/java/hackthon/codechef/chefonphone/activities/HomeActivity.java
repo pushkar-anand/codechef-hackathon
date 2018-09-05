@@ -16,10 +16,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.asyncloaders.ContestListLoader;
+import hackthon.codechef.chefonphone.asyncloaders.RecommendationLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
+import hackthon.codechef.chefonphone.data.Contest;
+import hackthon.codechef.chefonphone.data.Problem;
 import hackthon.codechef.chefonphone.utils.Helpers;
 
 public class HomeActivity extends AppCompatActivity
@@ -52,6 +57,7 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportLoaderManager().initLoader(IDs.CONTEST_SHORT_LIST_LOADER, null, this).forceLoad();
+        getSupportLoaderManager().initLoader(IDs.RECOMMENDATION_LOADER, null, this).forceLoad();
     }
 
     @Override
@@ -98,6 +104,16 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
+    private void updateContestDetails(ArrayList<Contest> contestList) {
+        //TODO finish this.
+
+    }
+
+    private void updateRecommendation(Problem problem) {
+        //TODO finish this.
+
+    }
+
 
     @NonNull
     @Override
@@ -105,13 +121,22 @@ public class HomeActivity extends AppCompatActivity
         if (id == IDs.CONTEST_SHORT_LIST_LOADER) {
             return new ContestListLoader(HomeActivity.this, "short");
         } else {
-            return new Loader(this);
+            return new RecommendationLoader(this);
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public void onLoadFinished(@NonNull Loader loader, Object o) {
+    public void onLoadFinished(@NonNull Loader loader, Object object) {
+        Integer id = loader.getId();
+        if (object != null) {
 
+            if (id.equals(IDs.CONTEST_SHORT_LIST_LOADER)) {
+                updateContestDetails((ArrayList<Contest>) object);
+            } else if (id.equals(IDs.RECOMMENDATION_LOADER)) {
+                updateRecommendation((Problem) object);
+            }
+        }
     }
 
     @Override
