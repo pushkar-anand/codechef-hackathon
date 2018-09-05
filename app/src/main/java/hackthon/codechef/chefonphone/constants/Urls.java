@@ -9,6 +9,6 @@ public class Urls {
     public static final String RECOMMEND_URL = BASE_URL + "/recommend";
 
     public static final String PRACTICE_BASE_URL = BASE_URL + "/practice";
-    public static final String CONTEST_DETAILS_URL = "/contest/problems";
+    public static final String CONTEST_DETAILS_URL = "/contest/problems/list";
 
 }
