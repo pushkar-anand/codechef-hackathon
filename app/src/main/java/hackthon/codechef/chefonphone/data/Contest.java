@@ -16,6 +16,9 @@ public class Contest {
     private String contestFreezingTime;
     private String contestAnnouncements;
 
+    public Contest() {
+    }
+
     public String getContestCode() {
         return contestCode;
     }

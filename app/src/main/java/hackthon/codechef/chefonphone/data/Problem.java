@@ -12,6 +12,9 @@ public class Problem {
     private String body;
     private String tags;
 
+    public Problem() {
+    }
+
     public String getProblemCode() {
         return problemCode;
     }
