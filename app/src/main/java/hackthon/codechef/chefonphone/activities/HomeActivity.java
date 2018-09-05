@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
@@ -17,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.asyncloaders.ContestListLoader;
@@ -44,15 +41,6 @@ public class HomeActivity extends AppCompatActivity
         }
 
         String name = preferences.getString(SharedPrefKeys.FULLNAME, "");
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -112,17 +100,17 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.beginner) {
-            practice("Beginner");
+            practice("beginner");
         } else if (id == R.id.easy) {
-            practice("Easy");
+            practice("easy");
         } else if (id == R.id.medium) {
-            practice("Medium");
+            practice("medium");
         } else if (id == R.id.hard) {
-            practice("Hard");
+            practice("hard");
         } else if (id == R.id.challenge) {
-            practice("Challenge");
+            practice("challenge");
         } else if (id == R.id.peer) {
-            practice("Peer");
+            practice("peer");
         } else if (id == R.id.ide) {
             Intent ide = new Intent(this,IDE_Activity.class);
             startActivity(ide);
