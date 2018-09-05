@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <!--TODO use strings file -->
     <group>
         <item
             android:id="@+id/home"
