@@ -10,7 +10,7 @@ $route = new Route();
 try {
 
     $route->addMatch('GET', '/login', __DIR__ . '/../controllers/login.php');
-    $route->addMatch('GET', '/login/redirect', __DIR__ . '/../controllers/redirect.php');
+    $route->addMatch('GET', '/login/redirect', __DIR__ . '/../controllers/login.redirect.php');
 
     $route->addMatch('GET', '/contest/list/short', __DIR__ . '/../controllers/contest.list.short.php');
     $route->addMatch('GET', '/contest/list/all', __DIR__ . '/../controllers/contest.list.all.php');
