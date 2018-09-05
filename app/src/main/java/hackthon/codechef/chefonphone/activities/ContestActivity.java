@@ -27,6 +27,7 @@ public class ContestActivity extends AppCompatActivity implements LoaderManager.
         } else {
             finish();
         }
+
     }
 
     @NonNull

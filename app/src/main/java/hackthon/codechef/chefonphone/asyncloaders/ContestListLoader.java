@@ -6,6 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -28,6 +32,7 @@ public class ContestListLoader extends AsyncTaskLoader<ArrayList<Contest>> {
     public ArrayList<Contest> loadInBackground() {
 
         String url;
+        ArrayList<Contest> contestArrayList = new ArrayList<>();
 
         if (type.equals("short")) {
             url = Helpers.buildUrl(getContext(), Urls.CONTEST_URL_SHORT_LIST);
@@ -39,9 +44,22 @@ public class ContestListLoader extends AsyncTaskLoader<ArrayList<Contest>> {
             String result = Internet.getHTTPSGetRequestResponse(url);
             Log.d(getClass().getSimpleName(), result);
 
-            //TODO parse the json result
+            JSONArray rootArray = new JSONArray(result);
 
-        } catch (IOException e) {
+            for (int i = 0; i < rootArray.length(); i++) {
+                JSONObject contestObj = rootArray.getJSONObject(i);
+
+                Contest contest = new Contest();
+                contest.setContestName(contestObj.getString("name"));
+                contest.setContestCode(contestObj.getString("code"));
+                contest.setContestStartDate(contestObj.getString("startDate"));
+                contest.setContestEndDate(contestObj.getString("endDate"));
+
+                contestArrayList.add(contest);
+            }
+            return contestArrayList;
+
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 

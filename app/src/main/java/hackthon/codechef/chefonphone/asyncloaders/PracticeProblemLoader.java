@@ -44,7 +44,7 @@ public class PracticeProblemLoader extends AsyncTaskLoader<ArrayList<Problem>> {
 
         try {
             String result = Internet.getHTTPSGetRequestResponse(url);
-            Log.d(getClass().getSimpleName(), result);
+            Log.d(getClass().getSimpleName(), level + ": " + result);
 
             //TODO PARSE RESULT
 
