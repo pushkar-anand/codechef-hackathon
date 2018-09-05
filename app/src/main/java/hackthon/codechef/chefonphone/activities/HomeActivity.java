@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,6 @@ import hackthon.codechef.chefonphone.utils.Helpers;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,13 @@ public class HomeActivity extends AppCompatActivity
             finish();
         }
 
-        String name = preferences.getString(SharedPrefKeys.FULLNAME, "");
+        String name = preferences.getString(SharedPrefKeys.FULLNAME, "Full Name");
+        TextView fullName = findViewById(R.id.fullname);
+        fullName.setText(name);
+
+        String handle = "CodeChef Handle : " + preferences.getString(SharedPrefKeys.CODECHEF_HANDLE, "CodeChef Handle");
+        TextView codechefHandle = findViewById(R.id.codechef_handle);
+        codechefHandle.setText(handle);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,6 +64,7 @@ public class HomeActivity extends AppCompatActivity
 
         getSupportLoaderManager().initLoader(IDs.CONTEST_SHORT_LIST_LOADER, null, this).forceLoad();
         getSupportLoaderManager().initLoader(IDs.RECOMMENDATION_LOADER, null, this).forceLoad();
+
     }
 
     @Override
