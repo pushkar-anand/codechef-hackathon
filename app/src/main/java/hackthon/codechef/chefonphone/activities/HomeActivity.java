@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,14 +46,6 @@ public class HomeActivity extends AppCompatActivity
             finish();
         }
 
-        String name = preferences.getString(SharedPrefKeys.FULLNAME, "Full Name");
-        TextView fullName = findViewById(R.id.fullname);
-        fullName.setText(name);
-
-        String handle = "CodeChef Handle : " + preferences.getString(SharedPrefKeys.CODECHEF_HANDLE, "CodeChef Handle");
-        TextView codechefHandle = findViewById(R.id.codechef_handle);
-        codechefHandle.setText(handle);
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -64,6 +57,16 @@ public class HomeActivity extends AppCompatActivity
 
         getSupportLoaderManager().initLoader(IDs.CONTEST_SHORT_LIST_LOADER, null, this).forceLoad();
         getSupportLoaderManager().initLoader(IDs.RECOMMENDATION_LOADER, null, this).forceLoad();
+
+        View navHeaderView = navigationView.getHeaderView(0);
+
+        String name = preferences.getString(SharedPrefKeys.FULLNAME, "Full Name");
+        TextView fullName = navHeaderView.findViewById(R.id.fullname);
+        fullName.setText(name);
+
+        String handle = "CodeChef Handle : " + preferences.getString(SharedPrefKeys.CODECHEF_HANDLE, "CodeChef Handle");
+        TextView codechefHandle = navHeaderView.findViewById(R.id.codechef_handle);
+        codechefHandle.setText(handle);
 
     }
 
