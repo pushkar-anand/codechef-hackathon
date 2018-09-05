@@ -3,6 +3,7 @@ package hackthon.codechef.chefonphone.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
@@ -112,6 +113,14 @@ public class Helpers {
         } else if (id == R.id.contest) {
             Intent contest = new Intent(context, ContestActivity.class);
             context.startActivity(contest);
+        }
+    }
+
+    public static void logout(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            context.deleteSharedPreferences(SharedPrefKeys.LOGIN_PREF);
+        } else {
+            context.getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE).edit().clear().apply();
         }
     }
 }
