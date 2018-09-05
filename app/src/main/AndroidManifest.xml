@@ -18,6 +18,7 @@
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,7 +31,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.IDE_Activity" />
         <activity android:name=".activities.ContestActivity" />
-
+        <activity
+            android:name=".activities.ContestListActivity"
+            android:label="@string/title_activity_contest_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
