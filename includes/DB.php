@@ -39,6 +39,22 @@ class DB{
         return $num_of_rows;
     }
 
+    public function fetchSingle(string $table, string $select_field, string $where_field, string $match):string
+    {
+        $query = "SELECT $select_field FROM $table WHERE $where_field = ? ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('s', $match);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_param("s", $result);
+        $stmt->fetch();
+
+        $return = $result;
+        $stmt->free_result();
+        $stmt->close();
+        return $return;
+    }
+
 
     public function insert(string $table, array $fields, string $params, string ...$vals){
 

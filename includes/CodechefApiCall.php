@@ -46,9 +46,11 @@ class CodechefApiCall extends Curl
     {
         return $this->result;
     }
+
     private function getRefreshToken()
     {
-
+        $db = new DB();
+        return $db->fetchSingle('users', 'refresh_token', 'codechef_token', $this->token);
     }
 
     private function reIssueToken()
