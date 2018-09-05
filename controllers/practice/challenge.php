@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 use PhpUseful\Functions;
 
-if (isset($_GET['token']) && $_GET['user'] && $_GET['hash']) {
+if (isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) ) {
 
     $offset = (isset($_GET['offset'])) ? $_GET['offset'] : 1;
 

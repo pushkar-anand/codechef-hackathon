@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 use PhpUseful\Functions;
 
-if (isset($_GET['token']) && $_GET['user'] && $_GET['hash'] && $_GET['contest_code']) {
+if (isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) && isset($_GET['contest_code'])) {
 
     $hash = $_GET['hash'];
     if (verify_hash($hash)) {
