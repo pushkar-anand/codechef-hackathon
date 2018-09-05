@@ -20,7 +20,7 @@ if (isset($_GET['token']) && $_GET['user'] && $_GET['hash']) {
             $result = $apiRequest->getResult();
             $resultObj = json_decode($result);
 
-            if ($resultObj->status != 'OK') {
+            if ($resultObj->status == 'OK') {
                 $problems = $resultObj->result->data->content;
                 var_dump($problems);
 
