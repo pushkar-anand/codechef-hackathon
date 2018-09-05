@@ -13,7 +13,7 @@ if (isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) ) {
         $token = User::getCodechefToken($_GET['token'], Functions::escape_input($_GET['user']));
         if ($token !== false) {
 
-            $api_url = CODECHEF_API_BASE_URL . "/problems/hard?fields=problemCode,problemName,successfulSubmissions,accuracy&offset=$offset&limit=10";
+            $api_url = CODECHEF_API_BASE_URL . "/problems/hard?fields=problemCode,problemName,successfulSubmissions,accuracy&offset=$offset&limit=20";
 
             $problems = practice_request($token, $api_url);
             \PhpUseful\EasyHeaders::json_header();
