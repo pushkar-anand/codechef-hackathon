@@ -13,7 +13,7 @@ try {
     $route->addMatch('GET', '/login/redirect', __DIR__ . '/../controllers/login/redirect.php');
 
     $route->addMatch('GET', '/contest/list/short', __DIR__ . '/../controllers/contest/list.short.php');
-    $route->addMatch('GET', '/contest/list/all', __DIR__ . '/../controllers/contest/list.all.php');
+    $route->addMatch('GET', '/contest/list/long', __DIR__ . '/../controllers/contest/list.long.php');
     $route->addMatch('GET', '/contest/problems/list', __DIR__ . '/../controllers/contest/problems.list.php');
     $route->addMatch('GET', '/contest/problem/details', __DIR__ . '/../controllers/contest/problem.detail.php');
 
