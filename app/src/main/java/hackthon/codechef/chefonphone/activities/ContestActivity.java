@@ -13,7 +13,8 @@ import hackthon.codechef.chefonphone.asyncloaders.ContestDetailsLoader;
 import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.data.Contest;
 
-public class ContestActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Contest> {
+public class ContestActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<Contest> {
 
     private String contest;
     @Override

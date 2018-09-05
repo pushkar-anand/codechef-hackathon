@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         final SharedPreferences preferences = getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
 
 
+        CookieManager.getInstance().removeAllCookies(null);
+
         if(preferences.contains(SharedPrefKeys.LOGIN_KEY))
         {
             Intent intent = new Intent(this, HomeActivity.class);
