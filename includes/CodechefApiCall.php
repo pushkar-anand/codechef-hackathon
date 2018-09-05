@@ -31,7 +31,11 @@ class CodechefApiCall extends Curl
         $this->result = parent::getResult();
 
         $obj = json_decode($this->result);
-        if ($obj->status == "error") {
+
+        if ($obj->status != "OK") {
+            error_log('ERROR IN API CALL');
+            error_log($this->result);
+
             $this->error = true;
             $errors = $obj->result->errors;
             $error = $errors[0];
