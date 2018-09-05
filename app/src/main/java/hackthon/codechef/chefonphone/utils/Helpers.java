@@ -1,6 +1,7 @@
 package hackthon.codechef.chefonphone.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -8,7 +9,12 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import hackthon.codechef.chefonphone.R;
+import hackthon.codechef.chefonphone.activities.ContestActivity;
+import hackthon.codechef.chefonphone.activities.IDE_Activity;
+import hackthon.codechef.chefonphone.activities.PracticeActivity;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
+import hackthon.codechef.chefonphone.constants.StringKeys;
 
 public class Helpers {
 
@@ -49,6 +55,36 @@ public class Helpers {
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             e.printStackTrace();
             return url;
+        }
+    }
+
+    private static void startPracticeActivity(Context context, String level) {
+
+        Intent practice_intent = new Intent(context, PracticeActivity.class);
+        practice_intent.putExtra(StringKeys.PRACTICE_ACTVITY_INTENT_KEY, level);
+        context.startActivity(practice_intent);
+
+    }
+
+    public static void handleDrawerNavigation(Context context, Integer id) {
+        if (id == R.id.beginner) {
+            startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_BEGINNER);
+        } else if (id == R.id.easy) {
+            startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_EASY);
+        } else if (id == R.id.medium) {
+            startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_MEDIUM);
+        } else if (id == R.id.hard) {
+            startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_HARD);
+        } else if (id == R.id.challenge) {
+            startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_CHALLENGE);
+        } else if (id == R.id.peer) {
+            startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_PEER);
+        } else if (id == R.id.ide) {
+            Intent ide = new Intent(context, IDE_Activity.class);
+            context.startActivity(ide);
+        } else if (id == R.id.contest) {
+            Intent contest = new Intent(context, ContestActivity.class);
+            context.startActivity(contest);
         }
     }
 }

@@ -4,13 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
@@ -18,13 +21,17 @@ import hackthon.codechef.chefonphone.constants.Urls;
 
 public class MainActivity extends AppCompatActivity {
 
+    private WebView loginWebView;
+    private ProgressBar progressBar;
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences preferences = getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
+        final SharedPreferences preferences = getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
+
 
         if(preferences.contains(SharedPrefKeys.LOGIN_KEY))
         {
@@ -32,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+        loginWebView = findViewById(R.id.loginWebview);
+        progressBar = findViewById(R.id.webViewProgressBar);
 
         class WebAppInterface {
             private Context mContext;
@@ -59,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        WebView loginWebView = findViewById(R.id.loginWebview);
         WebSettings webSettings = loginWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUseWideViewPort(true);
@@ -74,6 +83,19 @@ public class MainActivity extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                progressBar.setVisibility(View.VISIBLE);
+                loginWebView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                progressBar.setVisibility(View.GONE);
+                loginWebView.setVisibility(View.VISIBLE);
             }
         });
         loginWebView.loadUrl(Urls.LOGIN_URL);

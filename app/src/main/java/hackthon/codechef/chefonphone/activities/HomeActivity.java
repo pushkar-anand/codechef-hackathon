@@ -20,7 +20,7 @@ import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.asyncloaders.ContestListLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
-import hackthon.codechef.chefonphone.constants.StringKeys;
+import hackthon.codechef.chefonphone.utils.Helpers;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks {
@@ -34,8 +34,7 @@ public class HomeActivity extends AppCompatActivity
 
         SharedPreferences preferences = getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
 
-        if(!preferences.contains(SharedPrefKeys.LOGIN_KEY))
-        {
+        if (!preferences.contains(SharedPrefKeys.LOGIN_KEY)) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -52,7 +51,7 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getSupportLoaderManager().initLoader(IDs.CONTEST_LIST_LOADER, null, this).forceLoad();
+        getSupportLoaderManager().initLoader(IDs.CONTEST_SHORT_LIST_LOADER, null, this).forceLoad();
     }
 
     @Override
@@ -63,14 +62,6 @@ public class HomeActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    public void startPracticeActivity(String level) {
-
-        Intent practice_intent = new Intent(this, PracticeActivity.class);
-        practice_intent.putExtra(StringKeys.PRACTICE_ACTVITY_INTENT_KEY, level);
-        startActivity(practice_intent);
-
     }
 
     @Override
@@ -95,31 +86,12 @@ public class HomeActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.beginner) {
-            startPracticeActivity(StringKeys.PRACTICE_LEVEL_BEGINNER);
-        } else if (id == R.id.easy) {
-            startPracticeActivity(StringKeys.PRACTICE_LEVEL_EASY);
-        } else if (id == R.id.medium) {
-            startPracticeActivity(StringKeys.PRACTICE_LEVEL_MEDIUM);
-        } else if (id == R.id.hard) {
-            startPracticeActivity(StringKeys.PRACTICE_LEVEL_HARD);
-        } else if (id == R.id.challenge) {
-            startPracticeActivity(StringKeys.PRACTICE_LEVEL_CHALLENGE);
-        } else if (id == R.id.peer) {
-            startPracticeActivity(StringKeys.PRACTICE_LEVEL_PEER);
-        } else if (id == R.id.ide) {
-            Intent ide = new Intent(this,IDE_Activity.class);
-            startActivity(ide);
-        } else if (id == R.id.contest) {
-            Intent contest = new Intent(this,ContestActivity.class);
-            startActivity(contest);
-        }
+        Helpers.handleDrawerNavigation(HomeActivity.this, id);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -130,9 +102,9 @@ public class HomeActivity extends AppCompatActivity
     @NonNull
     @Override
     public Loader onCreateLoader(int id, Bundle bundle) {
-        if (id == IDs.CONTEST_LIST_LOADER) {
+        if (id == IDs.CONTEST_SHORT_LIST_LOADER) {
             return new ContestListLoader(HomeActivity.this, "short");
-        }else {
+        } else {
             return new Loader(this);
         }
     }
