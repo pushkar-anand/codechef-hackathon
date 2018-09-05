@@ -8,10 +8,11 @@ import android.support.v4.content.AsyncTaskLoader;
 import java.io.IOException;
 
 import hackthon.codechef.chefonphone.constants.Urls;
+import hackthon.codechef.chefonphone.data.Contest;
 import hackthon.codechef.chefonphone.utils.Helpers;
 import hackthon.codechef.chefonphone.utils.Internet;
 
-public class ContestDetailsLoader extends AsyncTaskLoader {
+public class ContestDetailsLoader extends AsyncTaskLoader<Contest> {
 
     private String contest_code;
 
@@ -22,7 +23,7 @@ public class ContestDetailsLoader extends AsyncTaskLoader {
 
     @Nullable
     @Override
-    public Object loadInBackground() {
+    public Contest loadInBackground() {
 
         String url = Helpers.buildContestDetailsUrl(getContext(), Urls.CONTEST_DETAILS_URL, contest_code);
         try {

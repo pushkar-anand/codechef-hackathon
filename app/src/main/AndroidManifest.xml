@@ -30,7 +30,11 @@
             android:label="@string/title_activity_practice"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.IDE_Activity" />
-        <activity android:name=".activities.ContestActivity" />
+
+        <activity
+            android:name=".activities.ContestActivity"
+            android:parentActivityName=".activities.ContestListActivity" />
+
         <activity
             android:name=".activities.ContestListActivity"
             android:label="@string/title_activity_contest_list"
