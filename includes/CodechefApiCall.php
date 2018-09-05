@@ -8,7 +8,6 @@ class CodechefApiCall extends Curl
     private $token;
     private $url;
     private $error = false;
-    private $user;
 
     function __construct(string $token, string $url)
     {
