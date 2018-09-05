@@ -34,7 +34,7 @@
         <activity
             android:name=".activities.ContestListActivity"
             android:label="@string/title_activity_contest_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

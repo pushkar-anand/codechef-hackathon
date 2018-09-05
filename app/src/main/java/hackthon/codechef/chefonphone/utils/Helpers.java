@@ -32,57 +32,54 @@ public class Helpers {
         return sb.toString();
     }
 
-    public static String buildUrl(Context context, String base_url)
-    {
+    private static String getSHA256hash(String input) {
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest((input + Internet.getSecret()).getBytes("UTF-8"));
+
+            return bytesToHexString(hash);
+
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return input;
+        }
+
+    }
+
+    private static String buildBaseUrl(Context context, String base_url) {
         SharedPreferences preferences =
                 context.getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
 
         String loginToken = preferences.getString(SharedPrefKeys.LOGIN_KEY, "");
         String user = preferences.getString(SharedPrefKeys.CODECHEF_HANDLE, "");
 
-        String url =  base_url + "?user="+user+"&token="+loginToken;
+        return base_url + "?user=" + user + "&token=" + loginToken;
+    }
 
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest((url + Internet.getSecret()).getBytes("UTF-8"));
-
-
-            String strhash = bytesToHexString(hash);
-
-            url =  url + "&hash=" + strhash;
-            Log.d("BUILD_URL", url);
-            return url;
-
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return url;
-        }
+    public static String buildUrl(Context context, String base_url) {
+        String url = buildBaseUrl(context, base_url);
+        String hash = getSHA256hash(url);
+        url = url + "&hash=" + hash;
+        Log.d("BUILD_URL", url);
+        return url;
     }
 
     public static String buildUrl(Context context, String base_url, Integer offset) {
-        SharedPreferences preferences =
-                context.getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
+        String url = buildBaseUrl(context, base_url) + "&offset=" + String.valueOf(offset);
+        String hash = getSHA256hash(url);
+        url = url + "&hash=" + hash;
+        Log.d("BUILD_URL", url);
+        return url;
+    }
 
-        String loginToken = preferences.getString(SharedPrefKeys.LOGIN_KEY, "");
-        String user = preferences.getString(SharedPrefKeys.CODECHEF_HANDLE, "");
+    public static String buildContestDetailsUrl(Context context, String base_url, String contest_code) {
+        String url = buildBaseUrl(context, base_url) + "&contest_code=" + contest_code;
+        String hash = getSHA256hash(url);
+        url = url + "&hash=" + hash;
+        Log.d("BUILD_URL", url);
+        return url;
 
-        String url = base_url + "?user=" + user + "&token=" + loginToken + "&offset=" + String.valueOf(offset);
-
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest((url + Internet.getSecret()).getBytes("UTF-8"));
-
-
-            String strhash = bytesToHexString(hash);
-
-            url = url + "&hash=" + strhash;
-            Log.d("BUILD_URL", url);
-            return url;
-
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return url;
-        }
     }
 
     private static void startPracticeActivity(Context context, String level) {
