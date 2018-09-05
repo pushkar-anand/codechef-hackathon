@@ -53,9 +53,11 @@ class User
 
     }
 
-    public static function User()
+    public static function fetchUserFromAccessToken(string $token)
     {
-
+        $db = new DB();
+        $result = $db->fetchRow('users', 'codechef_token', $token);
+        var_dump($result);
     }
 
     public function save()

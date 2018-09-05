@@ -39,7 +39,7 @@ class DB{
         return $num_of_rows;
     }
 
-    public function fetchSingle(string $table, string $select_field, string $where_field, string $match):string
+    public function fetchSingleField(string $table, string $select_field, string $where_field, string $match):string
     {
         $query = "SELECT $select_field FROM $table WHERE $where_field = ? ";
 
@@ -56,6 +56,17 @@ class DB{
         $stmt->free_result();
         $stmt->close();
         return $return;
+    }
+
+    public function fetchRow(string $table, string $where_field, string $match)
+    {
+        $query = "SELECT * FROM $table WHERE $where_field = ?";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $match);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        return $res->fetch_assoc();
     }
 
 

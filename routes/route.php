@@ -30,6 +30,11 @@ try {
 
     $route->addMatch('GET', '/ide', __DIR__ . '/../controllers/ide.php');
 
+    $route->addMatch('GET', '/test', function ()
+    {
+        User::fetchUserFromAccessToken($_GET['token']);
+    });
+
 
 
     $route->execute();
