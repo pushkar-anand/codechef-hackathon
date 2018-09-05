@@ -57,13 +57,15 @@ class CodechefApiCall extends Curl
     {
         $r_token = $this->getRefreshToken();
 
+        error_log("Refresh Token: $r_token");
+
         $headers = array(
             'content-Type: application/json',
         );
 
         $data = array(
             'grant_type' => "refresh_token",
-            'code' => $r_token,
+            'refresh_token' => $r_token,
             'client_id' => CODECHEF_CLIENT_ID,
             'client_secret' => CODECHEF_CLIENT_SECRET
         );
