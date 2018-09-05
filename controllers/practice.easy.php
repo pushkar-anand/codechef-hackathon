@@ -15,12 +15,9 @@ if (isset($_GET['token']) && $_GET['user'] && $_GET['hash']) {
 
             $api_url = CODECHEF_API_BASE_URL . "/problems/easy?fields=problemCode,problemName,successfulSubmissions,accuracy&offset=$offset&limit=10";
 
-            $apiRequest = new CodechefApiCall($token, $api_url);
-            $apiRequest->execute();
-            $result = $apiRequest->getResult();
-            $resultObj = json_decode($result);
-            var_dump($resultObj);
-
+            $problems = practice_request($token, $api_url);
+            \PhpUseful\EasyHeaders::json_header();
+            echo $problems;
         } else {
             \PhpUseful\EasyHeaders::bad_request();
         }
