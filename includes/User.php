@@ -15,7 +15,7 @@ class User
     private $DB;
 
 
-    public function __construct(string $name, string $codechef_handle, string $codechef_token, string $refresh_token, string $token_expire)
+    public function __construct(string $name, string $codechef_handle, string $codechef_token, string $refresh_token, string $token_expire, string $login_token = null)
     {
         $this->DB = new DB();
 
@@ -23,7 +23,12 @@ class User
 
         $this->codechef_handle = Functions::escape_input($codechef_handle);
 
-        $this->login_token = Functions::random_string(20);
+        if ($login_token == null) {
+            $this->login_token = Functions::random_string(20);
+        }else
+        {
+            $this->login_token = $login_token;
+        }
         $this->codechef_token = $codechef_token;
         $this->token_expire = $token_expire;
         $this->refresh_token = $refresh_token;
@@ -53,11 +58,26 @@ class User
 
     }
 
+    public function updateCodechefToken(string $new_token)
+    {
+        $this->codechef_token = $new_token;
+    }
+    public function updateRefresfToken(string $new_token)
+    {
+        $this->refresh_token = $new_token;
+    }
+    public function updateTokenExpire(string $new_time)
+    {
+        $this->token_expire = $new_time;
+    }
+
+
     public static function fetchUserFromAccessToken(string $token)
     {
         $db = new DB();
         $result = $db->fetchRow('users', 'codechef_token', $token);
-        var_dump($result);
+        $user = new User($result['name'], $result['codechef_username'], $result['codechef_token'], $result['refresh_token'], $result['token_expire'], $result['login_token']);
+        return $user;
     }
 
     public function save()

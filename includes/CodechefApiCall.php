@@ -6,6 +6,7 @@ class CodechefApiCall extends Curl
 {
     private $result;
     private $token;
+    private $url;
     private $error = false;
     private $user;
 
@@ -13,6 +14,7 @@ class CodechefApiCall extends Curl
     {
         parent::__construct();
         $this->token = $token;
+        $this->url = $url;
 
         $header = array(
             "Accept: application/json",
@@ -37,7 +39,8 @@ class CodechefApiCall extends Curl
             if ($error->code == "unauthorized") {
                 $this->reIssueToken();
             } else {
-                //return no access;
+                header("HTTP/1.1 401 Unauthorized");
+                exit;
             }
         }
     }
@@ -80,7 +83,20 @@ class CodechefApiCall extends Curl
 
         $result = $curl->getResult();
         error_log("Reissue: $result");
-        var_dump($result);
+        if($result->status == 'OK')
+        {
+            $data = $result->result->data;
+            $user = User::fetchUserFromAccessToken($this->token);
 
+            $user->updateCodechefToken($data->access_token);
+            $user->updateRefresfToken($data->refresh_token);
+            $user->updateTokenExpire(date("Y-m-d H:i:s", strtotime("+3600 seconds")));
+
+            $user->save();
+        }
+
+        $apiRequest = new CodechefApiCall($data->access_token, $this->url);
+        $apiRequest->execute();
+        $this->result = $apiRequest->getResult();
     }
 }
