@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.asyncloaders.ContestListLoader;
+import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.data.Contest;
 import hackthon.codechef.chefonphone.utils.Helpers;
 
@@ -40,6 +41,8 @@ public class ContestListActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        getSupportLoaderManager().initLoader(IDs.CONTEST_SHORT_LIST_LOADER, null, this).forceLoad();
     }
 
     @Override
@@ -86,6 +89,10 @@ public class ContestListActivity extends AppCompatActivity
         return true;
     }
 
+    private void displayList(ArrayList<Contest> contestArrayList) {
+
+    }
+
     @NonNull
     @Override
     public Loader<ArrayList<Contest>> onCreateLoader(int id, @Nullable Bundle args) {
@@ -94,7 +101,9 @@ public class ContestListActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Contest>> loader, ArrayList<Contest> data) {
-
+        if (data != null) {
+            displayList(data);
+        }
     }
 
     @Override
