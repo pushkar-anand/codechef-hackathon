@@ -19,7 +19,14 @@ if (isset($_GET['token']) && $_GET['user'] && $_GET['hash']) {
             $apiRequest->execute();
             $result = $apiRequest->getResult();
             $resultObj = json_decode($result);
-            var_dump($resultObj);
+
+            if ($resultObj->status != 'OK') {
+                $problems = $resultObj->result->data->content;
+                var_dump($problems);
+
+            } else {
+                \PhpUseful\EasyHeaders::bad_request();
+            }
 
         } else {
             \PhpUseful\EasyHeaders::bad_request();
