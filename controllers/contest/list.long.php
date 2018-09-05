@@ -11,12 +11,13 @@ if(isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) ) {
         if($token !== false) {
 
             $api_url1 = CODECHEF_API_BASE_URL . '/contests?fields=code,name,startDate,endDate&status=present&limit=100';
-            $api_url2 = CODECHEF_API_BASE_URL . '/contests?fields=code,name,startDate,endDate&status=future&limit=100';
 
             $apiRequest1 = new CodechefApiCall($token, $api_url1);
             $apiRequest1->execute();
             $result1 = $apiRequest1->getResult();
             $resultObj1 = json_decode($result1);
+
+            $api_url2 = CODECHEF_API_BASE_URL . '/contests?fields=code,name,startDate,endDate&status=future&limit=100';
 
             $apiRequest2 = new CodechefApiCall($token, $api_url2);
             $apiRequest2->execute();
@@ -30,13 +31,14 @@ if(isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) ) {
                 $contestList2 = $resultObj2->result->data->content->contestList;
                 var_dump($contestList2);
 
-                $merged = (object) array_merge((array) $contestList1, (array) $contestList2);
+                $merged = array_merge( $contestList1, $contestList2);
 
                 \PhpUseful\EasyHeaders::json_header();
                 echo json_encode($merged);
             }else
             {
                 error_log($result1);
+                error_log($result2);
             }
         }else
         {
