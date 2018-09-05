@@ -26,9 +26,9 @@ if(isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) ) {
             if ($resultObj1->status == 'OK' && $resultObj2->status == 'OK') {
 
                 $contestList1 = $resultObj1->result->data->content->contestList;
-                error_log("1: $contestList1");
+                var_dump($contestList1);
                 $contestList2 = $resultObj2->result->data->content->contestList;
-                error_log("2: $contestList2");
+                var_dump($contestList2);
 
                 $merged = (object) array_merge((array) $contestList1, (array) $contestList2);
 
