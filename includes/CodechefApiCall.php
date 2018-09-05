@@ -86,7 +86,7 @@ class CodechefApiCall extends Curl
 
         $result = $curl->getResult();
         error_log("Reissue: $result");
-        if ($result->status == 'OK') {
+        if ($result->status === 'OK') {
             $data = $result->result->data;
             $user = User::fetchUserFromAccessToken($this->token);
 
@@ -95,10 +95,10 @@ class CodechefApiCall extends Curl
             $user->updateTokenExpire(date("Y-m-d H:i:s", strtotime("+3600 seconds")));
 
             $user->save();
-        }
 
-        $apiRequest = new CodechefApiCall($data->access_token, $this->url);
-        $apiRequest->execute();
-        $this->result = $apiRequest->getResult();
+            $apiRequest = new CodechefApiCall($data->access_token, $this->url);
+            $apiRequest->execute();
+            $this->result = $apiRequest->getResult();
+        }
     }
 }
