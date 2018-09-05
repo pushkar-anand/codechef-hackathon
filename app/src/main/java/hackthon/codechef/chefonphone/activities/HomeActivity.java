@@ -20,6 +20,7 @@ import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.asyncloaders.ContestListLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
+import hackthon.codechef.chefonphone.constants.StringKeys;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks {
@@ -64,10 +65,11 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
-    public void practice(String level){
-       Intent practice_activity = new Intent(this,PracticeActivity.class);
-       practice_activity.putExtra("level",level);
-       startActivity(practice_activity);
+    public void startPracticeActivity(String level) {
+
+        Intent practice_intent = new Intent(this, PracticeActivity.class);
+        practice_intent.putExtra(StringKeys.PRACTICE_ACTVITY_INTENT_KEY, level);
+        startActivity(practice_intent);
 
     }
 
@@ -100,17 +102,17 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.beginner) {
-            practice("beginner");
+            startPracticeActivity(StringKeys.PRACTICE_LEVEL_BEGINNER);
         } else if (id == R.id.easy) {
-            practice("easy");
+            startPracticeActivity(StringKeys.PRACTICE_LEVEL_EASY);
         } else if (id == R.id.medium) {
-            practice("medium");
+            startPracticeActivity(StringKeys.PRACTICE_LEVEL_MEDIUM);
         } else if (id == R.id.hard) {
-            practice("hard");
+            startPracticeActivity(StringKeys.PRACTICE_LEVEL_HARD);
         } else if (id == R.id.challenge) {
-            practice("challenge");
+            startPracticeActivity(StringKeys.PRACTICE_LEVEL_CHALLENGE);
         } else if (id == R.id.peer) {
-            practice("peer");
+            startPracticeActivity(StringKeys.PRACTICE_LEVEL_PEER);
         } else if (id == R.id.ide) {
             Intent ide = new Intent(this,IDE_Activity.class);
             startActivity(ide);

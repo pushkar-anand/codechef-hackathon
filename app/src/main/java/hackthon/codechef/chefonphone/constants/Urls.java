@@ -7,4 +7,7 @@ public class Urls {
     public static final String CONTEST_URL_SHORT_LIST = BASE_URL + "/contest/list/short";
     public static final String CONTEST_URL_LONG = BASE_URL + "/contest/list/short";
     public static final String RECOMMEND_URL = BASE_URL + "/recommend";
+
+    public static final String PRACTICE_BASE_URL = BASE_URL + "/practice";
+
 }
