@@ -6,6 +6,8 @@ class CodechefApiCall extends Curl
 {
     private $result;
     private $token;
+    private $error = false;
+    private $user;
 
     function __construct(string $token, string $url)
     {
@@ -28,11 +30,15 @@ class CodechefApiCall extends Curl
         $this->result = parent::getResult();
 
         $obj = json_decode($this->result);
-        if($obj->status == "error")
-        {
+        if ($obj->status == "error") {
+            $this->error = true;
             $errors = $obj->result->errors;
             $error = $errors[0];
-
+            if ($error->code == "unauthorized") {
+                $this->reIssueToken();
+            } else {
+                //return no access;
+            }
         }
     }
 
@@ -40,8 +46,37 @@ class CodechefApiCall extends Curl
     {
         return $this->result;
     }
+    private function getRefreshToken()
+    {
 
-    private function reIssueToken(){
+    }
+
+    private function reIssueToken()
+    {
+        $r_token = $this->getRefreshToken();
+
+        $headers = array(
+            'content-Type: application/json',
+        );
+
+        $data = array(
+            'grant_type' => "refresh_token",
+            'code' => $r_token,
+            'client_id' => CODECHEF_CLIENT_ID,
+            'client_secret' => CODECHEF_CLIENT_SECRET
+        );
+
+        $curl = new Curl();
+        $curl->setUrl('https://api.codechef.com/oauth/token');
+        $curl->setReturnTrue();
+        $curl->usePost(true);
+        $curl->setHeaders($headers);
+        $curl->setStringPostData(json_encode($data));
+        $curl->execute();
+
+        $result = $curl->getResult();
+        error_log("Reissue: $result");
+        var_dump($result);
 
     }
 }
