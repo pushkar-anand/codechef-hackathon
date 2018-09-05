@@ -32,7 +32,7 @@ class CodechefApiCall extends Curl
 
         $obj = json_decode($this->result);
 
-        if ($obj->status != "OK") {
+        if ($obj->status !== "OK") {
             error_log('ERROR IN API CALL');
             error_log($this->result);
 
