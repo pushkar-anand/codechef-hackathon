@@ -4,42 +4,44 @@
     tools:showIn="navigation_view">
 
     <!--TODO use strings file -->
+    <group>
+        <item
+            android:id="@+id/home"
+            android:title="@string/nav_home"/>
+        <item
+            android:id="@+id/ide"
+            android:title="@string/nav_ide" />
+        <item
+            android:id="@+id/contest"
+            android:title="@string/nav_contest" />
+    </group>
+
     <group android:checkableBehavior="single">
-        <item android:title="Practice">
+        <item android:title="@string/nav_group_practice">
             <menu>
                 <item
                     android:id="@+id/beginner"
-                    android:title="Beginner" />
+                    android:title="@string/nav_practice_beginner" />
                 <item
                     android:id="@+id/easy"
-                    android:title="Easy" />
+                    android:title="@string/nav_practice_easy" />
                 <item
                     android:id="@+id/medium"
-                    android:title="Medium" />
+                    android:title="@string/nav_practice_medium" />
                 <item
                     android:id="@+id/hard"
-                    android:title="Hard"
+                    android:title="@string/nav_practice_hard"
                     />
                 <item
                     android:id="@+id/challenge"
-                    android:title="Challenge"
+                    android:title="@string/nav_practice_challenge"
                     />
                 <item
                     android:id="@+id/peer"
-                    android:title="Peer"
+                    android:title="@string/nav_practice_peer"
                     />
             </menu>
         </item>
     </group>
-    <group>
-        <item
-            android:id="@+id/contest"
-            android:title="Contest" />
-        <item
-            android:id="@+id/ide"
-            android:title="Code, Compile and Run" />
-    </group>
-
-
 
 </menu>

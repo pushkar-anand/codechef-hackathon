@@ -14,4 +14,17 @@
 
     <string name="title_activity_practice">PracticeActivity</string>
     <string name="title_activity_contest_list">ContestListActivity</string>
+
+    <string name="nav_group_practice">Practice</string>
+    <string name="nav_practice_beginner">Beginner</string>
+    <string name="nav_practice_easy">Easy</string>
+    <string name="nav_practice_medium">Medium</string>
+    <string name="nav_practice_hard">Hard</string>
+    <string name="nav_practice_challenge">Challenge</string>
+    <string name="nav_practice_peer">Peer</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_ide">Code, Compile and Run</string>
+    <string name="nav_contest">Contests</string>
+
 </resources>
