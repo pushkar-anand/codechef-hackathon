@@ -30,10 +30,16 @@ public class PracticeProblemLoader extends AsyncTaskLoader<ArrayList<Problem>> {
     @Override
     public ArrayList<Problem> loadInBackground() {
 
-        String url = Helpers.buildUrl(getContext(), Urls.PRACTICE_BASE_URL + "/" + level);
+        String url;
 
         if (start != null) {
-            url += "&offset=" + String.valueOf(start);
+
+            url = Helpers.buildUrl(getContext(), Urls.PRACTICE_BASE_URL + "/" + level, start);
+
+        } else {
+
+            url = Helpers.buildUrl(getContext(), Urls.PRACTICE_BASE_URL + "/" + level);
+
         }
 
         try {
