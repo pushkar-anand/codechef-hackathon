@@ -42,11 +42,14 @@ class DB{
     public function fetchSingle(string $table, string $select_field, string $where_field, string $match):string
     {
         $query = "SELECT $select_field FROM $table WHERE $where_field = ? ";
+
+        error_log("excecuting query: $query");
+
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param('s', $match);
         $stmt->execute();
         $stmt->store_result();
-        $stmt->bind_param("s", $result);
+        $stmt->bind_result( $result);
         $stmt->fetch();
 
         $return = $result;
