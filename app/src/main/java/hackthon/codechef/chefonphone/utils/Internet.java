@@ -18,7 +18,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Internet {
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted, unused")
     public static boolean checkConnection(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

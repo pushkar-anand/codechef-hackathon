@@ -9,9 +9,10 @@
     </style>
 
     <style name="AppTheme.NoActionBar">
-        false
-        true
-        @android:color/transparent</style>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
