@@ -2,7 +2,10 @@ package hackthon.codechef.chefonphone.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,11 +14,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import hackthon.codechef.chefonphone.R;
+import hackthon.codechef.chefonphone.asyncloaders.ContestListLoader;
+import hackthon.codechef.chefonphone.data.Contest;
 import hackthon.codechef.chefonphone.utils.Helpers;
 
 public class ContestListActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<ArrayList<Contest>> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,5 +84,21 @@ public class ContestListActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @NonNull
+    @Override
+    public Loader<ArrayList<Contest>> onCreateLoader(int id, @Nullable Bundle args) {
+        return new ContestListLoader(ContestListActivity.this, "long");
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<ArrayList<Contest>> loader, ArrayList<Contest> data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<ArrayList<Contest>> loader) {
+
     }
 }
