@@ -11,7 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import hackthon.codechef.chefonphone.R;
-import hackthon.codechef.chefonphone.activities.ContestActivity;
+import hackthon.codechef.chefonphone.activities.ContestListActivity;
 import hackthon.codechef.chefonphone.activities.IDE_Activity;
 import hackthon.codechef.chefonphone.activities.PracticeActivity;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
@@ -111,7 +111,7 @@ public class Helpers {
             Intent ide = new Intent(context, IDE_Activity.class);
             context.startActivity(ide);
         } else if (id == R.id.contest) {
-            Intent contest = new Intent(context, ContestActivity.class);
+            Intent contest = new Intent(context, ContestListActivity.class);
             context.startActivity(contest);
         }
     }
