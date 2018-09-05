@@ -22,7 +22,8 @@ if (isset($_GET['token']) && $_GET['user'] && $_GET['hash']) {
 
             if ($resultObj->status == 'OK') {
                 $problems = $resultObj->result->data->content;
-                var_dump($problems);
+                \PhpUseful\EasyHeaders::json_header();
+                echo json_encode($problems);
 
             } else {
                 \PhpUseful\EasyHeaders::bad_request();
