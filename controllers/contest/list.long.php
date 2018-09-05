@@ -18,17 +18,19 @@ if(isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) ) {
             $result1 = $apiRequest1->getResult();
             $resultObj1 = json_decode($result1);
 
-            $apiRequest2 = new CodechefApiCall($token, $api_url1);
+            $apiRequest2 = new CodechefApiCall($token, $api_url2);
             $apiRequest2->execute();
             $result2 = $apiRequest2->getResult();
             $resultObj2 = json_decode($result2);
 
-            if ($resultObj1->status == 'OK') {
+            if ($resultObj1->status == 'OK' && $resultObj2->status == 'OK') {
 
                 $contestList1 = $resultObj1->result->data->content->contestList;
+                error_log("1: $contestList1");
                 $contestList2 = $resultObj2->result->data->content->contestList;
+                error_log("2: $contestList2");
 
-                $merged = (object) array_merge((array) $resultObj1, (array) $resultObj2);
+                $merged = (object) array_merge((array) $contestList1, (array) $contestList2);
 
                 \PhpUseful\EasyHeaders::json_header();
                 echo json_encode($merged);
