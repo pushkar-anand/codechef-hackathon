@@ -13,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.activities.ContestListActivity;
 import hackthon.codechef.chefonphone.activities.IDE_Activity;
+import hackthon.codechef.chefonphone.activities.MainActivity;
 import hackthon.codechef.chefonphone.activities.PracticeActivity;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 import hackthon.codechef.chefonphone.constants.StringKeys;
@@ -114,6 +115,10 @@ public class Helpers {
                 break;
             case R.id.peer:
                 startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_PEER);
+                break;
+            case R.id.home:
+                Intent home = new Intent(context, MainActivity.class);
+                context.startActivity(home);
                 break;
             case R.id.ide:
                 Intent ide = new Intent(context, IDE_Activity.class);
