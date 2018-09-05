@@ -11,7 +11,7 @@ if(isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) ) {
         if($token !== false) {
 
             $api_url1 = CODECHEF_API_BASE_URL . '/contests?fields=code,name,startDate,endDate&status=present&offset=1&limit=100';
-            $api_url2 = CODECHEF_API_BASE_URL . '/contests?fields=code,name,startDate,endDate&status=present&offset=1&limit=100';
+            $api_url2 = CODECHEF_API_BASE_URL . '/contests?fields=code,name,startDate,endDate&status=future&offset=1&limit=100';
 
             $apiRequest1 = new CodechefApiCall($token, $api_url1);
             $apiRequest1->execute();
