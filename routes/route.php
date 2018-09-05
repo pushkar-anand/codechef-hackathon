@@ -14,7 +14,7 @@ try {
 
     $route->addMatch('GET', '/contest/list/short', __DIR__ . '/../controllers/contest/list.short.php');
     $route->addMatch('GET', '/contest/list/all', __DIR__ . '/../controllers/contest/list.all.php');
-    $route->addMatch('GET', '/contest/problems', __DIR__ . '/../controllers/contest/problems.php');
+    $route->addMatch('GET', '/contest/problems/list', __DIR__ . '/../controllers/contest/problems.list.php');
     $route->addMatch('GET', '/contest/problem/details', __DIR__ . '/../controllers/contest/problem.detail.php');
 
     $route->addMatch('GET', '/recommend', __DIR__ . '/../controllers/recommend.php');
