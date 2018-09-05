@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 use PhpUseful\Functions;
 
 if(isset($_GET['token']) && $_GET['user'] && $_GET['hash']) {

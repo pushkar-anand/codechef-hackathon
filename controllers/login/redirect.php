@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use PhpUseful\EasyHeaders;
 
@@ -41,7 +41,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
 
             $scopeArr = explode(' ', $scope);
             if (!in_array('submission', $scopeArr)) {
-                require_once __DIR__ . '/../views/scope-error.html';
+                require_once __DIR__ . '/../../views/scope-error.html';
                 exit();
             } else {
 
@@ -62,7 +62,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
                     {
 
                         $m = new Mustache_Engine(array(
-                            'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../views'),
+                            'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../../views'),
                         ));
                         echo $m->render('final', array('name' => $fullname, 'login_token' => $login_token, 'codechef_handle' => $username));
                     }

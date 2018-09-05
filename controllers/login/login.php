@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 use PhpUseful\Functions;
 
 $m = new Mustache_Engine(array(
-    'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../views'),
+    'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../../views'),
 ));
 
 $state = Functions::random_string(10);
