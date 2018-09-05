@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -129,6 +131,18 @@ public class Helpers {
                 context.startActivity(contest);
                 break;
         }
+    }
+
+    public static void updateDrawerNavHeader(Context context, View navHeaderView) {
+        SharedPreferences preferences = context.getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
+
+        String name = preferences.getString(SharedPrefKeys.FULLNAME, "Full Name");
+        TextView fullName = navHeaderView.findViewById(R.id.fullname);
+        fullName.setText(name);
+
+        String handle = "CodeChef Handle : " + preferences.getString(SharedPrefKeys.CODECHEF_HANDLE, "CodeChef Handle");
+        TextView codechefHandle = navHeaderView.findViewById(R.id.codechef_handle);
+        codechefHandle.setText(handle);
     }
 
     public static void logout(Context context) {

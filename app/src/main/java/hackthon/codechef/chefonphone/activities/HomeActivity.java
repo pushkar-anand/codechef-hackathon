@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -59,14 +58,8 @@ public class HomeActivity extends AppCompatActivity
         getSupportLoaderManager().initLoader(IDs.RECOMMENDATION_LOADER, null, this).forceLoad();
 
         View navHeaderView = navigationView.getHeaderView(0);
+        Helpers.updateDrawerNavHeader(this, navHeaderView);
 
-        String name = preferences.getString(SharedPrefKeys.FULLNAME, "Full Name");
-        TextView fullName = navHeaderView.findViewById(R.id.fullname);
-        fullName.setText(name);
-
-        String handle = "CodeChef Handle : " + preferences.getString(SharedPrefKeys.CODECHEF_HANDLE, "CodeChef Handle");
-        TextView codechefHandle = navHeaderView.findViewById(R.id.codechef_handle);
-        codechefHandle.setText(handle);
 
     }
 

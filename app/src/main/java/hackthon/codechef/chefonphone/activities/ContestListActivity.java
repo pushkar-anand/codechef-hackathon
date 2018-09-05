@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,9 @@ public class ContestListActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportLoaderManager().initLoader(IDs.CONTEST_SHORT_LIST_LOADER, null, this).forceLoad();
+
+        View navHeaderView = navigationView.getHeaderView(0);
+        Helpers.updateDrawerNavHeader(this, navHeaderView);
     }
 
     @Override
