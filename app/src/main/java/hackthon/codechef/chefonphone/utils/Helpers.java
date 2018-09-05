@@ -22,8 +22,8 @@ public class Helpers {
     private static String bytesToHexString(byte[] bytes) {
 
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < bytes.length; i++) {
-            String hex = Integer.toHexString(0xFF & bytes[i]);
+        for (byte aByte : bytes) {
+            String hex = Integer.toHexString(0xFF & aByte);
             if (hex.length() == 1) {
                 sb.append('0');
             }
@@ -95,24 +95,33 @@ public class Helpers {
 
 
     public static void handleDrawerNavigation(Context context, Integer id) {
-        if (id == R.id.beginner) {
-            startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_BEGINNER);
-        } else if (id == R.id.easy) {
-            startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_EASY);
-        } else if (id == R.id.medium) {
-            startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_MEDIUM);
-        } else if (id == R.id.hard) {
-            startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_HARD);
-        } else if (id == R.id.challenge) {
-            startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_CHALLENGE);
-        } else if (id == R.id.peer) {
-            startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_PEER);
-        } else if (id == R.id.ide) {
-            Intent ide = new Intent(context, IDE_Activity.class);
-            context.startActivity(ide);
-        } else if (id == R.id.contest) {
-            Intent contest = new Intent(context, ContestListActivity.class);
-            context.startActivity(contest);
+        switch (id) {
+            case R.id.beginner:
+                startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_BEGINNER);
+                break;
+            case R.id.easy:
+                startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_EASY);
+                break;
+            case R.id.medium:
+                startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_MEDIUM);
+                break;
+            case R.id.hard:
+                startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_HARD);
+                break;
+            case R.id.challenge:
+                startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_CHALLENGE);
+                break;
+            case R.id.peer:
+                startPracticeActivity(context, StringKeys.PRACTICE_LEVEL_PEER);
+                break;
+            case R.id.ide:
+                Intent ide = new Intent(context, IDE_Activity.class);
+                context.startActivity(ide);
+                break;
+            case R.id.contest:
+                Intent contest = new Intent(context, ContestListActivity.class);
+                context.startActivity(contest);
+                break;
         }
     }
 
