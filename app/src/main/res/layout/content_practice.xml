@@ -8,4 +8,8 @@
     tools:context=".activities.PracticeActivity"
     tools:showIn="@layout/app_bar_practice">
 
+    <!--TODO progress bar for practiceProblemLoader-->
+    <!--TODO A recyclerView to list problems(max 20 at a time)-->
+    <!--TODO more button to load next 20 problems-->
+
 </android.support.constraint.ConstraintLayout>

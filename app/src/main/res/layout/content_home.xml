@@ -8,4 +8,10 @@
     tools:context=".activities.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
+    <!--TODO Progress Bar for contest loader-->
+    <!--TODO CardView for contest loader that shows max 3 contests(name, contest_code, endDate)-->
+
+    <!--TODO Progress Bar for recommendation loader-->
+    <!--TODO CardView for recommended problem(name, code,  noOfSuccessfullSubmission) -->
+
 </android.support.constraint.ConstraintLayout>

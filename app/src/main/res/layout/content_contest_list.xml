@@ -8,4 +8,7 @@
     tools:context=".activities.ContestListActivity"
     tools:showIn="@layout/app_bar_contest_list">
 
+    <!--TODO progress bar for contestListLoader-->
+    <!--TODO A recyclerView for list of all contest-->
+
 </android.support.constraint.ConstraintLayout>
