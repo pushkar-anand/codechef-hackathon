@@ -30,6 +30,7 @@ import hackthon.codechef.chefonphone.asyncloaders.ContestListLoader;
 import hackthon.codechef.chefonphone.asyncloaders.RecommendationLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
+import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.data.Contest;
 import hackthon.codechef.chefonphone.data.Problem;
 import hackthon.codechef.chefonphone.utils.Helpers;
@@ -133,7 +134,7 @@ public class HomeActivity extends AppCompatActivity
         LayoutInflater inflater =
                 (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        for (Contest contest : contestList) {
+        for (final Contest contest : contestList) {
 
             if (inflater != null) {
                 View view = inflater.inflate(R.layout.contest_card, null);
@@ -150,8 +151,18 @@ public class HomeActivity extends AppCompatActivity
                 TextView endDateTV = view.findViewById(R.id.end_date);
                 endDateTV.setText(contest.getContestEndDate());
 
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(HomeActivity.this, ContestActivity.class);
+                        intent.putExtra(StringKeys.CONTEST_ACTVITY_INTENT_KEY, contest.getContestCode());
+                        startActivity(intent);
+                    }
+                });
+
                 contestLinear.addView(view,
                         new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
             }
 
         }
