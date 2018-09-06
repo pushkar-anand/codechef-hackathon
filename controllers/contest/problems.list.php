@@ -17,17 +17,27 @@ if (isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) && iss
             $apiRequest = new CodechefApiCall($token, $api_url);
             $apiRequest->execute();
             $result = $apiRequest->getResult();
-            error_log($result);
             $resultObj = json_decode($result);
-            var_dump($resultObj);
+            if ($resultObj->status == 'OK') {
+                $code = $resultObj->result->data->code;
+                if ($code == 9001) {
+                    $content = $resultObj->result->data->content;
+                    \PhpUseful\EasyHeaders::json_header();
+                    echo json_encode($content);
+                } else {
+                    //handle codes
+                }
+            } else {
+                \PhpUseful\EasyHeaders::bad_request();
+            }
 
 
-        }else {
+        } else {
             \PhpUseful\EasyHeaders::bad_request();
         }
-    }else {
+    } else {
         \PhpUseful\EasyHeaders::bad_request();
     }
-}else {
+} else {
     \PhpUseful\EasyHeaders::bad_request();
 }
