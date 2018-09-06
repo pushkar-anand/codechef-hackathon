@@ -39,7 +39,8 @@ class Curl
     {
         curl_setopt($this->curl, CURLINFO_HEADER_OUT, true);
         $this->result = curl_exec($this->curl);
-        $this->http_response_code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);;
+        $this->http_response_code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
+        error_log("Curl Response: $this->result");
     }
     public function getSentHeader()
     {
