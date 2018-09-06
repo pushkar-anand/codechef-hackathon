@@ -85,9 +85,9 @@ class CodechefApiCall extends Curl
         $curl->execute();
 
         $result = $curl->getResult();
+        error_log("Reissue: $result");
 
         $result = json_decode($result);
-        error_log("Reissue: $result");
         if ($result->status === 'OK') {
             $data = $result->result->data;
             $user = User::fetchUserFromAccessToken($this->token);
