@@ -1,5 +1,6 @@
 package hackthon.codechef.chefonphone.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,9 +14,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -30,6 +36,10 @@ import hackthon.codechef.chefonphone.utils.Helpers;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks {
+
+    ProgressBar contestLoaderProgress, recommendLoaderProgress;
+    LinearLayout contestLinear, recommendLinear;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +49,21 @@ public class HomeActivity extends AppCompatActivity
 
         SharedPreferences preferences = getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
 
+        String welcomeTxt = "Welcome " + preferences.getString(SharedPrefKeys.FULLNAME, "") + "!!";
+
         if (!preferences.contains(SharedPrefKeys.LOGIN_KEY)) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
         }
+
+        contestLoaderProgress = findViewById(R.id.contestProgressBar);
+        recommendLoaderProgress = findViewById(R.id.recommendProgressBar);
+        contestLinear = findViewById(R.id.contestChildOfChild);
+        recommendLinear = findViewById(R.id.recommendChildOfChild);
+
+        TextView welcomeView = findViewById(R.id.welcomeTextView);
+        welcomeView.setText(welcomeTxt);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -107,9 +127,36 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
+    @SuppressLint("InflateParams")
     private void updateContestDetails(ArrayList<Contest> contestList) {
-        //TODO finish this.
 
+        LayoutInflater inflater =
+                (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        for (Contest contest : contestList) {
+
+            if (inflater != null) {
+                View view = inflater.inflate(R.layout.contest_card, null);
+
+                TextView titleTV = view.findViewById(R.id.contest_title);
+                titleTV.setText(contest.getContestName());
+
+                TextView codeTV = view.findViewById(R.id.contest_code);
+                codeTV.setText(contest.getContestCode());
+
+                TextView startDateTV = view.findViewById(R.id.start_date);
+                startDateTV.setText(contest.getContestStartDate());
+
+                TextView endDateTV = view.findViewById(R.id.end_date);
+                endDateTV.setText(contest.getContestEndDate());
+
+                contestLinear.addView(view,
+                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
+
+        }
+        contestLinear.setVisibility(View.VISIBLE);
+        contestLoaderProgress.setVisibility(View.GONE);
     }
 
     private void updateRecommendation(Problem problem) {

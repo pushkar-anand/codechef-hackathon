@@ -12,6 +12,8 @@
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
 
+    <string name="ongoing_contest">Ongoing Contests</string>
+
     <string name="title_activity_practice">PracticeActivity</string>
     <string name="title_activity_contest_list">ContestListActivity</string>
 
