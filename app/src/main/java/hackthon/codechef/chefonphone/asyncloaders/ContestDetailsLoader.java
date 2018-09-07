@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -28,6 +29,7 @@ public class ContestDetailsLoader extends AsyncTaskLoader<Contest> {
         String url = Helpers.buildContestDetailsUrl(getContext(), Urls.CONTEST_DETAILS_URL, contest_code);
         try {
             String result = Internet.getHTTPSGetRequestResponse(url);
+            Log.d(getClass().getSimpleName(), result);
 
             //TODO parse json
 

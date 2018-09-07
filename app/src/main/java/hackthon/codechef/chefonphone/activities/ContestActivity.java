@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.asyncloaders.ContestDetailsLoader;
+import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.data.Contest;
 
@@ -28,6 +29,8 @@ public class ContestActivity extends AppCompatActivity
         } else {
             finish();
         }
+
+        getSupportLoaderManager().initLoader(IDs.CONTEST_DETAILS_LOADER, null, this).forceLoad();
 
     }
 
