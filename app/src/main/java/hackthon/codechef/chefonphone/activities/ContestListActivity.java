@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,9 @@ import hackthon.codechef.chefonphone.utils.Helpers;
 
 public class ContestListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<ArrayList<Contest>> {
+
+    private ProgressBar contestLoaderProgress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
