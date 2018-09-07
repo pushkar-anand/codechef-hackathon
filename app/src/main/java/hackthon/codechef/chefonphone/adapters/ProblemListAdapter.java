@@ -15,6 +15,7 @@ import hackthon.codechef.chefonphone.recycleholders.ProblemListHolder;
 public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> {
 
     private ArrayList<Problem> problemList;
+    private Integer VIEW_TYPE_LIST = 10, VIEW_TYPE_FOOTER = 20;
 
     public ProblemListAdapter() {
         problemList = new ArrayList<>();
@@ -28,10 +29,25 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
     @Override
     public ProblemListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.problem_list_recycler, parent, false);
+        View view;
+        if (viewType == VIEW_TYPE_FOOTER) {
 
-        return new ProblemListHolder(view);
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.problem_list_next_btn, parent, false);
+            return new ProblemListHolder(view, VIEW_TYPE_FOOTER);
+
+        } else {
+
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.problem_list_recycler, parent, false);
+            return new ProblemListHolder(view);
+
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return (position == problemList.size()) ? VIEW_TYPE_FOOTER : VIEW_TYPE_LIST;
     }
 
     @Override
@@ -50,7 +66,7 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
             holder.rootConstrain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    
+
                 }
             });
         }

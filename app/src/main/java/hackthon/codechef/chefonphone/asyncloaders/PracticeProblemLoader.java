@@ -6,6 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -30,6 +34,8 @@ public class PracticeProblemLoader extends AsyncTaskLoader<ArrayList<Problem>> {
     @Override
     public ArrayList<Problem> loadInBackground() {
 
+        ArrayList<Problem> problemArrayList = new ArrayList<>();
+
         String url;
 
         if (start != null) {
@@ -46,9 +52,23 @@ public class PracticeProblemLoader extends AsyncTaskLoader<ArrayList<Problem>> {
             String result = Internet.getHTTPSGetRequestResponse(url);
             Log.d(getClass().getSimpleName(), level + ": " + result);
 
-            //TODO PARSE RESULT
+            //[{"problemCode":"PCJ18C","problemName":"Chef and Polygon Cakes","successfulSubmissions":642,"accuracy":17.881989178047}]
 
-        } catch (IOException e) {
+            JSONArray problemArray = new JSONArray(result);
+            for (int i = 0; i < problemArray.length(); i++) {
+                Problem problem = new Problem();
+                JSONObject problemObj = problemArray.getJSONObject(i);
+
+                problem.setProblemCode(problemObj.getString("problemCode"));
+                problem.setProblemName(problemObj.getString("problemName"));
+                problem.setSuccessfulSubmissions(problemObj.getString("successfulSubmissions"));
+                problem.setProblemAccuracy(problemObj.getDouble("accuracy"));
+
+                problemArrayList.add(problem);
+            }
+            return problemArrayList;
+
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 

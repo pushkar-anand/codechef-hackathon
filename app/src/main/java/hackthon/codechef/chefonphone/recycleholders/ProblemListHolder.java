@@ -20,4 +20,8 @@ public class ProblemListHolder extends RecyclerView.ViewHolder {
         rootConstrain = itemView.findViewById(R.id.problemRecyclerItemConstrain);
 
     }
+
+    public ProblemListHolder(View itemView, Integer id) {
+        super(itemView);
+    }
 }

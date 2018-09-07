@@ -8,6 +8,7 @@ public class Problem {
     private String sourceSizeLimit;
     private String challengeType;
     private String maxTimeLimit;
+    private Double problemAccuracy;
     private String successfulSubmissions;
     private String body;
     private String tags;
@@ -69,6 +70,14 @@ public class Problem {
 
     public void setSuccessfulSubmissions(String successfulSubmissions) {
         this.successfulSubmissions = successfulSubmissions;
+    }
+
+    public Double getProblemAccuracy() {
+        return problemAccuracy;
+    }
+
+    public void setProblemAccuracy(Double problemAccuracy) {
+        this.problemAccuracy = problemAccuracy;
     }
 
     public String getBody() {
