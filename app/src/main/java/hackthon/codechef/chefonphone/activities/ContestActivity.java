@@ -25,10 +25,11 @@ import hackthon.codechef.chefonphone.data.Contest;
 public class ContestActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Contest> {
 
-    private String contestCode,contestDetails;
+    private String contestCode;
     private ProgressBar contest_problemLoaderProgress;
     private RecyclerView contest_problemRecycler;
     private ProblemListAdapter contest_problemListAdapter;
+    TextView contestTitleTV;
 
     private String contest;
     @Override
@@ -62,6 +63,8 @@ public class ContestActivity extends AppCompatActivity
         TextView typeTV = findViewById(R.id.contest_code);
         String str = "CODE: " + contestCode;
 
+        contestTitleTV = findViewById(R.id.contest_title);
+
     }
 
     public void populateViewWithContestProblems(Contest contest_problems){
@@ -70,6 +73,8 @@ public class ContestActivity extends AppCompatActivity
         contest_problemLoaderProgress.setVisibility(View.GONE);
         contest_problemRecycler.setVisibility(View.VISIBLE);
         contest_problemListAdapter.notifyDataSetChanged();
+
+        contestTitleTV.setText(contest_problems.getContestName());
     }
 
     @NonNull
