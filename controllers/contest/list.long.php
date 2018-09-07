@@ -33,11 +33,10 @@ if(isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) ) {
                 $present = array("present" => $contestListPresent);
                 $future = array("future" => $contestListFuture);
 
-                $merged = array_merge( $contestListPresent, $contestListFuture);
+                $merged = array_merge($present, $future);
 
                 \PhpUseful\EasyHeaders::json_header();
                 echo json_encode($merged);
-                error_log('MERGED:  ' . json_encode(array_merge($present, $future)));
             }else
             {
                 error_log($result1);
