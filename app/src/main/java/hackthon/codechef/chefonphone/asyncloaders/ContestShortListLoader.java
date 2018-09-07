@@ -18,13 +18,11 @@ import hackthon.codechef.chefonphone.data.Contest;
 import hackthon.codechef.chefonphone.utils.Helpers;
 import hackthon.codechef.chefonphone.utils.Internet;
 
-public class ContestListLoader extends AsyncTaskLoader<ArrayList<Contest>> {
+public class ContestShortListLoader extends AsyncTaskLoader<ArrayList<Contest>> {
 
-    private String type;
 
-    public ContestListLoader(@NonNull Context context, String type) {
+    public ContestShortListLoader(@NonNull Context context) {
         super(context);
-        this.type = type;
     }
 
     @Nullable
@@ -34,11 +32,8 @@ public class ContestListLoader extends AsyncTaskLoader<ArrayList<Contest>> {
         String url;
         ArrayList<Contest> contestArrayList = new ArrayList<>();
 
-        if (type.equals("short")) {
-            url = Helpers.buildUrl(getContext(), Urls.CONTEST_URL_SHORT_LIST);
-        } else {
-            url = Helpers.buildUrl(getContext(), Urls.CONTEST_URL_LONG);
-        }
+        url = Helpers.buildUrl(getContext(), Urls.CONTEST_URL_SHORT_LIST);
+
 
         try {
             String result = Internet.getHTTPSGetRequestResponse(url);

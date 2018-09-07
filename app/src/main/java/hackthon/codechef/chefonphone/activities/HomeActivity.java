@@ -26,7 +26,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import hackthon.codechef.chefonphone.R;
-import hackthon.codechef.chefonphone.asyncloaders.ContestListLoader;
+import hackthon.codechef.chefonphone.asyncloaders.ContestShortListLoader;
 import hackthon.codechef.chefonphone.asyncloaders.RecommendationLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
@@ -182,7 +182,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public Loader onCreateLoader(int id, Bundle bundle) {
         if (id == IDs.CONTEST_SHORT_LIST_LOADER) {
-            return new ContestListLoader(HomeActivity.this, "short");
+            return new ContestShortListLoader(HomeActivity.this);
         } else {
             return new RecommendationLoader(this);
         }

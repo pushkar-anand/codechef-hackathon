@@ -11,23 +11,26 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
 import hackthon.codechef.chefonphone.R;
-import hackthon.codechef.chefonphone.asyncloaders.ContestListLoader;
+import hackthon.codechef.chefonphone.asyncloaders.ContestLongListLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.data.Contest;
 import hackthon.codechef.chefonphone.utils.Helpers;
 
 public class ContestListActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<ArrayList<Contest>> {
+        implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Pair<ArrayList<Contest>, ArrayList<Contest>>> {
 
     private ProgressBar contestLoaderProgress;
+    private LinearLayout presentList, futureList;
 
 
     @Override
@@ -97,25 +100,29 @@ public class ContestListActivity extends AppCompatActivity
         return true;
     }
 
-    private void displayList(ArrayList<Contest> contestArrayList) {
+    private void displayList(Pair<ArrayList<Contest>, ArrayList<Contest>> contestArrayList) {
+
+        ArrayList<Contest> presentList = contestArrayList.first;
+        ArrayList<Contest> futureList = contestArrayList.second;
 
     }
 
     @NonNull
     @Override
-    public Loader<ArrayList<Contest>> onCreateLoader(int id, @Nullable Bundle args) {
-        return new ContestListLoader(ContestListActivity.this, "long");
+    public Loader<Pair<ArrayList<Contest>, ArrayList<Contest>>> onCreateLoader(int id, @Nullable Bundle args) {
+        return new ContestLongListLoader(ContestListActivity.this);
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<ArrayList<Contest>> loader, ArrayList<Contest> data) {
+    public void onLoadFinished(@NonNull Loader<Pair<ArrayList<Contest>, ArrayList<Contest>>> loader,
+                               Pair<ArrayList<Contest>, ArrayList<Contest>> data) {
         if (data != null) {
             displayList(data);
         }
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<ArrayList<Contest>> loader) {
+    public void onLoaderReset(@NonNull Loader<Pair<ArrayList<Contest>, ArrayList<Contest>>> loader) {
 
     }
 }
