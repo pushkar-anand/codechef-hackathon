@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
+
 use PhpUseful\Functions;
 
 if(isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) ) {
@@ -36,7 +37,7 @@ if(isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) ) {
 
                 \PhpUseful\EasyHeaders::json_header();
                 echo json_encode($merged);
-                error_log(json_encode(array_merge($present, $future)));
+                error_log('MERGED:  ' . json_encode(array_merge($present, $future)));
             }else
             {
                 error_log($result1);
