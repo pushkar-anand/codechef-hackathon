@@ -1,5 +1,8 @@
 package hackthon.codechef.chefonphone.activities;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,20 +14,33 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import hackthon.codechef.chefonphone.R;
-import hackthon.codechef.chefonphone.asyncloaders.ContestListLoader;
+import hackthon.codechef.chefonphone.asyncloaders.ContestLongListLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
+import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.data.Contest;
 import hackthon.codechef.chefonphone.utils.Helpers;
 
 public class ContestListActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<ArrayList<Contest>> {
+        implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Pair<ArrayList<Contest>, ArrayList<Contest>>> {
+
+    private ProgressBar contestLoaderProgress;
+    private LinearLayout presentLinear, futureLinear;
+    private ScrollView scrollView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +63,11 @@ public class ContestListActivity extends AppCompatActivity
 
         View navHeaderView = navigationView.getHeaderView(0);
         Helpers.updateDrawerNavHeader(this, navHeaderView);
+
+        contestLoaderProgress = findViewById(R.id.contestListProgress);
+        presentLinear = findViewById(R.id.presentContestList);
+        futureLinear = findViewById(R.id.futureContestList);
+        scrollView = findViewById(R.id.contestScroll);
     }
 
     @Override
@@ -93,25 +114,96 @@ public class ContestListActivity extends AppCompatActivity
         return true;
     }
 
-    private void displayList(ArrayList<Contest> contestArrayList) {
+    @SuppressLint("InflateParams")
+    private void displayList(Pair<ArrayList<Contest>, ArrayList<Contest>> contestArrayList) {
+
+        ArrayList<Contest> presentList = contestArrayList.first;
+        ArrayList<Contest> futureList = contestArrayList.second;
+
+        LayoutInflater inflater =
+                (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        for (final Contest contest : presentList) {
+            if (inflater != null) {
+                View view = inflater.inflate(R.layout.contest_card, null);
+
+                TextView titleTV = view.findViewById(R.id.contest_title);
+                titleTV.setText(contest.getContestName());
+
+                TextView codeTV = view.findViewById(R.id.contest_code);
+                codeTV.setText(contest.getContestCode());
+
+                TextView startDateTV = view.findViewById(R.id.start_date);
+                startDateTV.setText(contest.getContestStartDate());
+
+                TextView endDateTV = view.findViewById(R.id.end_date);
+                endDateTV.setText(contest.getContestEndDate());
+
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(ContestListActivity.this, ContestActivity.class);
+                        intent.putExtra(StringKeys.CONTEST_ACTVITY_INTENT_KEY, contest.getContestCode());
+                        startActivity(intent);
+                    }
+                });
+
+                presentLinear.addView(view,
+                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
+        }
+
+        for (final Contest contest : futureList) {
+            if (inflater != null) {
+                View view = inflater.inflate(R.layout.contest_card, null);
+
+                TextView titleTV = view.findViewById(R.id.contest_title);
+                titleTV.setText(contest.getContestName());
+
+                TextView codeTV = view.findViewById(R.id.contest_code);
+                codeTV.setText(contest.getContestCode());
+
+                TextView startDateTV = view.findViewById(R.id.start_date);
+                startDateTV.setText(contest.getContestStartDate());
+
+                TextView endDateTV = view.findViewById(R.id.end_date);
+                endDateTV.setText(contest.getContestEndDate());
+
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(ContestListActivity.this, ContestActivity.class);
+                        intent.putExtra(StringKeys.CONTEST_ACTVITY_INTENT_KEY, contest.getContestCode());
+                        startActivity(intent);
+                    }
+                });
+
+                futureLinear.addView(view,
+                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
+        }
+
+        contestLoaderProgress.setVisibility(View.GONE);
+        scrollView.setVisibility(View.VISIBLE);
 
     }
 
     @NonNull
     @Override
-    public Loader<ArrayList<Contest>> onCreateLoader(int id, @Nullable Bundle args) {
-        return new ContestListLoader(ContestListActivity.this, "long");
+    public Loader<Pair<ArrayList<Contest>, ArrayList<Contest>>> onCreateLoader(int id, @Nullable Bundle args) {
+        return new ContestLongListLoader(ContestListActivity.this);
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<ArrayList<Contest>> loader, ArrayList<Contest> data) {
+    public void onLoadFinished(@NonNull Loader<Pair<ArrayList<Contest>, ArrayList<Contest>>> loader,
+                               Pair<ArrayList<Contest>, ArrayList<Contest>> data) {
         if (data != null) {
             displayList(data);
         }
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<ArrayList<Contest>> loader) {
+    public void onLoaderReset(@NonNull Loader<Pair<ArrayList<Contest>, ArrayList<Contest>>> loader) {
 
     }
 }
