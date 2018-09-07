@@ -38,8 +38,10 @@ import hackthon.codechef.chefonphone.utils.Helpers;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks {
 
-    ProgressBar contestLoaderProgress, recommendLoaderProgress;
-    LinearLayout contestLinear, recommendLinear;
+    private ProgressBar contestLoaderProgress;
+    private ProgressBar recommendLoaderProgress;
+    private LinearLayout contestLinear;
+    private LinearLayout recommendLinear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

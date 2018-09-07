@@ -36,7 +36,7 @@ public class Helpers {
     }
 
     private static String getSHA256hash(String input) {
-        MessageDigest digest = null;
+        MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest((input + Internet.getSecret()).getBytes("UTF-8"));
