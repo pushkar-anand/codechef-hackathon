@@ -30,5 +30,7 @@
     <string name="nav_contest">Contests</string>
     <string name="practice_problem">Practice Problems</string>
     <string name="load_next_20_problems">Load next 20 problems</string>
+    <string name="present_contests">Present Contests</string>
+    <string name="upcoming_contests">Upcoming Contests</string>
 
 </resources>
