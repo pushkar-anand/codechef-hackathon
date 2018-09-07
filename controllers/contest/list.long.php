@@ -26,13 +26,17 @@ if(isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) ) {
 
             if ($resultObj1->status == 'OK' && $resultObj2->status == 'OK') {
 
-                $contestList1 = $resultObj1->result->data->content->contestList;
-                $contestList2 = $resultObj2->result->data->content->contestList;
+                $contestListPresent = $resultObj1->result->data->content->contestList;
+                $contestListFuture = $resultObj2->result->data->content->contestList;
 
-                $merged = array_merge( $contestList1, $contestList2);
+                $present = array("present" => $contestListPresent);
+                $future = array("future" => $contestListFuture);
+
+                $merged = array_merge( $contestListPresent, $contestListFuture);
 
                 \PhpUseful\EasyHeaders::json_header();
                 echo json_encode($merged);
+                error_log(json_encode(array_merge($present, $future)));
             }else
             {
                 error_log($result1);
