@@ -37,10 +37,28 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
     @Override
     public void onBindViewHolder(@NonNull ProblemListHolder holder, int position) {
 
+        if (position == problemList.size()) {
+
+        } else {
+
+            Problem problem = problemList.get(position);
+
+            holder.problemNameView.setText(problem.getProblemName());
+            holder.problemCodeView.setText(problem.getProblemCode());
+            holder.problemSubmissionView.setText(problem.getSuccessfulSubmissions());
+
+            holder.rootConstrain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    
+                }
+            });
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return problemList.size();
+        return problemList.size() + 1;
     }
 }

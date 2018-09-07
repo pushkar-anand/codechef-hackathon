@@ -11,14 +11,20 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
 import hackthon.codechef.chefonphone.R;
+import hackthon.codechef.chefonphone.adapters.ProblemListAdapter;
 import hackthon.codechef.chefonphone.asyncloaders.PracticeProblemLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.StringKeys;
@@ -29,6 +35,9 @@ public class PracticeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<ArrayList<Problem>> {
 
     private String level;
+    private ProgressBar problemLoaderProgress;
+    private RecyclerView problemRecycler;
+    private ProblemListAdapter problemListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +63,20 @@ public class PracticeActivity extends AppCompatActivity
 
         View navHeaderView = navigationView.getHeaderView(0);
         Helpers.updateDrawerNavHeader(this, navHeaderView);
+
+        problemLoaderProgress = findViewById(R.id.practiceProblemLoader);
+        problemRecycler = findViewById(R.id.problemRecyclerView);
+        problemListAdapter = new ProblemListAdapter();
+
+        RecyclerView.LayoutManager layoutManager =
+                new LinearLayoutManager(getApplicationContext());
+
+        problemRecycler.setLayoutManager(layoutManager);
+        problemRecycler.setItemAnimator(new DefaultItemAnimator());
+        problemRecycler.addItemDecoration(new DividerItemDecoration(this,
+                LinearLayoutManager.VERTICAL));
+        problemRecycler.setAdapter(problemListAdapter);
+        problemRecycler.setHasFixedSize(true);
     }
 
     @Override
@@ -100,6 +123,14 @@ public class PracticeActivity extends AppCompatActivity
         return true;
     }
 
+    private void populateViewWithProblems(ArrayList<Problem> problems) {
+        problemListAdapter.populateProblemList(problems);
+        problemLoaderProgress.setVisibility(View.GONE);
+        problemRecycler.setVisibility(View.VISIBLE);
+        problemListAdapter.notifyDataSetChanged();
+
+    }
+
     @NonNull
     @Override
     public Loader<ArrayList<Problem>> onCreateLoader(int id, @Nullable Bundle args) {
@@ -108,6 +139,9 @@ public class PracticeActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Problem>> loader, ArrayList<Problem> data) {
+        if (data != null) {
+            populateViewWithProblems(data);
+        }
 
     }
 

@@ -28,5 +28,6 @@
     <string name="nav_home">Home</string>
     <string name="nav_ide">Code, Compile and Run</string>
     <string name="nav_contest">Contests</string>
+    <string name="practice_problem">Practice Problems</string>
 
 </resources>
