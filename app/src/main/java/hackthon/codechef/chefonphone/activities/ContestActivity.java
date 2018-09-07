@@ -25,13 +25,12 @@ import hackthon.codechef.chefonphone.data.Contest;
 public class ContestActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Contest> {
 
-    private String contestCode;
     private ProgressBar contest_problemLoaderProgress;
-    private RecyclerView contest_problemRecycler;
-    private ProblemListAdapter contest_problemListAdapter;
+    private RecyclerView contesProblemRecycler;
+    private ProblemListAdapter contestProblemListAdapter;
     TextView contestTitleTV;
 
-    private String contest;
+    private String contestToLoad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +38,7 @@ public class ContestActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         if (intent.hasExtra(StringKeys.CONTEST_ACTVITY_INTENT_KEY)) {
-            contest = intent.getStringExtra(StringKeys.CONTEST_ACTVITY_INTENT_KEY);
+            contestToLoad = intent.getStringExtra(StringKeys.CONTEST_ACTVITY_INTENT_KEY);
         } else {
             finish();
         }
@@ -47,40 +46,40 @@ public class ContestActivity extends AppCompatActivity
         getSupportLoaderManager().initLoader(IDs.CONTEST_DETAILS_LOADER, null, this).forceLoad();
 
         contest_problemLoaderProgress = findViewById(R.id.contestProblemLoader);
-        contest_problemRecycler = findViewById(R.id.contestProblemRecyclerView);
-        contest_problemListAdapter = new ProblemListAdapter();
+        contesProblemRecycler = findViewById(R.id.contestProblemRecyclerView);
+        contestProblemListAdapter = new ProblemListAdapter();
 
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(getApplicationContext());
 
-        contest_problemRecycler.setLayoutManager(layoutManager);
-        contest_problemRecycler.setItemAnimator(new DefaultItemAnimator());
-        contest_problemRecycler.addItemDecoration(new DividerItemDecoration(this,
+        contesProblemRecycler.setLayoutManager(layoutManager);
+        contesProblemRecycler.setItemAnimator(new DefaultItemAnimator());
+        contesProblemRecycler.addItemDecoration(new DividerItemDecoration(this,
                 LinearLayoutManager.VERTICAL));
-        contest_problemRecycler.setAdapter(contest_problemListAdapter);
-        contest_problemRecycler.setHasFixedSize(true);
+        contesProblemRecycler.setAdapter(contestProblemListAdapter);
+        contesProblemRecycler.setHasFixedSize(true);
 
-        TextView typeTV = findViewById(R.id.contest_code);
-        String str = "CODE: " + contestCode;
 
         contestTitleTV = findViewById(R.id.contest_title);
 
     }
 
-    public void populateViewWithContestProblems(Contest contest_problems){
-        //TODO
-        contest_problemListAdapter.populateProblemList(contest_problems.getContestProblemsList());
-        contest_problemLoaderProgress.setVisibility(View.GONE);
-        contest_problemRecycler.setVisibility(View.VISIBLE);
-        contest_problemListAdapter.notifyDataSetChanged();
+    public void populateViewWithContestProblems(Contest contest) {
 
-        contestTitleTV.setText(contest_problems.getContestName());
+        contestProblemListAdapter.populateProblemList(contest.getContestProblemsList());
+        contest_problemLoaderProgress.setVisibility(View.GONE);
+        contesProblemRecycler.setVisibility(View.VISIBLE);
+        contestProblemListAdapter.notifyDataSetChanged();
+
+        contestTitleTV.setText(contest.getContestName());
+
+        setTitle(contest.getContestCode());
     }
 
     @NonNull
     @Override
     public Loader<Contest> onCreateLoader(int id, @Nullable Bundle args) {
-        return new ContestDetailsLoader(ContestActivity.this, contest);
+        return new ContestDetailsLoader(ContestActivity.this, contestToLoad);
     }
 
     @Override

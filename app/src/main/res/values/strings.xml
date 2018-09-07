@@ -3,9 +3,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-
     <string name="nav_header_desc">Navigation header</string>
 
 
@@ -14,8 +11,8 @@
 
     <string name="ongoing_contest">Ongoing Contests</string>
 
-    <string name="title_activity_practice">PracticeActivity</string>
-    <string name="title_activity_contest_list">ContestListActivity</string>
+    <string name="title_activity_practice">Practice</string>
+    <string name="title_activity_contest_list">Contests</string>
 
     <string name="nav_group_practice">Practice</string>
     <string name="nav_practice_beginner">Beginner</string>
