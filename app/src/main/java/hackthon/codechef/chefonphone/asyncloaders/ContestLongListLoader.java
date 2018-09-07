@@ -7,6 +7,7 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 import android.util.Pair;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,7 +43,34 @@ public class ContestLongListLoader extends AsyncTaskLoader<Pair<ArrayList<Contes
 
             JSONObject rootObject = new JSONObject(result);
 
+            JSONArray presentJSONArray = rootObject.getJSONArray("present");
 
+            for (int i = 0; i < presentJSONArray.length(); i++) {
+                JSONObject contestObj = presentJSONArray.getJSONObject(i);
+
+                Contest contest = new Contest();
+                contest.setContestName(contestObj.getString("name"));
+                contest.setContestCode(contestObj.getString("code"));
+                contest.setContestStartDate(contestObj.getString("startDate"));
+                contest.setContestEndDate(contestObj.getString("endDate"));
+
+                presentList.add(contest);
+            }
+
+            JSONArray futureJSONArray = rootObject.getJSONArray("future");
+
+            for (int i = 0; i < futureJSONArray.length(); i++) {
+                JSONObject contestObj = futureJSONArray.getJSONObject(i);
+
+                Contest contest = new Contest();
+                contest.setContestName(contestObj.getString("name"));
+                contest.setContestCode(contestObj.getString("code"));
+                contest.setContestStartDate(contestObj.getString("startDate"));
+                contest.setContestEndDate(contestObj.getString("endDate"));
+
+                futureList.add(contest);
+            }
+            
             return Pair.create(presentList, futureList);
 
         } catch (IOException | JSONException e) {
