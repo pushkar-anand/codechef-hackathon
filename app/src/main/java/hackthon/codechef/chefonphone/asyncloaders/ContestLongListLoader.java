@@ -70,7 +70,7 @@ public class ContestLongListLoader extends AsyncTaskLoader<Pair<ArrayList<Contes
 
                 futureList.add(contest);
             }
-            
+
             return Pair.create(presentList, futureList);
 
         } catch (IOException | JSONException e) {
