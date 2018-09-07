@@ -15,16 +15,12 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.adapters.ProblemListAdapter;
 import hackthon.codechef.chefonphone.asyncloaders.ContestDetailsLoader;
-import hackthon.codechef.chefonphone.asyncloaders.PracticeProblemLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.data.Contest;
-import hackthon.codechef.chefonphone.data.Problem;
 
 public class ContestActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Contest> {
@@ -70,7 +66,7 @@ public class ContestActivity extends AppCompatActivity
 
     public void populateViewWithContestProblems(Contest contest_problems){
         //TODO
-        contest_problemListAdapter.populateProblemList(contest_problems);
+        contest_problemListAdapter.populateProblemList(contest_problems.getContestProblemsList());
         contest_problemLoaderProgress.setVisibility(View.GONE);
         contest_problemRecycler.setVisibility(View.VISIBLE);
         contest_problemListAdapter.notifyDataSetChanged();
