@@ -16,7 +16,7 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
 
     private ArrayList<Problem> problemList;
     private Integer VIEW_TYPE_LIST = 10, VIEW_TYPE_FOOTER = 20;
-    private Boolean footer = false;
+    private Boolean footer = true;
     private LoadMoreClickListener loadMoreClickListener;
 
     public ProblemListAdapter() {

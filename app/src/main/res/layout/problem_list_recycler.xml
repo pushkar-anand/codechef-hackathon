@@ -4,7 +4,7 @@
     android:id="@+id/problemRecyclerItemConstrain"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:layout_marginBottom="2dp">
 
     <TextView
         android:id="@+id/problemCode"

@@ -16,6 +16,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -79,7 +80,6 @@ public class PracticeActivity extends AppCompatActivity
         problemRecycler.addItemDecoration(new DividerItemDecoration(this,
                 LinearLayoutManager.VERTICAL));
         problemRecycler.setAdapter(problemListAdapter);
-        problemRecycler.setHasFixedSize(true);
 
         TextView typeTV = findViewById(R.id.practiceProblemType);
         String str = "LEVEL: " + level;
@@ -131,6 +131,8 @@ public class PracticeActivity extends AppCompatActivity
     }
 
     private void populateViewWithProblems(ArrayList<Problem> problems) {
+
+        Log.d(getClass().getSimpleName(), "populateViewWithProblems: length" + problems.size());
         problemListAdapter.populateProblemList(problems);
         problemLoaderProgress.setVisibility(View.GONE);
         problemRecycler.setVisibility(View.VISIBLE);
@@ -142,7 +144,7 @@ public class PracticeActivity extends AppCompatActivity
                 offset += 20;
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("offset", true);
-                getSupportLoaderManager().initLoader(IDs.PRACTICE_LOADER, bundle, PracticeActivity.this).forceLoad();
+                getSupportLoaderManager().restartLoader(IDs.PRACTICE_LOADER, bundle, PracticeActivity.this).forceLoad();
             }
         });
 
