@@ -170,11 +170,13 @@ public class HomeActivity extends AppCompatActivity
         }
         contestLinear.setVisibility(View.VISIBLE);
         contestLoaderProgress.setVisibility(View.GONE);
+
     }
 
     private void updateRecommendation(Problem problem) {
         //TODO finish this.
 
+        recommendLoaderProgress.setVisibility(View.GONE);
     }
 
 

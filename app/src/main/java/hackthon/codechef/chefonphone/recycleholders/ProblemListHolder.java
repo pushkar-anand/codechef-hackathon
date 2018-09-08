@@ -3,6 +3,7 @@ package hackthon.codechef.chefonphone.recycleholders;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import hackthon.codechef.chefonphone.R;
@@ -11,6 +12,7 @@ public class ProblemListHolder extends RecyclerView.ViewHolder {
 
     public TextView problemCodeView, problemNameView, problemSubmissionView;
     public ConstraintLayout rootConstrain;
+    public Button nextPrblmsBtn;
 
     public ProblemListHolder(View itemView) {
         super(itemView);
@@ -23,5 +25,6 @@ public class ProblemListHolder extends RecyclerView.ViewHolder {
 
     public ProblemListHolder(View itemView, Integer id) {
         super(itemView);
+        nextPrblmsBtn = itemView.findViewById(R.id.nextPrblmBtn);
     }
 }

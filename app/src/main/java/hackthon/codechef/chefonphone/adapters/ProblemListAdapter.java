@@ -17,6 +17,7 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
     private ArrayList<Problem> problemList;
     private Integer VIEW_TYPE_LIST = 10, VIEW_TYPE_FOOTER = 20;
     private Boolean footer = false;
+    private LoadMoreClickListener loadMoreClickListener;
 
     public ProblemListAdapter() {
         problemList = new ArrayList<>();
@@ -28,6 +29,40 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
 
     public void populateProblemList(ArrayList<Problem> problems) {
         this.problemList = problems;
+    }
+
+    public void setLoadMoreClickListener(LoadMoreClickListener l) {
+        loadMoreClickListener = l;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ProblemListHolder holder, int position) {
+
+        if (position == problemList.size()) {
+
+            holder.nextPrblmsBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    loadMoreClickListener.onLoadMoreClicked();
+                }
+            });
+
+        } else {
+
+            Problem problem = problemList.get(position);
+
+            holder.problemNameView.setText(problem.getProblemName());
+            holder.problemCodeView.setText(problem.getProblemCode());
+            holder.problemSubmissionView.setText(problem.getSuccessfulSubmissions());
+
+            holder.rootConstrain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+        }
+
     }
 
     @NonNull
@@ -58,27 +93,8 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
         return (position == problemList.size()) ? VIEW_TYPE_FOOTER : VIEW_TYPE_LIST;
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ProblemListHolder holder, int position) {
-
-        if (position == problemList.size()) {
-
-        } else {
-
-            Problem problem = problemList.get(position);
-
-            holder.problemNameView.setText(problem.getProblemName());
-            holder.problemCodeView.setText(problem.getProblemCode());
-            holder.problemSubmissionView.setText(problem.getSuccessfulSubmissions());
-
-            holder.rootConstrain.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-        }
-
+    public interface LoadMoreClickListener {
+        void onLoadMoreClicked();
     }
 
     @Override

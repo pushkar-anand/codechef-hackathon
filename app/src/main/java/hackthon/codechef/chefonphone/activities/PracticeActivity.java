@@ -40,6 +40,8 @@ public class PracticeActivity extends AppCompatActivity
     private RecyclerView problemRecycler;
     private ProblemListAdapter problemListAdapter;
 
+    private Integer offset = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +83,7 @@ public class PracticeActivity extends AppCompatActivity
 
         TextView typeTV = findViewById(R.id.practiceProblemType);
         String str = "LEVEL: " + level;
+        typeTV.setText(str);
     }
 
     @Override
@@ -133,12 +136,26 @@ public class PracticeActivity extends AppCompatActivity
         problemRecycler.setVisibility(View.VISIBLE);
         problemListAdapter.notifyDataSetChanged();
 
+        problemListAdapter.setLoadMoreClickListener(new ProblemListAdapter.LoadMoreClickListener() {
+            @Override
+            public void onLoadMoreClicked() {
+                offset += 20;
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("offset", true);
+                getSupportLoaderManager().initLoader(IDs.PRACTICE_LOADER, bundle, PracticeActivity.this).forceLoad();
+            }
+        });
+
     }
 
     @NonNull
     @Override
     public Loader<ArrayList<Problem>> onCreateLoader(int id, @Nullable Bundle args) {
-        return new PracticeProblemLoader(PracticeActivity.this, level, null);
+        if (args == null) {
+            return new PracticeProblemLoader(PracticeActivity.this, level, null);
+        } else {
+            return new PracticeProblemLoader(PracticeActivity.this, level, offset);
+        }
     }
 
     @Override
