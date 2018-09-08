@@ -47,7 +47,7 @@ public class ContestActivity extends AppCompatActivity
 
         contest_problemLoaderProgress = findViewById(R.id.contestProblemLoader);
         contesProblemRecycler = findViewById(R.id.contestProblemRecyclerView);
-        contestProblemListAdapter = new ProblemListAdapter();
+        contestProblemListAdapter = new ProblemListAdapter(false);
 
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(getApplicationContext());

@@ -16,9 +16,14 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
 
     private ArrayList<Problem> problemList;
     private Integer VIEW_TYPE_LIST = 10, VIEW_TYPE_FOOTER = 20;
+    private Boolean footer = false;
 
     public ProblemListAdapter() {
         problemList = new ArrayList<>();
+    }
+
+    public ProblemListAdapter(Boolean footer) {
+        this.footer = footer;
     }
 
     public void populateProblemList(ArrayList<Problem> problems) {
@@ -30,19 +35,22 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
     public ProblemListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view;
-        if (viewType == VIEW_TYPE_FOOTER) {
+        if (viewType == VIEW_TYPE_FOOTER && footer) {
 
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.problem_list_next_btn, parent, false);
             return new ProblemListHolder(view, VIEW_TYPE_FOOTER);
 
-        } else {
+        } else if (viewType == VIEW_TYPE_LIST) {
 
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.problem_list_recycler, parent, false);
             return new ProblemListHolder(view);
 
         }
+        view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.problem_list_recycler, parent, false);
+        return new ProblemListHolder(view);
     }
 
     @Override
@@ -75,6 +83,10 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
 
     @Override
     public int getItemCount() {
-        return problemList.size() + 1;
+        if (footer) {
+            return problemList.size() + 1;
+        } else {
+            return problemList.size();
+        }
     }
 }
