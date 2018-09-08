@@ -132,7 +132,7 @@ public class PracticeActivity extends AppCompatActivity
 
     private void populateViewWithProblems(ArrayList<Problem> problems) {
 
-        Log.d(getClass().getSimpleName(), "populateViewWithProblems: length" + problems.size());
+        Log.d(getClass().getSimpleName(), "populateViewWithProblems: length " + problems.size());
         problemListAdapter.populateProblemList(problems);
         problemLoaderProgress.setVisibility(View.GONE);
         problemRecycler.setVisibility(View.VISIBLE);
@@ -144,6 +144,8 @@ public class PracticeActivity extends AppCompatActivity
                 offset += 20;
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("offset", true);
+                problemLoaderProgress.setVisibility(View.VISIBLE);
+                problemRecycler.setVisibility(View.GONE);
                 getSupportLoaderManager().restartLoader(IDs.PRACTICE_LOADER, bundle, PracticeActivity.this).forceLoad();
             }
         });
