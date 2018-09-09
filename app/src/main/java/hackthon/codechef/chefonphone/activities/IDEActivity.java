@@ -1,5 +1,8 @@
 package hackthon.codechef.chefonphone.activities;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -11,6 +14,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.utils.Helpers;
@@ -18,6 +26,10 @@ import hackthon.codechef.chefonphone.utils.Helpers;
 public class IDEActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private ProgressBar ideLoaderProgress;
+    private WebView ideWebView;
+
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +49,57 @@ public class IDEActivity extends AppCompatActivity
 
         View navHeaderView = navigationView.getHeaderView(0);
         Helpers.updateDrawerNavHeader(this, navHeaderView);
+
+        ideLoaderProgress = findViewById(R.id.ideLoaderProgress);
+        ideWebView = findViewById(R.id.ideWebView);
+
+        class WebAppInterface {
+            private Context mContext;
+
+            /**
+             * Instantiate the interface and set the context
+             */
+            private WebAppInterface(Context c) {
+                mContext = c;
+            }
+
+            @JavascriptInterface
+            public void testMethod() {
+
+            }
+
+        }
+
+        WebSettings webSettings = ideWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
+
+        ideWebView.addJavascriptInterface(new WebAppInterface(this), "IDE");
+
+        ideWebView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                ideLoaderProgress.setVisibility(View.VISIBLE);
+                ideWebView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                ideLoaderProgress.setVisibility(View.GONE);
+                ideWebView.setVisibility(View.VISIBLE);
+            }
+        });
+
+        ideWebView.loadUrl("file:///android_asset/ide.html");
     }
 
     @Override
