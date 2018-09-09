@@ -132,6 +132,10 @@ public class Helpers {
         }
     }
 
+    public static void handleMenuCLicks(Context context, Integer id) {
+
+    }
+
     public static void updateDrawerNavHeader(Context context, View navHeaderView) {
         SharedPreferences preferences = context.getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
 
