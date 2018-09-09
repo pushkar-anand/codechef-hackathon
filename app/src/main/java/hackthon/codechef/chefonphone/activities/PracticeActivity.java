@@ -33,6 +33,8 @@ import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.data.Problem;
 import hackthon.codechef.chefonphone.utils.Helpers;
 
+import static org.apache.commons.text.WordUtils.capitalizeFully;
+
 public class PracticeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<ArrayList<Problem>> {
 
@@ -82,7 +84,7 @@ public class PracticeActivity extends AppCompatActivity
         problemRecycler.setAdapter(problemListAdapter);
 
         TextView typeTV = findViewById(R.id.practiceProblemType);
-        String str = "LEVEL: " + level;
+        String str = "LEVEL :  " + capitalizeFully(level);
         typeTV.setText(str);
     }
 
