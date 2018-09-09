@@ -31,5 +31,8 @@
     <string name="upcoming_contests">Upcoming Contests</string>
 
     <string name="problems">Problems</string>
+    <string name="problem_code_header">Code</string>
+    <string name="problem_name_header">Problem Name</string>
+    <string name="problem_submission_header">Submissions</string>
 
 </resources>
