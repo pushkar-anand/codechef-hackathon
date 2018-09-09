@@ -3,6 +3,8 @@
 <head>
     <title>IDE</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="css/editor.css"/>
 </head>
 <body>
 <div id="top-bar">
@@ -106,5 +108,22 @@
         <option value="ace/mode/yaml">yaml</option>
     </select>
 </div>
+<div id="editor">
+
+</div>
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+var editor = ace.edit("editor");
+editor.getSession().setUseWorker(false);
+editor.setTheme("ace/theme/monokai");
+editor.getSession().setMode("ace/mode/javascript");
+
+$('#mode').on('change', function (ev) {
+    var mode = $('option:selected').attr('value');
+    editor.getSession().setMode(mode);
+});
+
+</script>
 </body>
 </html>
