@@ -23,7 +23,7 @@ public class Helpers {
 
     private static String bytesToHexString(byte[] bytes) {
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (byte aByte : bytes) {
             String hex = Integer.toHexString(0xFF & aByte);
             if (hex.length() == 1) {
@@ -132,7 +132,14 @@ public class Helpers {
         }
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     public static void handleMenuCLicks(Context context, Integer id) {
+
+        if (id == R.id.action_settings) {
+            //TODO redirect to codechef settings page or implement a settings page for app.
+        } else if (id == R.id.action_logout) {
+            Helpers.logout(context);
+        }
 
     }
 
@@ -148,11 +155,14 @@ public class Helpers {
         codechefHandle.setText(handle);
     }
 
-    public static void logout(Context context) {
+    private static void logout(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             context.deleteSharedPreferences(SharedPrefKeys.LOGIN_PREF);
         } else {
             context.getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE).edit().clear().apply();
         }
+
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
     }
 }
