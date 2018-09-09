@@ -99,7 +99,7 @@ public class IDEActivity extends AppCompatActivity
             }
         });
 
-        ideWebView.loadUrl("file:///android_asset/ide.html");
+        ideWebView.loadUrl("file:///android_asset/ide/ide.html");
     }
 
     @Override
