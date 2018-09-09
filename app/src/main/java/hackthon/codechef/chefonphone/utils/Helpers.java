@@ -14,7 +14,6 @@ import java.security.NoSuchAlgorithmException;
 
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.activities.ContestListActivity;
-import hackthon.codechef.chefonphone.activities.IDE_Activity;
 import hackthon.codechef.chefonphone.activities.MainActivity;
 import hackthon.codechef.chefonphone.activities.PracticeActivity;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;

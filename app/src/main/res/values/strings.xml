@@ -31,5 +31,6 @@
     <string name="upcoming_contests">Upcoming Contests</string>
 
     <string name="problems">Problems</string>
+    <string name="title_activity_ide">IDE</string>
 
 </resources>
