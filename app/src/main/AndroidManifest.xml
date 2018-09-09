@@ -39,7 +39,7 @@
         <activity
             android:name=".activities.IDEActivity"
             android:label="@string/title_activity_ide"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
