@@ -81,6 +81,11 @@ public class IDEActivity extends AppCompatActivity
                 Log.d("Js console: ", msg);
             }
 
+            @JavascriptInterface
+            public void sendRunRequest(String lang, String code, String input) {
+
+            }
+
         }
 
         WebSettings webSettings = ideWebView.getSettings();

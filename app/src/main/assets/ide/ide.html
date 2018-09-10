@@ -83,7 +83,8 @@
     $('#run').click(function () {
         var input = $('textarea#input').val();
         var code = editor.getValue();
-        IDE.sendRequest(code, input);
+        var lang = languageSelected;
+        IDE.sendRunRequest(lang, code, input);
     });
     
 </script>
