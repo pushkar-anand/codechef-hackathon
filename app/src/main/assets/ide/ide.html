@@ -80,6 +80,11 @@
         editor.setValue(langBoilerplate[languageSelected]);
     });
 
+    $('#problem-code-input').on('keyup', function () {
+        var value = $('#problem-code-input').val();
+        IDE.updateProblemCode(value);
+    });
+
     $('#run').click(function () {
         var input = $('textarea#input').val();
         var code = editor.getValue();

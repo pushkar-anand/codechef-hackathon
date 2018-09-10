@@ -108,6 +108,10 @@ public class IDEActivity extends AppCompatActivity
                 }
             }
 
+            @JavascriptInterface
+            public void updateProblemCode(String code) {
+                problem = code;
+            }
         }
 
         WebSettings webSettings = ideWebView.getSettings();
@@ -140,7 +144,7 @@ public class IDEActivity extends AppCompatActivity
         });
 
         ideWebView.loadUrl("file:///android_asset/ide/ide.html");
-
+        initIDE();
     }
 
     private void initIDE() {
