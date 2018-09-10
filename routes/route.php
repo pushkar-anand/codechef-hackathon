@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../logs/initiateLogger.php';
+
 use EasyRoute\Route;
 
 start_my_session();
@@ -28,7 +29,7 @@ try {
 
     $route->addMatch('GET', '/practice/problem/details', __DIR__ . '/../controllers/practice/problem.details.php');
 
-    $route->addMatch('GET', '/ide', __DIR__ . '/../controllers/ide.php');
+    $route->addMatch('POST', '/ide/run', __DIR__ . '/../controllers/ide.run.php');
 
     $route->addMatch('GET', '/test', function ()
     {
