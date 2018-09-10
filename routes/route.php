@@ -31,13 +31,7 @@ try {
 
     $route->addMatch('POST', '/ide/run', __DIR__ . '/../controllers/ide.run.php');
 
-    $route->addMatch('GET', '/test', function ()
-    {
-        User::fetchUserFromAccessToken($_GET['token']);
-    });
-
-
-
+    
     $route->execute();
 
 } catch (Exception $exception) {
