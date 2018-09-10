@@ -2,6 +2,7 @@ package hackthon.codechef.chefonphone.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,8 +21,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import hackthon.codechef.chefonphone.R;
+import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.utils.Helpers;
 
 public class IDEActivity extends AppCompatActivity
@@ -29,10 +32,12 @@ public class IDEActivity extends AppCompatActivity
 
     private ProgressBar ideLoaderProgress;
     private WebView ideWebView;
+    private String problem = null;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ide);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -41,7 +46,8 @@ public class IDEActivity extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -50,6 +56,12 @@ public class IDEActivity extends AppCompatActivity
 
         View navHeaderView = navigationView.getHeaderView(0);
         Helpers.updateDrawerNavHeader(this, navHeaderView);
+
+        Intent intent = getIntent();
+
+        if (intent.hasExtra(StringKeys.IDE_ACTIVITY_INTENT_KEY)) {
+            problem = intent.getStringExtra(StringKeys.IDE_ACTIVITY_INTENT_KEY);
+        }
 
         ideLoaderProgress = findViewById(R.id.ideLoaderProgress);
         ideWebView = findViewById(R.id.ideWebView);
@@ -116,20 +128,41 @@ public class IDEActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.ide_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         Helpers.handleMenuCLicks(this, id);
 
+        if (id == R.id.action_info) {
+
+            viewInfo();
+
+        } else if (id == R.id.action_download) {
+
+            downloadCode();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void viewInfo() {
+
+        if(problem != null)
+        {
+
+        } else {
+            Toast.makeText(this, "No problem loaded. Enter problem code to load.",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void downloadCode() {
+
     }
 
     @Override

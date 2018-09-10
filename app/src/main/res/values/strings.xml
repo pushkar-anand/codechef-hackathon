@@ -8,11 +8,14 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
+    <string name="action_info">View Problem Info</string>
+    <string name="action_download">Download</string>
 
     <string name="ongoing_contest">Ongoing Contests</string>
 
     <string name="title_activity_practice">Practice</string>
     <string name="title_activity_contest_list">Contests</string>
+    <string name="title_activity_ide">IDE</string>
 
     <string name="nav_group_practice">Practice</string>
     <string name="nav_practice_beginner">Beginner</string>
@@ -33,6 +36,7 @@
     <string name="problems">Problems</string>
     <string name="problem_code_header">Code</string>
     <string name="problem_name_header">Problem Name</string>
-    <string name="problem_submission_header">Submissions</string>
-    <string name="title_activity_ide">IDE</string>
+    <string name="problem_submission_header">Successful Submissions</string>
+
+
 </resources>
