@@ -29,9 +29,10 @@ try {
 
     $route->addMatch('GET', '/practice/problem/details', __DIR__ . '/../controllers/practice/problem.details.php');
 
-    $route->addMatch('POST', '/ide/run', __DIR__ . '/../controllers/ide.run.php');
+    $route->addMatch('POST', '/ide/run', __DIR__ . '/../controllers/ide/ide.run.php');
+    $route->addMatch('GET', '/ide/status', __DIR__ . '/../controllers/ide/ide.status.php');
 
-    
+
     $route->execute();
 
 } catch (Exception $exception) {
