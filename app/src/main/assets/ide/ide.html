@@ -10,7 +10,7 @@
 <body>
 <div class="container-fluid row" id="top-bar">
     <div class="col" id="problem-code">
-        <input class="form-control" type="text" placeholder="Problem Code"/>
+        <input class="form-control" type="text" id="problem-code-input" placeholder="Problem Code"/>
     </div>
     <div class="col" id="language-selector">
         <select class="form-control" name="lang" id="lang" title="Language">
@@ -79,14 +79,30 @@
     $('#reset').click(function () {
         editor.setValue(langBoilerplate[languageSelected]);
     });
-    
+
     $('#run').click(function () {
         var input = $('textarea#input').val();
         var code = editor.getValue();
         var lang = languageSelected;
         IDE.sendRunRequest(lang, code, input);
     });
-    
+
+    var saveCode = function () {
+        IDE.saveIdeCode(editor.getValue(), languageSelected);
+    };
+
+    var initEditor = function (initObj) {
+        IDE.logToLogcat(initObj);
+        if (initObj.hasOwnProperty('problemCode')) {
+            $('#problem-code-input').val(initObj.problemCode);
+        }
+        if (initObj.hasOwnProperty('autoSaveCode') && initObj.hasOwnProperty('autoSaveLang')) {
+            resetOnChange = false;
+            $('#lang').val(initObj.autoSaveLang);
+            editor.setValue(initObj.autoSaveCode);
+        }
+    };
+    setInterval(saveCode, 10000);
 </script>
 
 </body>

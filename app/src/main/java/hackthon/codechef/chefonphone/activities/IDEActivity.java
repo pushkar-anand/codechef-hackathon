@@ -3,6 +3,7 @@ package hackthon.codechef.chefonphone.activities;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,8 +24,15 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import hackthon.codechef.chefonphone.R;
+import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 import hackthon.codechef.chefonphone.constants.StringKeys;
+import hackthon.codechef.chefonphone.utils.Cache;
 import hackthon.codechef.chefonphone.utils.Helpers;
 
 public class IDEActivity extends AppCompatActivity
@@ -33,6 +41,7 @@ public class IDEActivity extends AppCompatActivity
     private ProgressBar ideLoaderProgress;
     private WebView ideWebView;
     private String problem = null;
+    SharedPreferences preferences;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -59,6 +68,8 @@ public class IDEActivity extends AppCompatActivity
 
         Intent intent = getIntent();
 
+        preferences = getSharedPreferences(SharedPrefKeys.LOGIN_PREF, MODE_PRIVATE);
+
         if (intent.hasExtra(StringKeys.IDE_ACTIVITY_INTENT_KEY)) {
             problem = intent.getStringExtra(StringKeys.IDE_ACTIVITY_INTENT_KEY);
         }
@@ -84,6 +95,17 @@ public class IDEActivity extends AppCompatActivity
             @JavascriptInterface
             public void sendRunRequest(String lang, String code, String input) {
 
+            }
+
+            @JavascriptInterface
+            public void saveIdeCode(String code, String lang) {
+
+                try {
+                    Cache.addToCache(IDEActivity.this, lang, code);
+                    preferences.edit().putString(SharedPrefKeys.IDE_AUTOSAVE, lang).apply();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
@@ -118,6 +140,31 @@ public class IDEActivity extends AppCompatActivity
         });
 
         ideWebView.loadUrl("file:///android_asset/ide/ide.html");
+
+    }
+
+    private void initIDE() {
+        try {
+            JSONObject obj = new JSONObject();
+            if (problem != null) {
+                obj.put("problemCode", problem);
+            }
+            if (preferences.contains(SharedPrefKeys.IDE_AUTOSAVE)) {
+                String lang = preferences.getString(SharedPrefKeys.IDE_AUTOSAVE, "");
+                if (Cache.isInCache(this, lang)) {
+                    String code = Cache.getFromCache(this, lang);
+                    obj.put("autoSaveLang", lang);
+                    obj.put("autoSaveCode", code);
+                }
+            }
+            String strObj = obj.toString();
+            Log.d("initIDE", strObj);
+
+            ideWebView.loadUrl("javascript:initEditor(" + strObj + ")");
+
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -157,8 +204,7 @@ public class IDEActivity extends AppCompatActivity
 
     private void viewInfo() {
 
-        if(problem != null)
-        {
+        if (problem != null) {
 
         } else {
             Toast.makeText(this, "No problem loaded. Enter problem code to load.",

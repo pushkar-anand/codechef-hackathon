@@ -1,6 +1,6 @@
 var editor = ace.edit("editor");
 
-
+var resetOnChange = true;
 var languageSelected = "CPP";
 //Language Boilerplate Codes
 var langBoilerplate = {};
@@ -47,6 +47,8 @@ $(document).ready(function () {
             editor.getSession().setMode("ace/mode/" + languageSelected.toLowerCase());
         }
         //Change the contents to the boilerplate code
-        editor.setValue(langBoilerplate[languageSelected]);
+        if (resetOnChange) {
+            editor.setValue(langBoilerplate[languageSelected]);
+        }
     });
 });
