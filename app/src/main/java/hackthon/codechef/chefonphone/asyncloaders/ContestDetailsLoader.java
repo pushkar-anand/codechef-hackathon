@@ -66,6 +66,10 @@ public class ContestDetailsLoader extends AsyncTaskLoader<Contest> {
                 problemArrayList.add(problem);
             }
 
+            contest.setContestProblemsList(problemArrayList);
+
+            return contest;
+            
         } catch (IOException |JSONException e) {
             e.printStackTrace();
         }
