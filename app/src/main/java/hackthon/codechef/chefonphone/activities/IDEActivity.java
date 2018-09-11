@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -62,9 +63,6 @@ public class IDEActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        View navHeaderView = navigationView.getHeaderView(0);
-        Helpers.updateDrawerNavHeader(this, navHeaderView);
 
         Intent intent = getIntent();
 
@@ -140,11 +138,15 @@ public class IDEActivity extends AppCompatActivity
             public void onPageFinished(WebView view, String url) {
                 ideLoaderProgress.setVisibility(View.GONE);
                 ideWebView.setVisibility(View.VISIBLE);
+                initIDE();
             }
         });
 
         ideWebView.loadUrl("file:///android_asset/ide/ide.html");
-        initIDE();
+
+        View navHeaderView = navigationView.getHeaderView(0);
+        Helpers.updateDrawerNavHeader(this, navHeaderView);
+
     }
 
     private void initIDE() {
@@ -163,8 +165,9 @@ public class IDEActivity extends AppCompatActivity
             }
             String strObj = obj.toString();
             Log.d("initIDE", strObj);
+            String jsCall = "initEditor(" + strObj + ")";
 
-            ideWebView.loadUrl("javascript:initEditor(" + strObj + ")");
+            ideWebView.evaluateJavascript(jsCall, null);
 
         } catch (JSONException | IOException e) {
             e.printStackTrace();
@@ -218,6 +221,14 @@ public class IDEActivity extends AppCompatActivity
 
     private void downloadCode() {
 
+        ideWebView.evaluateJavascript("downloadCode()", new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String value) {
+                // value is the result returned by the Javascript as JSON
+                Log.d("JS Response", value);
+            }
+        });
+
     }
 
     @Override
@@ -230,5 +241,13 @@ public class IDEActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        String lang = preferences.getString(SharedPrefKeys.IDE_AUTOSAVE, "");
+        Cache.removeFromCache(this, lang);
     }
 }

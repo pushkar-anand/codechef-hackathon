@@ -76,6 +76,21 @@
 <script src="js/script.js" type="text/javascript" async defer></script>
 <script src="js/bootstrap.min.js" async defer></script>
 <script>
+    var initEditor = function (initObj) {
+        IDE.logToLogcat('initObj: ' + JSON.stringify(initObj));
+        IDE.logToLogcat(initObj.problemCode);
+        IDE.logToLogcat(initObj.autoSaveLang);
+        IDE.logToLogcat(initObj.autoSaveCode);
+        if (initObj.hasOwnProperty('problemCode')) {
+            $('#problem-code-input').val(initObj.problemCode);
+        }
+        if (initObj.hasOwnProperty('autoSaveCode') && initObj.hasOwnProperty('autoSaveLang')) {
+            resetOnChange = false;
+            $('#lang').val(initObj.autoSaveLang);
+            editor.setValue(initObj.autoSaveCode);
+        }
+    };
+
     $('#reset').click(function () {
         editor.setValue(langBoilerplate[languageSelected]);
     });
@@ -96,18 +111,15 @@
         IDE.saveIdeCode(editor.getValue(), languageSelected);
     };
 
-    var initEditor = function (initObj) {
-        IDE.logToLogcat(initObj);
-        if (initObj.hasOwnProperty('problemCode')) {
-            $('#problem-code-input').val(initObj.problemCode);
-        }
-        if (initObj.hasOwnProperty('autoSaveCode') && initObj.hasOwnProperty('autoSaveLang')) {
-            resetOnChange = false;
-            $('#lang').val(initObj.autoSaveLang);
-            editor.setValue(initObj.autoSaveCode);
-        }
-    };
     setInterval(saveCode, 10000);
+
+    var downloadCode = function () {
+        var obj = {};
+        obj.lang = languageSelected;
+        obj.code = editor.getValue();
+
+        return JSON.stringify(obj);
+    }
 </script>
 
 </body>
