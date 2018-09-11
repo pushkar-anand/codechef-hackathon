@@ -15,7 +15,7 @@ if ($data) {
             $api_url = CODECHEF_API_BASE_URL . '/ide/run';
             $post = array('sourceCode' => $json->sourceCode, 'language' => $json->lang, 'input' => $json->input);
             $api_req = new CodechefApiCall($token, $api_url);
-            $api_req->setStringPostData(json_encode($post));
+            $api_req->setPostJson(json_encode($post));
             $api_req->execute();
 
             $response = $api_req->getResult();
