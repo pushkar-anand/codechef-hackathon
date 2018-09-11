@@ -47,6 +47,8 @@ public class IDEActivity extends AppCompatActivity
     private SharedPreferences preferences;
     private View problemView;
 
+    //TODO find a way to manage user run queue status
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +118,8 @@ public class IDEActivity extends AppCompatActivity
                     String result = Internet.getHTTPSPostJSONRequestResponse(url, json);
                     Log.d("IDE_RUN_RESPONSE", result);
                     ideWebView.evaluateJavascript("responseReceived()", null);
+
+                    //TODO fix the above code
 
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
@@ -236,7 +240,7 @@ public class IDEActivity extends AppCompatActivity
     private void viewInfo() {
 
         if (problem != null) {
-
+            //TODO finish this to show problem
 
         } else {
             Toast.makeText(this, "No problem loaded. Enter problem code to load.",
@@ -246,6 +250,7 @@ public class IDEActivity extends AppCompatActivity
 
     private void downloadCode() {
 
+        //TODO implement this
         ideWebView.evaluateJavascript("downloadCode()", new ValueCallback<String>() {
             @Override
             public void onReceiveValue(String value) {
