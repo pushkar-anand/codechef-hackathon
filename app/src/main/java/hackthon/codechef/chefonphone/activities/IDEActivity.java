@@ -43,6 +43,7 @@ public class IDEActivity extends AppCompatActivity
     private WebView ideWebView;
     private String problem = null;
     SharedPreferences preferences;
+    private View problemView;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -74,6 +75,7 @@ public class IDEActivity extends AppCompatActivity
 
         ideLoaderProgress = findViewById(R.id.ideLoaderProgress);
         ideWebView = findViewById(R.id.ideWebView);
+        problemView = findViewById(R.id.problemViewInclude);
 
         class WebAppInterface {
             private Context mContext;
@@ -212,6 +214,7 @@ public class IDEActivity extends AppCompatActivity
     private void viewInfo() {
 
         if (problem != null) {
+            
 
         } else {
             Toast.makeText(this, "No problem loaded. Enter problem code to load.",
