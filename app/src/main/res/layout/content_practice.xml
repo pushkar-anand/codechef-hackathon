@@ -9,9 +9,6 @@
     tools:context=".activities.PracticeActivity"
     tools:showIn="@layout/app_bar_practice">
 
-    <!--TODO A recyclerView to list problems(max 20 at a time)-->
-    <!--TODO more button to load next 20 problems-->
-
     <TextView
         android:id="@+id/practiceActivityHeader"
         android:layout_width="0dp"
