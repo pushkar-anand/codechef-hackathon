@@ -2,6 +2,7 @@ package hackthon.codechef.chefonphone.constants;
 
 public class Urls {
 
+    private static final String CODECHEF_HOME = "https://www.codechef.com";
     private static final String BASE_URL = "https://codechef-hackathon.pushkaranand.me";
     public static final String LOGIN_URL = BASE_URL + "/login";
 
@@ -16,5 +17,7 @@ public class Urls {
 
     public static final String IDE_RUN_URL = BASE_URL + "/ide/run";
     public static final String IDE_STATUS_URL = BASE_URL + "/ide/status";
+
+    public static final String CODECHEF_PROBLEM_PAGE = CODECHEF_HOME + "/problems/";
 
 }

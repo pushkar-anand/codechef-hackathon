@@ -1,5 +1,7 @@
 package hackthon.codechef.chefonphone.adapters;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +11,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import hackthon.codechef.chefonphone.R;
+import hackthon.codechef.chefonphone.activities.ProblemActivity;
+import hackthon.codechef.chefonphone.constants.Urls;
 import hackthon.codechef.chefonphone.data.Problem;
 import hackthon.codechef.chefonphone.recycleholders.ProblemListHolder;
 
@@ -49,7 +53,7 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
 
         } else {
 
-            Problem problem = problemList.get(position);
+            final Problem problem = problemList.get(position);
 
             if (problem.getProblemName() != null) {
                 holder.problemNameView.setText(problem.getProblemName());
@@ -61,6 +65,14 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
                 @Override
                 public void onClick(View view) {
 
+                    if (footer) {
+                        String url = Urls.CODECHEF_PROBLEM_PAGE + problem.getProblemCode();
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        view.getContext().startActivity(browserIntent);
+                    } else {
+                        Intent intent = new Intent(view.getContext(), ProblemActivity.class);
+                        view.getContext().startActivity(intent);
+                    }
                 }
             });
         }
