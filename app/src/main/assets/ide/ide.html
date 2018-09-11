@@ -45,7 +45,9 @@
         <button class="col-sm btn btn-danger" id="reset">Reset</button>
     </div>
     <div class="col">
-        <button type="button" class="col-sm btn btn-success" data-toggle="modal" data-target="#runInput">Run</button>
+        <button type="button" class="col-sm btn btn-success" data-toggle="modal" id="run-modal"
+                data-target="#runInput">Run
+        </button>
     </div>
 </div>
 
@@ -85,7 +87,6 @@
             $('#problem-code-input').val(initObj.problemCode);
         }
         if (initObj.hasOwnProperty('autoSaveCode') && initObj.hasOwnProperty('autoSaveLang')) {
-            resetOnChange = false;
             $('#lang').val(initObj.autoSaveLang);
             editor.setValue(initObj.autoSaveCode);
         }
@@ -104,8 +105,14 @@
         var input = $('textarea#input').val();
         var code = editor.getValue();
         var lang = languageSelected;
+        $('#runInput').modal("hide");
+        $('#run-modal').html('Requesting....');
         IDE.sendRunRequest(lang, code, input);
     });
+
+    var responseReceived = function () {
+        $('#run-modal').html('Run');
+    };
 
     var saveCode = function () {
         IDE.saveIdeCode(editor.getValue(), languageSelected);

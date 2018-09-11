@@ -76,6 +76,14 @@ public class Helpers {
         return url;
     }
 
+    public static String buildStatusUrl(Context context, String base_url, String status_code) {
+        String url = buildBaseUrl(context, base_url) + "&status=" + status_code;
+        String hash = getSHA256hash(url);
+        url = url + "&hash=" + hash;
+        Log.d("BUILD_URL", url);
+        return url;
+    }
+
     public static String buildContestDetailsUrl(Context context, String base_url, String contest_code) {
         String url = buildBaseUrl(context, base_url) + "&contest_code=" + contest_code;
         String hash = getSHA256hash(url);
