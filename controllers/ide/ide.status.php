@@ -19,7 +19,7 @@ if (isset($_GET['token']) && isset($_GET['user']) && isset($_GET['status']) && i
             $apiRequest->execute();
             $result = $apiRequest->getResult();
             error_log($result);
-            var_dump($result);
+            var_dump($result);  
 
         } else {
             \PhpUseful\EasyHeaders::bad_request();
