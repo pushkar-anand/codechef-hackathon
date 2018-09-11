@@ -25,6 +25,7 @@ if (isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) && iss
                 if ($data->code == 9001) {
                     \PhpUseful\EasyHeaders::json_header();
                     $content = $data->content;
+                    error_log("SENDING RESPONSE: " . json_encode($content));
                     echo json_encode($content);
                 } else {
                     error_log("Invalid Code" . $data->message);
