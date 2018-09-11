@@ -73,7 +73,7 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
                     } else {
                         Intent intent = new Intent(view.getContext(), ProblemActivity.class);
                         intent.putExtra(StringKeys.PROBLEM_ACTIVITY_PROBLEM_CODE, problem.getProblemCode());
-                        intent.putExtra(StringKeys.PROBLEM_ACTIVITY_PROBLEM_CODE, problem.getProblemContestCode());
+                        intent.putExtra(StringKeys.PROBLEM_ACTIVITY_CONTEST_CODE, problem.getProblemContestCode());
                         view.getContext().startActivity(intent);
                     }
                 }

@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.asyncloaders.ContestProblemsDetailsLoader;
+import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.data.Problem;
 
@@ -36,6 +37,9 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
 
         problemDetailsLoader = findViewById(R.id.problemDetailsLoader);
         includeProblemView = findViewById(R.id.problemViewInclude);
+
+        getSupportLoaderManager().initLoader(IDs.CONTEST_PROBLEMS_DETAILS_LOADER,
+                null, this).forceLoad();
 
     }
 

@@ -7,5 +7,6 @@ public class IDs {
     public static final Integer PRACTICE_LOADER = 300;
     public static final Integer RECOMMENDATION_LOADER = 400;
     public static final Integer CONTEST_DETAILS_LOADER = 500;
+    public static final Integer CONTEST_PROBLEMS_DETAILS_LOADER = 600;
 
 }
