@@ -22,7 +22,7 @@ if (isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) && iss
             $resultObj = json_decode($result);
             if ($resultObj->status == 'OK') {
                 $data = $resultObj->result->data;
-                if ($data->data == 9001) {
+                if ($data->code == 9001) {
                     \PhpUseful\EasyHeaders::json_header();
                     $content = $data->content;
                     echo json_encode($content);
