@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 use PhpUseful\Functions;
 
-if (isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) && isset($_GET['contest_code']) && isset($_GET['problem_code']) ) {
+if (isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) && isset($_GET['contest_code']) && isset($_GET['problem_code'])) {
 
     $hash = $_GET['hash'];
     if (verify_hash($hash)) {
@@ -19,17 +19,27 @@ if (isset($_GET['token']) && isset($_GET['user']) && isset($_GET['hash']) && iss
             $apiRequest = new CodechefApiCall($token, $api_url);
             $apiRequest->execute();
             $result = $apiRequest->getResult();
-            error_log($result);
             $resultObj = json_decode($result);
-            var_dump($resultObj);
+            if ($resultObj->status == 'OK') {
+                $data = $resultObj->result->data;
+                if ($data->data == 9001) {
+                    \PhpUseful\EasyHeaders::json_header();
+                    $content = $data->content;
+                    echo json_encode($content);
+                } else {
+                    error_log("Invalid Code" . $data->message);
+                    \PhpUseful\EasyHeaders::bad_request();
+                }
+            } else {
+                \PhpUseful\EasyHeaders::bad_request();
+            }
 
-
-        }else {
+        } else {
             \PhpUseful\EasyHeaders::bad_request();
         }
-    }else {
+    } else {
         \PhpUseful\EasyHeaders::bad_request();
     }
-}else {
+} else {
     \PhpUseful\EasyHeaders::bad_request();
 }
