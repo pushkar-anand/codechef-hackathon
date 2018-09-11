@@ -2,12 +2,18 @@ package hackthon.codechef.chefonphone.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 
 import hackthon.codechef.chefonphone.R;
+import hackthon.codechef.chefonphone.asyncloaders.ContestProblemsDetailsLoader;
 import hackthon.codechef.chefonphone.constants.StringKeys;
+import hackthon.codechef.chefonphone.data.Problem;
 
-public class ProblemActivity extends AppCompatActivity {
+public class ProblemActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Problem> {
 
     private String contestCode = null, problemCode;
     @Override
@@ -23,6 +29,30 @@ public class ProblemActivity extends AppCompatActivity {
         if (intent.hasExtra(StringKeys.PROBLEM_ACTIVITY_CONTEST_CODE)) {
             contestCode = intent.getStringExtra(StringKeys.PROBLEM_ACTIVITY_CONTEST_CODE);
         }
+
+    }
+
+    private void updateViewWithProblemData(Problem problem) {
+
+    }
+
+    @NonNull
+    @Override
+    public Loader<Problem> onCreateLoader(int id, @Nullable Bundle args) {
+        return new ContestProblemsDetailsLoader(this, contestCode, problemCode);
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Problem> loader, Problem data) {
+
+        if (data != null) {
+            updateViewWithProblemData(data);
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Problem> loader) {
 
     }
 }
