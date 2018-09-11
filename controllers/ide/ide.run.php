@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 $data = file_get_contents('php://input');
-error_log("POST_JSON: $data");
+error_log("JSON_INPUT: $data");
 
 if ($data) {
     $json = json_decode($data);

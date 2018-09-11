@@ -29,6 +29,7 @@ class CodechefApiCall extends Curl
     {
         parent::usePost(true);
         parent::setStringPostData($json);
+        error_log("SENDING DATA: $json");
     }
 
     public function execute()
