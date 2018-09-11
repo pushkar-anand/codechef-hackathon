@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.activities.ProblemActivity;
+import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.constants.Urls;
 import hackthon.codechef.chefonphone.data.Problem;
 import hackthon.codechef.chefonphone.recycleholders.ProblemListHolder;
@@ -71,6 +72,8 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
                         view.getContext().startActivity(browserIntent);
                     } else {
                         Intent intent = new Intent(view.getContext(), ProblemActivity.class);
+                        intent.putExtra(StringKeys.PROBLEM_ACTIVITY_PROBLEM_CODE, problem.getProblemCode());
+                        intent.putExtra(StringKeys.PROBLEM_ACTIVITY_PROBLEM_CODE, problem.getProblemContestCode());
                         view.getContext().startActivity(intent);
                     }
                 }

@@ -56,11 +56,12 @@ public class ContestDetailsLoader extends AsyncTaskLoader<Contest> {
             JSONArray problemArray = contestObj.getJSONArray("problemsList");
             for(int i=0; i < problemArray.length() ; i++) {
                 Problem problem = new Problem();
-                JSONObject contestObject = problemArray.getJSONObject(i);
+                JSONObject problemObject = problemArray.getJSONObject(i);
 
-                problem.setProblemCode(contestObject.getString("problemCode"));
-                problem.setSuccessfulSubmissions(contestObject.getString("successfulSubmissions"));
-                problem.setProblemAccuracy(contestObject.getDouble("accuracy"));
+                problem.setProblemCode(problemObject.getString("problemCode"));
+                problem.setSuccessfulSubmissions(problemObject.getString("successfulSubmissions"));
+                problem.setProblemAccuracy(problemObject.getDouble("accuracy"));
+                problem.setProblemContestCode(problemObject.getString("contestCode"));
 
                 problemArrayList.add(problem);
             }

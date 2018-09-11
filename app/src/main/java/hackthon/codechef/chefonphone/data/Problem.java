@@ -12,6 +12,11 @@ public class Problem {
     private String successfulSubmissions;
     private String body;
     private String tags;
+    private String problemContestCode;
+    private String viewStart;
+    private String submitStart;
+    private String visibleStart;
+    private String end;
 
     public Problem() {
     }
@@ -94,5 +99,45 @@ public class Problem {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public String getProblemContestCode() {
+        return problemContestCode;
+    }
+
+    public void setProblemContestCode(String problemContestCode) {
+        this.problemContestCode = problemContestCode;
+    }
+
+    public String getViewStart() {
+        return viewStart;
+    }
+
+    public void setViewStart(String viewStart) {
+        this.viewStart = viewStart;
+    }
+
+    public String getSubmitStart() {
+        return submitStart;
+    }
+
+    public void setSubmitStart(String submitStart) {
+        this.submitStart = submitStart;
+    }
+
+    public String getVisibleStart() {
+        return visibleStart;
+    }
+
+    public void setVisibleStart(String visibleStart) {
+        this.visibleStart = visibleStart;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
     }
 }
