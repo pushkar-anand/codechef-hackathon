@@ -33,8 +33,10 @@ import java.io.IOException;
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 import hackthon.codechef.chefonphone.constants.StringKeys;
+import hackthon.codechef.chefonphone.constants.Urls;
 import hackthon.codechef.chefonphone.utils.Cache;
 import hackthon.codechef.chefonphone.utils.Helpers;
+import hackthon.codechef.chefonphone.utils.Internet;
 
 public class IDEActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,7 +44,7 @@ public class IDEActivity extends AppCompatActivity
     private ProgressBar ideLoaderProgress;
     private WebView ideWebView;
     private String problem = null;
-    SharedPreferences preferences;
+    private SharedPreferences preferences;
     private View problemView;
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -93,8 +95,34 @@ public class IDEActivity extends AppCompatActivity
             }
 
             @JavascriptInterface
-            public void sendRunRequest(String lang, String code, String input) {
+            public void sendRunRequest(final String lang, final String code, final String input) {
 
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            String url = Urls.IDE_RUN_URL;
+
+                            JSONObject object = new JSONObject();
+
+                            object.put("sourceCode", code);
+                            object.put("lang", lang);
+                            object.put("input", input);
+                            object.put("user", preferences.getString(SharedPrefKeys.CODECHEF_HANDLE, ""));
+                            object.put("token", preferences.getString(SharedPrefKeys.LOGIN_KEY, ""));
+
+                            String json = object.toString();
+
+                            String result = Internet.getHTTPSPostJSONRequestResponse(url, json);
+                            Log.d("IDE_RUN_RESPONSE", result);
+                            ideWebView.evaluateJavascript("responseReceived()", null);
+
+                        } catch (IOException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
             }
 
             @JavascriptInterface

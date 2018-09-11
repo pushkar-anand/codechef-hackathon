@@ -32,10 +32,9 @@ public class Internet {
         }
     }
 
-    public static String getHTTPSGetRequestResponse(@NonNull String Url) throws IOException
-    {
-       URL url = new URL(Url);
-       HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+    public static String getHTTPSGetRequestResponse(@NonNull String Url) throws IOException {
+        URL url = new URL(Url);
+        HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
 
         InputStream in = urlConnection.getInputStream();
 
@@ -52,6 +51,35 @@ public class Internet {
         }
 
         return builder.toString();
+    }
+
+    public static String getHTTPSPostJSONRequestResponse(String requestUrl, String payload) throws IOException {
+
+        URL url = new URL(requestUrl);
+        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+
+        connection.setDoInput(true);
+        connection.setDoOutput(true);
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
+        writer.write(payload);
+        writer.close();
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        StringBuilder jsonString = new StringBuilder();
+        String line;
+
+        while ((line = br.readLine()) != null) {
+            jsonString.append(line);
+        }
+
+        br.close();
+        connection.disconnect();
+
+        return jsonString.toString();
     }
 
     public static String getHTTPSPostRequestResponse(@NonNull String Url, @Nullable String data)
@@ -83,8 +111,7 @@ public class Internet {
         return stringBuilder.toString();
     }
 
-    public static String getSecret()
-    {
+    public static String getSecret() {
         return "a9e73b17ztNMIvl13H7wrNNb5YFza9e73b17";
     }
 }
