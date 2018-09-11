@@ -67,6 +67,9 @@ public class IDEActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View navHeaderView = navigationView.getHeaderView(0);
+        Helpers.updateDrawerNavHeader(this, navHeaderView);
+
         Intent intent = getIntent();
 
         preferences = getSharedPreferences(SharedPrefKeys.LOGIN_PREF, MODE_PRIVATE);
@@ -97,32 +100,26 @@ public class IDEActivity extends AppCompatActivity
             @JavascriptInterface
             public void sendRunRequest(final String lang, final String code, final String input) {
 
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            String url = Urls.IDE_RUN_URL;
+                try {
+                    String url = Urls.IDE_RUN_URL;
 
-                            JSONObject object = new JSONObject();
+                    JSONObject object = new JSONObject();
 
-                            object.put("sourceCode", code);
-                            object.put("lang", lang);
-                            object.put("input", input);
-                            object.put("user", preferences.getString(SharedPrefKeys.CODECHEF_HANDLE, ""));
-                            object.put("token", preferences.getString(SharedPrefKeys.LOGIN_KEY, ""));
+                    object.put("sourceCode", code);
+                    object.put("lang", lang);
+                    object.put("input", input);
+                    object.put("user", preferences.getString(SharedPrefKeys.CODECHEF_HANDLE, ""));
+                    object.put("token", preferences.getString(SharedPrefKeys.LOGIN_KEY, ""));
 
-                            String json = object.toString();
+                    String json = object.toString();
 
-                            String result = Internet.getHTTPSPostJSONRequestResponse(url, json);
-                            Log.d("IDE_RUN_RESPONSE", result);
-                            ideWebView.evaluateJavascript("responseReceived()", null);
+                    String result = Internet.getHTTPSPostJSONRequestResponse(url, json);
+                    Log.d("IDE_RUN_RESPONSE", result);
+                    ideWebView.evaluateJavascript("responseReceived()", null);
 
-                        } catch (IOException | JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                thread.start();
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @JavascriptInterface
@@ -173,9 +170,6 @@ public class IDEActivity extends AppCompatActivity
         });
 
         ideWebView.loadUrl("file:///android_asset/ide/ide.html");
-
-        View navHeaderView = navigationView.getHeaderView(0);
-        Helpers.updateDrawerNavHeader(this, navHeaderView);
 
     }
 
@@ -242,7 +236,7 @@ public class IDEActivity extends AppCompatActivity
     private void viewInfo() {
 
         if (problem != null) {
-            
+
 
         } else {
             Toast.makeText(this, "No problem loaded. Enter problem code to load.",
