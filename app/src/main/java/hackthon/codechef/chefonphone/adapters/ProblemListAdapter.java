@@ -51,7 +51,9 @@ public class ProblemListAdapter extends RecyclerView.Adapter<ProblemListHolder> 
 
             Problem problem = problemList.get(position);
 
-            holder.problemNameView.setText(problem.getProblemName());
+            if (problem.getProblemName() != null) {
+                holder.problemNameView.setText(problem.getProblemName());
+            }
             holder.problemCodeView.setText(problem.getProblemCode());
             holder.problemSubmissionView.setText(problem.getSuccessfulSubmissions());
 

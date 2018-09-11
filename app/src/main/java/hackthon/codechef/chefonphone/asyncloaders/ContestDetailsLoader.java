@@ -45,7 +45,7 @@ public class ContestDetailsLoader extends AsyncTaskLoader<Contest> {
             Contest contest = new Contest();
             JSONObject contestObj = new JSONObject(result);
 
-            contest.setContestCode(contestObj.getString("Code"));
+            contest.setContestCode(contestObj.getString("code"));
             contest.setContestName(contestObj.getString("name"));
             contest.setContestStartDate(contestObj.getString("startDate"));
             contest.setContestEndDate(contestObj.getString("endDate"));
@@ -53,13 +53,12 @@ public class ContestDetailsLoader extends AsyncTaskLoader<Contest> {
             contest.setContestFreezingTime(contestObj.getString("freezingTime"));
             contest.setContestAnnouncements(contestObj.getString("announcements"));
 
-            JSONArray problemArray = contestObj.getJSONArray("problemList");
+            JSONArray problemArray = contestObj.getJSONArray("problemsList");
             for(int i=0; i < problemArray.length() ; i++) {
                 Problem problem = new Problem();
                 JSONObject contestObject = problemArray.getJSONObject(i);
 
                 problem.setProblemCode(contestObject.getString("problemCode"));
-                problem.setProblemName(contestObject.getString("problemName"));
                 problem.setSuccessfulSubmissions(contestObject.getString("successfulSubmissions"));
                 problem.setProblemAccuracy(contestObject.getDouble("accuracy"));
 

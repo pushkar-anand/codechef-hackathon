@@ -26,9 +26,9 @@ public class ContestActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Contest> {
 
     private ProgressBar contest_problemLoaderProgress;
-    private RecyclerView contesProblemRecycler;
+    private RecyclerView contestProblemRecycler;
     private ProblemListAdapter contestProblemListAdapter;
-    TextView contestTitleTV;
+    private TextView contestTitleTV, contestCodeTV;
 
     private String contestToLoad;
     @Override
@@ -46,21 +46,22 @@ public class ContestActivity extends AppCompatActivity
         getSupportLoaderManager().initLoader(IDs.CONTEST_DETAILS_LOADER, null, this).forceLoad();
 
         contest_problemLoaderProgress = findViewById(R.id.contestProblemLoader);
-        contesProblemRecycler = findViewById(R.id.contestProblemRecyclerView);
+        contestProblemRecycler = findViewById(R.id.contestProblemRecyclerView);
         contestProblemListAdapter = new ProblemListAdapter(false);
 
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(getApplicationContext());
 
-        contesProblemRecycler.setLayoutManager(layoutManager);
-        contesProblemRecycler.setItemAnimator(new DefaultItemAnimator());
-        contesProblemRecycler.addItemDecoration(new DividerItemDecoration(this,
+        contestProblemRecycler.setLayoutManager(layoutManager);
+        contestProblemRecycler.setItemAnimator(new DefaultItemAnimator());
+        contestProblemRecycler.addItemDecoration(new DividerItemDecoration(this,
                 LinearLayoutManager.VERTICAL));
-        contesProblemRecycler.setAdapter(contestProblemListAdapter);
-        contesProblemRecycler.setHasFixedSize(true);
+        contestProblemRecycler.setAdapter(contestProblemListAdapter);
+        contestProblemRecycler.setHasFixedSize(true);
 
 
         contestTitleTV = findViewById(R.id.contest_title);
+        contestCodeTV = findViewById(R.id.contest_code);
 
     }
 
@@ -68,10 +69,11 @@ public class ContestActivity extends AppCompatActivity
 
         contestProblemListAdapter.populateProblemList(contest.getContestProblemsList());
         contest_problemLoaderProgress.setVisibility(View.GONE);
-        contesProblemRecycler.setVisibility(View.VISIBLE);
+        contestProblemRecycler.setVisibility(View.VISIBLE);
         contestProblemListAdapter.notifyDataSetChanged();
 
         contestTitleTV.setText(contest.getContestName());
+        contestCodeTV.setText(contest.getContestCode());
 
         setTitle(contest.getContestCode());
     }
