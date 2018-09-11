@@ -93,6 +93,14 @@ public class Helpers {
 
     }
 
+    public static String buildProblemDetailsUrl(Context context, String base_url, String contest, String problem) {
+        String url = buildBaseUrl(context, base_url) + "&contest_code=" + contest + "&problem_code=" + problem;
+        String hash = getSHA256hash(url);
+        url = url + "&hash=" + hash;
+        Log.d("BUILD_URL", url);
+        return url;
+    }
+
     private static void startPracticeActivity(Context context, String level) {
 
         Intent practice_intent = new Intent(context, PracticeActivity.class);
