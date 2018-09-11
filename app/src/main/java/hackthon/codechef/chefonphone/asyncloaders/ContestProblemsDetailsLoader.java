@@ -15,22 +15,26 @@ import hackthon.codechef.chefonphone.utils.UrlBuilder;
 
 public class ContestProblemsDetailsLoader extends AsyncTaskLoader<Problem> {
 
-    private String contest, problem;
+    private String contest_code, problem_code;
 
-    public ContestProblemsDetailsLoader(@NonNull Context context, String contest, String problem) {
+    public ContestProblemsDetailsLoader(@NonNull Context context, String contest_code, String problem_code) {
         super(context);
-        this.contest = contest;
-        this.problem = problem;
+        this.contest_code = contest_code;
+        this.problem_code = problem_code;
     }
 
     @Nullable
     @Override
     public Problem loadInBackground() {
 
-        String url = UrlBuilder.buildProblemDetailsUrl(getContext(), Urls.CONTEST_PROBLEM_DETAILS_LOADER, contest, problem);
+        String url = UrlBuilder.buildProblemDetailsUrl(getContext(), Urls.CONTEST_PROBLEM_DETAILS_LOADER, contest_code, problem_code);
         try {
+            Problem problem = new Problem();
             String result = Internet.getHTTPSGetRequestResponse(url);
             Log.d(getClass().getSimpleName(), result);
+
+            //TODO Parse json FORMAT AT: https://jsoneditoronline.org/?id=d5bbbfc412ab432bad98dd8e4bda3c3f
+
         } catch (IOException e) {
             e.printStackTrace();
         }
