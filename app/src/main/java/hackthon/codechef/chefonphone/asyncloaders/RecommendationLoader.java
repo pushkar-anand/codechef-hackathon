@@ -9,8 +9,8 @@ import java.io.IOException;
 
 import hackthon.codechef.chefonphone.constants.Urls;
 import hackthon.codechef.chefonphone.data.Problem;
-import hackthon.codechef.chefonphone.utils.Helpers;
 import hackthon.codechef.chefonphone.utils.Internet;
+import hackthon.codechef.chefonphone.utils.UrlBuilder;
 
 public class RecommendationLoader extends AsyncTaskLoader<Problem> {
 
@@ -22,7 +22,7 @@ public class RecommendationLoader extends AsyncTaskLoader<Problem> {
     @Override
     public Problem loadInBackground() {
 
-        String url = Helpers.buildUrl(getContext(), Urls.RECOMMEND_URL);
+        String url = UrlBuilder.buildUrl(getContext(), Urls.RECOMMEND_URL);
 
         try {
             String result = Internet.getHTTPSGetRequestResponse(url);

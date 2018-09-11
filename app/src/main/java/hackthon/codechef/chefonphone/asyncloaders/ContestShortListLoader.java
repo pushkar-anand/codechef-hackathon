@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 import hackthon.codechef.chefonphone.constants.Urls;
 import hackthon.codechef.chefonphone.data.Contest;
-import hackthon.codechef.chefonphone.utils.Helpers;
 import hackthon.codechef.chefonphone.utils.Internet;
+import hackthon.codechef.chefonphone.utils.UrlBuilder;
 
 public class ContestShortListLoader extends AsyncTaskLoader<ArrayList<Contest>> {
 
@@ -32,7 +32,7 @@ public class ContestShortListLoader extends AsyncTaskLoader<ArrayList<Contest>> 
         String url;
         ArrayList<Contest> contestArrayList = new ArrayList<>();
 
-        url = Helpers.buildUrl(getContext(), Urls.CONTEST_URL_SHORT_LIST);
+        url = UrlBuilder.buildUrl(getContext(), Urls.CONTEST_URL_SHORT_LIST);
 
 
         try {

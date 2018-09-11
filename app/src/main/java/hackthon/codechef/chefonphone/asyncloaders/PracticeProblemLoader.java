@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 import hackthon.codechef.chefonphone.constants.Urls;
 import hackthon.codechef.chefonphone.data.Problem;
-import hackthon.codechef.chefonphone.utils.Helpers;
 import hackthon.codechef.chefonphone.utils.Internet;
+import hackthon.codechef.chefonphone.utils.UrlBuilder;
 
 public class PracticeProblemLoader extends AsyncTaskLoader<ArrayList<Problem>> {
 
@@ -40,11 +40,11 @@ public class PracticeProblemLoader extends AsyncTaskLoader<ArrayList<Problem>> {
 
         if (start != null) {
 
-            url = Helpers.buildUrl(getContext(), Urls.PRACTICE_BASE_URL + "/" + level, start);
+            url = UrlBuilder.buildUrl(getContext(), Urls.PRACTICE_BASE_URL + "/" + level, start);
 
         } else {
 
-            url = Helpers.buildUrl(getContext(), Urls.PRACTICE_BASE_URL + "/" + level);
+            url = UrlBuilder.buildUrl(getContext(), Urls.PRACTICE_BASE_URL + "/" + level);
 
         }
 

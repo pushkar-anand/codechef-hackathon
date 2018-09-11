@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,7 +34,7 @@ public class Helpers {
         return sb.toString();
     }
 
-    private static String getSHA256hash(String input) {
+    public static String getSHA256hash(String input) {
         MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("SHA-256");
@@ -50,56 +49,7 @@ public class Helpers {
 
     }
 
-    private static String buildBaseUrl(Context context, String base_url) {
-        SharedPreferences preferences =
-                context.getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
 
-        String loginToken = preferences.getString(SharedPrefKeys.LOGIN_KEY, "");
-        String user = preferences.getString(SharedPrefKeys.CODECHEF_HANDLE, "");
-
-        return base_url + "?user=" + user + "&token=" + loginToken;
-    }
-
-    public static String buildUrl(Context context, String base_url) {
-        String url = buildBaseUrl(context, base_url);
-        String hash = getSHA256hash(url);
-        url = url + "&hash=" + hash;
-        Log.d("BUILD_URL", url);
-        return url;
-    }
-
-    public static String buildUrl(Context context, String base_url, Integer offset) {
-        String url = buildBaseUrl(context, base_url) + "&offset=" + String.valueOf(offset);
-        String hash = getSHA256hash(url);
-        url = url + "&hash=" + hash;
-        Log.d("BUILD_URL", url);
-        return url;
-    }
-
-    public static String buildStatusUrl(Context context, String base_url, String status_code) {
-        String url = buildBaseUrl(context, base_url) + "&status=" + status_code;
-        String hash = getSHA256hash(url);
-        url = url + "&hash=" + hash;
-        Log.d("BUILD_URL", url);
-        return url;
-    }
-
-    public static String buildContestDetailsUrl(Context context, String base_url, String contest_code) {
-        String url = buildBaseUrl(context, base_url) + "&contest_code=" + contest_code;
-        String hash = getSHA256hash(url);
-        url = url + "&hash=" + hash;
-        Log.d("BUILD_URL", url);
-        return url;
-
-    }
-
-    public static String buildProblemDetailsUrl(Context context, String base_url, String contest, String problem) {
-        String url = buildBaseUrl(context, base_url) + "&contest_code=" + contest + "&problem_code=" + problem;
-        String hash = getSHA256hash(url);
-        url = url + "&hash=" + hash;
-        Log.d("BUILD_URL", url);
-        return url;
-    }
 
     private static void startPracticeActivity(Context context, String level) {
 

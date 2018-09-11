@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import hackthon.codechef.chefonphone.constants.Urls;
 import hackthon.codechef.chefonphone.data.Contest;
 import hackthon.codechef.chefonphone.data.Problem;
-import hackthon.codechef.chefonphone.utils.Helpers;
 import hackthon.codechef.chefonphone.utils.Internet;
+import hackthon.codechef.chefonphone.utils.UrlBuilder;
 
 public class ContestDetailsLoader extends AsyncTaskLoader<Contest> {
 
@@ -34,7 +34,7 @@ public class ContestDetailsLoader extends AsyncTaskLoader<Contest> {
 
         ArrayList<Problem> problemArrayList = new ArrayList<>();
 
-        String url = Helpers.buildContestDetailsUrl(getContext(), Urls.CONTEST_DETAILS_URL, contest_code);
+        String url = UrlBuilder.buildContestDetailsUrl(getContext(), Urls.CONTEST_DETAILS_URL, contest_code);
         try {
             String result = Internet.getHTTPSGetRequestResponse(url);
             Log.d(getClass().getSimpleName(), result);

@@ -9,8 +9,8 @@ import android.util.Log;
 import java.io.IOException;
 
 import hackthon.codechef.chefonphone.constants.Urls;
-import hackthon.codechef.chefonphone.utils.Helpers;
 import hackthon.codechef.chefonphone.utils.Internet;
+import hackthon.codechef.chefonphone.utils.UrlBuilder;
 
 public class IDECompileRunStatusLoader extends AsyncTaskLoader {
 
@@ -25,7 +25,7 @@ public class IDECompileRunStatusLoader extends AsyncTaskLoader {
     @Override
     public Object loadInBackground() {
 
-        String url = Helpers.buildStatusUrl(getContext(), Urls.IDE_STATUS_URL, status_code);
+        String url = UrlBuilder.buildStatusUrl(getContext(), Urls.IDE_STATUS_URL, status_code);
         try {
             String result = Internet.getHTTPSGetRequestResponse(url);
             Log.d(getClass().getSimpleName(), result);
