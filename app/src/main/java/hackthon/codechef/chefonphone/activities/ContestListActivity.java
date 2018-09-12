@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -32,6 +33,7 @@ import hackthon.codechef.chefonphone.asyncloaders.ContestLongListLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.data.Contest;
+import hackthon.codechef.chefonphone.utils.AlarmHelpers;
 import hackthon.codechef.chefonphone.utils.Helpers;
 
 public class ContestListActivity extends AppCompatActivity
@@ -175,6 +177,27 @@ public class ContestListActivity extends AppCompatActivity
                     }
                 });
 
+                final ImageView notifyMeImage = view.findViewById(R.id.notify);
+
+                if (AlarmHelpers.alarmIsSet(ContestListActivity.this, contest.getContestCode())) {
+                    notifyMeImage.setImageResource(R.drawable.ic_action_notify_on);
+                    notifyMeImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            doNotNotifyMe(notifyMeImage, contest);
+                        }
+                    });
+                } else {
+                    notifyMeImage.setImageResource(R.drawable.ic_action_notify);
+                    notifyMeImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            notifyMe(notifyMeImage, contest);
+                        }
+                    });
+                }
+
                 futureLinear.addView(view,
                         new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             }
@@ -182,6 +205,31 @@ public class ContestListActivity extends AppCompatActivity
 
         contestLoaderProgress.setVisibility(View.GONE);
         scrollView.setVisibility(View.VISIBLE);
+
+    }
+
+    private void notifyMe(final ImageView imgView, final Contest contest) {
+        AlarmHelpers.setAlarm(ContestListActivity.this,
+                contest.getContestCode(),
+                contest.getContestStartDate());
+
+        imgView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doNotNotifyMe(imgView, contest);
+            }
+        });
+    }
+
+    private void doNotNotifyMe(final ImageView imgView, final Contest contest) {
+        AlarmHelpers.deleteAlarm(ContestListActivity.this, contest.getContestCode());
+
+        imgView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notifyMe(imgView, contest);
+            }
+        });
 
     }
 
