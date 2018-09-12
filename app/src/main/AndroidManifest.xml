@@ -40,7 +40,15 @@
             android:name=".activities.IDEActivity"
             android:label="@string/title_activity_ide"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.ProblemActivity"></activity>
+        <activity android:name=".activities.ProblemActivity" />
+
+        <receiver
+            android:name=".receivers.BootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
