@@ -198,6 +198,7 @@ public class ContestListActivity extends AppCompatActivity
                     });
                 }
 
+                notifyMeImage.setVisibility(View.VISIBLE);
                 futureLinear.addView(view,
                         new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             }
