@@ -42,7 +42,7 @@ public class Notifications {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void createAllNotificationChannels(Context context) {
+    public static void createAllNotificationChannels(Context context) {
         context = context.getApplicationContext();
         createContestReminderChannel(context);
     }
