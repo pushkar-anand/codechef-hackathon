@@ -11,11 +11,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class CompileLogDatabase extends SQLiteOpenHelper {
+public class AppDatabase extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "compile_log.db";
+    private static final String DATABASE_NAME = "codechef.db";
     private static final int DATABASE_VERSION = 1;
-    private static CompileLogDatabase sInstance;
+    private static AppDatabase sInstance;
 
     private static String COMPILE_LOG_TABLE = "compile_logs";
 
@@ -26,17 +26,17 @@ public class CompileLogDatabase extends SQLiteOpenHelper {
     public static String COMPILE_LOG_TABLE_COLUMN_TIMESTAMP = "time";
 
 
-    private CompileLogDatabase(Context context) {
+    private AppDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public static synchronized CompileLogDatabase getInstance(Context context) {
+    public static synchronized AppDatabase getInstance(Context context) {
 
         // Use the application context, which will ensure that you
         // don't accidentally leak an Activity's context.
         // See this article for more information: http://bit.ly/6LRzfx
         if (sInstance == null) {
-            sInstance = new CompileLogDatabase(context.getApplicationContext());
+            sInstance = new AppDatabase(context.getApplicationContext());
         }
         return sInstance;
     }

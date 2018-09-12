@@ -9,7 +9,7 @@ import android.support.v4.content.AsyncTaskLoader;
 import java.util.ArrayList;
 
 import hackthon.codechef.chefonphone.data.CompilationLog;
-import hackthon.codechef.chefonphone.databases.CompileLogDatabase;
+import hackthon.codechef.chefonphone.databases.AppDatabase;
 
 public class CompilationLogLoader extends AsyncTaskLoader<ArrayList<CompilationLog>> {
 
@@ -23,31 +23,31 @@ public class CompilationLogLoader extends AsyncTaskLoader<ArrayList<CompilationL
 
         ArrayList<CompilationLog> compilationLogs = new ArrayList<>();
 
-        CompileLogDatabase compileLogDatabase = CompileLogDatabase.getInstance(getContext());
+        AppDatabase appDatabase = AppDatabase.getInstance(getContext());
 
-        ArrayList<Integer> logIDs = compileLogDatabase.listCompilationLogIDs();
+        ArrayList<Integer> logIDs = appDatabase.listCompilationLogIDs();
 
         for (Integer i = 0; i < logIDs.size(); i++) {
             CompilationLog log = new CompilationLog();
 
-            Cursor cursor = compileLogDatabase.getLogData(logIDs.get(i));
+            Cursor cursor = appDatabase.getLogData(logIDs.get(i));
 
             log.setId(i);
 
             log.setProblem(cursor
                     .getString(cursor
-                            .getColumnIndex(CompileLogDatabase.COMPILE_LOG_TABLE_COLUMN_PROBLEM)));
+                            .getColumnIndex(AppDatabase.COMPILE_LOG_TABLE_COLUMN_PROBLEM)));
             log.setLang(cursor
                     .getString(cursor
-                            .getColumnIndex(CompileLogDatabase.COMPILE_LOG_TABLE_COLUMN_LANG)));
+                            .getColumnIndex(AppDatabase.COMPILE_LOG_TABLE_COLUMN_LANG)));
 
             log.setStatus(cursor
                     .getString(cursor
-                            .getColumnIndex(CompileLogDatabase.COMPILE_LOG_TABLE_COLUMN_STATUS)));
+                            .getColumnIndex(AppDatabase.COMPILE_LOG_TABLE_COLUMN_STATUS)));
 
             log.setTimeStamp(cursor
                     .getString(cursor
-                            .getColumnIndex(CompileLogDatabase.COMPILE_LOG_TABLE_COLUMN_TIMESTAMP)));
+                            .getColumnIndex(AppDatabase.COMPILE_LOG_TABLE_COLUMN_TIMESTAMP)));
 
             compilationLogs.add(log);
         }
