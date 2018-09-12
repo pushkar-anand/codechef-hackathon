@@ -14,19 +14,19 @@ import java.util.Date;
 
 public class AppDatabase extends SQLiteOpenHelper {
 
+    public static final String COMPILE_LOG_TABLE_COLUMN_LANG = "language";
+    public static final String COMPILE_LOG_TABLE_COLUMN_PROBLEM = "problem";
+    public static final String COMPILE_LOG_TABLE_COLUMN_STATUS = "status";
+    public static final String COMPILE_LOG_TABLE_COLUMN_TIMESTAMP = "time";
+    public static final String ALARMS_TABLE_COLUMN_ID = "id";
+    public static final String ALARMS_TABLE_COLUMN_CONTEST = "contest";
+    public static final String ALARMS_TABLE_COLUMN_TIME = "remind";
     private static final String DATABASE_NAME = "codechef.db";
-    private static final int DATABASE_VERSION = 1;
-    public static String COMPILE_LOG_TABLE_COLUMN_LANG = "language";
-    public static String COMPILE_LOG_TABLE_COLUMN_PROBLEM = "problem";
-    public static String COMPILE_LOG_TABLE_COLUMN_STATUS = "status";
-    public static String COMPILE_LOG_TABLE_COLUMN_TIMESTAMP = "time";
-    public static String ALARMS_TABLE_COLUMN_ID = "id";
-    public static String ALARMS_TABLE_COLUMN_CONTEST = "contest";
-    public static String ALARMS_TABLE_COLUMN_TIME = "remind";
+    private static final Integer DATABASE_VERSION = 1;
+    private static final String COMPILE_LOG_TABLE = "compile_log";
+    private static final String COMPILE_LOG_TABLE_COLUMN_ID = "id";
+    private static final String ALARMS_TABLE = "alarms";
     private static AppDatabase sInstance;
-    private static String COMPILE_LOG_TABLE = "compile_logs";
-    private static String COMPILE_LOG_TABLE_COLUMN_ID = "id";
-    private static String ALARMS_TABLE = "compile_logs";
 
 
     private AppDatabase(Context context) {
