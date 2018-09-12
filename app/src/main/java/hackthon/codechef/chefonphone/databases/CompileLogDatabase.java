@@ -19,11 +19,11 @@ public class CompileLogDatabase extends SQLiteOpenHelper {
 
     private static String COMPILE_LOG_TABLE = "compile_logs";
 
-    private static String COMPILE_LOG_TABLE_COLUMN_ID = "id";
-    private static String COMPILE_LOG_TABLE_COLUMN_LANG = "language";
-    private static String COMPILE_LOG_TABLE_COLUMN_PROBLEM = "problem";
-    private static String COMPILE_LOG_TABLE_COLUMN_STATUS = "status";
-    private static String COMPILE_LOG_TABLE_COLUMN_TIMESTAMP = "time";
+    public static String COMPILE_LOG_TABLE_COLUMN_ID = "id";
+    public static String COMPILE_LOG_TABLE_COLUMN_LANG = "language";
+    public static String COMPILE_LOG_TABLE_COLUMN_PROBLEM = "problem";
+    public static String COMPILE_LOG_TABLE_COLUMN_STATUS = "status";
+    public static String COMPILE_LOG_TABLE_COLUMN_TIMESTAMP = "time";
 
 
     private CompileLogDatabase(Context context) {
@@ -97,7 +97,7 @@ public class CompileLogDatabase extends SQLiteOpenHelper {
         return array_list;
     }
 
-    Cursor getLogData(int id) {
+    public Cursor getLogData(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + COMPILE_LOG_TABLE + " WHERE " + COMPILE_LOG_TABLE_COLUMN_ID + "=" + id + "";
 
