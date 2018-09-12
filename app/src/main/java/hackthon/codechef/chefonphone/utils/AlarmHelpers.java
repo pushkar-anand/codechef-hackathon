@@ -43,4 +43,8 @@ public class AlarmHelpers {
 
         Toast.makeText(context, "Now you will not be notified when contest starts.", Toast.LENGTH_SHORT).show();
     }
+
+    public static void restartAllAlarms(Context context) {
+
+    }
 }
