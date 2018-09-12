@@ -80,8 +80,8 @@ public class Notifications {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(context, CONTEST_NOTIFICATION_CHANNEL_ID);
 
-        String notificationTitle = "";
-        String notificationText = "";
+        String notificationTitle = "A codechef contest is starting.";
+        String notificationText = "Contest" + contest + " is about to start.";
 
         builder.setAutoCancel(true)
                 .setSmallIcon(R.drawable.ic_contest_remind)
