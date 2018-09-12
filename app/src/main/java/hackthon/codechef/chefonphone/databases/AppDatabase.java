@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.util.Pair;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     public static final String COMPILE_LOG_TABLE_COLUMN_PROBLEM = "problem";
     public static final String COMPILE_LOG_TABLE_COLUMN_STATUS = "status";
     public static final String COMPILE_LOG_TABLE_COLUMN_TIMESTAMP = "time";
-    public static final String ALARMS_TABLE_COLUMN_ID = "id";
+    private static final String ALARMS_TABLE_COLUMN_ID = "id";
     public static final String ALARMS_TABLE_COLUMN_CONTEST = "contest";
     public static final String ALARMS_TABLE_COLUMN_TIME = "remind";
     private static final String DATABASE_NAME = "codechef.db";
@@ -124,7 +123,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         database.delete(COMPILE_LOG_TABLE, null, null);
     }
 
-    public void newAlarm(String contest, String time) {
+    public Long newAlarm(String contest, String time) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -132,11 +131,12 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(ALARMS_TABLE_COLUMN_CONTEST, contest);
         contentValues.put(ALARMS_TABLE_COLUMN_TIME, time);
 
-        database.insert(COMPILE_LOG_TABLE, null, contentValues);
+        return database.insert(COMPILE_LOG_TABLE, null, contentValues);
     }
 
-    public ArrayList<Pair<String, String>> getAlarmsData() {
-        ArrayList<Pair<String, String>> pairs = new ArrayList<>();
+    public ArrayList<Integer> getAlarmsIDs() {
+
+        ArrayList<Integer> array_list = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + ALARMS_TABLE;
@@ -144,22 +144,61 @@ public class AppDatabase extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
-
-            pairs.add(Pair
-                    .create(res.getString(res.getColumnIndex(ALARMS_TABLE_COLUMN_CONTEST)),
-                            res.getString(res.getColumnIndex(ALARMS_TABLE_COLUMN_TIME))
-                    )
-            );
+            array_list.add(res.getInt(res.getColumnIndex(ALARMS_TABLE_COLUMN_ID)));
             res.moveToNext();
         }
         res.close();
-        return pairs;
+        return array_list;
     }
 
-    public Integer removeAlarm(String contest) {
+    public Cursor getAlarmData(Integer id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + ALARMS_TABLE + " WHERE " + ALARMS_TABLE_COLUMN_ID + "=" + id + "";
+
+        return db.rawQuery(query, null);
+    }
+
+    public boolean isAlarmSet(String contest) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + ALARMS_TABLE;
+        Cursor res = db.rawQuery(query, null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+
+            String dbContest = res.getString(res.getColumnIndex(ALARMS_TABLE_COLUMN_CONTEST));
+            if (dbContest.equals(contest)) {
+                return true;
+            }
+            res.moveToNext();
+        }
+        res.close();
+        return false;
+    }
+
+    public Integer getAlarmID(String contest) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + ALARMS_TABLE;
+        Cursor res = db.rawQuery(query, null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+
+            String dbContest = res.getString(res.getColumnIndex(ALARMS_TABLE_COLUMN_CONTEST));
+            Integer id = res.getInt(res.getColumnIndex(ALARMS_TABLE_COLUMN_ID));
+            if (dbContest.equals(contest)) {
+                return id;
+            }
+            res.moveToNext();
+        }
+        res.close();
+        return -1;
+    }
+
+    public void removeAlarm(String contest) {
         SQLiteDatabase database = this.getWritableDatabase();
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(ALARMS_TABLE, ALARMS_TABLE_COLUMN_CONTEST + " = ?", new String[]{contest});
+        db.delete(ALARMS_TABLE, ALARMS_TABLE_COLUMN_CONTEST + " = ?", new String[]{contest});
     }
 
     public void removeAllAlarms() {
