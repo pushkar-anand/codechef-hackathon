@@ -37,6 +37,7 @@
     <string name="problem_code_header">Code</string>
     <string name="problem_name_header">Problem Name</string>
     <string name="problem_submission_header">Successful Submissions</string>
+    <string name="notify_me">Notify me.</string>
 
 
 </resources>
