@@ -25,6 +25,12 @@ class CodechefApiCall extends Curl
         parent::setReturnTrue();
     }
 
+    function setPostData(array $data)
+    {
+        parent::usePost(true);
+        parent::setArrayPostData($data);
+    }
+
     function setPostJson(string $json)
     {
         parent::usePost(true);
