@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import hackthon.codechef.chefonphone.constants.Urls;
@@ -35,7 +38,22 @@ public class ContestProblemsDetailsLoader extends AsyncTaskLoader<Problem> {
 
             //TODO Parse json FORMAT AT: https://jsoneditoronline.org/?id=d5bbbfc412ab432bad98dd8e4bda3c3f
 
-        } catch (IOException e) {
+            JSONObject problemObj = new JSONObject(result);
+            Problem contestProblem = new Problem();
+
+            contestProblem.setProblemName(problemObj.getString("problemName"));
+            contestProblem.setProblemCode(problemObj.getString("problemCode"));
+            //TODO contestProblem.setDateAdded(problemObj.getString("dateAdded"));
+            contestProblem.setSourceSizeLimit(problemObj.getString("sourceSizeLimit"));
+            contestProblem.setMaxTimeLimit(problemObj.getString("maxTimeLimit"));
+            contestProblem.setChallengeType(problemObj.getString("challengeType"));
+            // TODO contestProblem.setAuthor(problemObj.getString("author"));
+            contestProblem.setSuccessfulSubmissions(problemObj.getString("successfulSubmissions"));
+            contestProblem.setBody(problemObj.getString("body"));
+
+            return contestProblem;
+
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
