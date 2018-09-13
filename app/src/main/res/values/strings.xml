@@ -39,6 +39,10 @@
     <string name="problem_name_header">Problem Name</string>
     <string name="problem_submission_header">Successful Submissions</string>
     <string name="notify_me">Notify me.</string>
+    <string name="compilation_logs">Compilation Logs</string>
+    <string name="problem_code">Problem Code</string>
+    <string name="language">Language</string>
+    <string name="time">Time</string>
 
 
 </resources>
