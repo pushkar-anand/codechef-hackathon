@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import hackthon.codechef.chefonphone.data.CompilationLog;
+
 public class AppDatabase extends SQLiteOpenHelper {
 
     public static final String COMPILE_LOG_TABLE_COLUMN_LANG = "language";
@@ -111,6 +113,30 @@ public class AppDatabase extends SQLiteOpenHelper {
         }
         res.close();
         return array_list;
+    }
+
+    public ArrayList<CompilationLog> getAllLogs() {
+        ArrayList<CompilationLog> compilationLogs = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + COMPILE_LOG_TABLE;
+        Cursor res = db.rawQuery(query, null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            CompilationLog compilationLog = new CompilationLog();
+
+            compilationLog.setId(res.getInt(res.getColumnIndex(COMPILE_LOG_TABLE_COLUMN_ID)));
+            compilationLog.setProblem(res.getString(res.getColumnIndex(COMPILE_LOG_TABLE_COLUMN_PROBLEM)));
+            compilationLog.setLang(res.getString(res.getColumnIndex(COMPILE_LOG_TABLE_COLUMN_LANG)));
+            compilationLog.setTimeStamp(res.getString(res.getColumnIndex(COMPILE_LOG_TABLE_COLUMN_TIMESTAMP)));
+            compilationLog.setStatus(res.getString(res.getColumnIndex(COMPILE_LOG_TABLE_COLUMN_STATUS)));
+
+            compilationLogs.add(compilationLog);
+            res.moveToNext();
+        }
+        res.close();
+        return compilationLogs;
     }
 
     public Cursor getLogData(int id) {

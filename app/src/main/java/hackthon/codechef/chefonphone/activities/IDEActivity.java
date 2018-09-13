@@ -9,11 +9,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -31,26 +38,32 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import hackthon.codechef.chefonphone.R;
+import hackthon.codechef.chefonphone.adapters.CompilationLogsAdapter;
+import hackthon.codechef.chefonphone.asyncloaders.CompilationLogLoader;
+import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.constants.Urls;
+import hackthon.codechef.chefonphone.data.CompilationLog;
 import hackthon.codechef.chefonphone.databases.AppDatabase;
 import hackthon.codechef.chefonphone.utils.Cache;
 import hackthon.codechef.chefonphone.utils.Helpers;
 import hackthon.codechef.chefonphone.utils.Internet;
 
 public class IDEActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks {
 
     private ProgressBar ideLoaderProgress;
     private WebView ideWebView;
     private String problem = null, contest = null;
     private SharedPreferences preferences;
-    private View problemView;
-    private MenuItem statusItem;
+    private View problemView, statusView;
     private Boolean isLogsLoaderInitiated = false;
+    private RecyclerView logsRecycler;
+    private CompilationLogsAdapter compilationLogsAdapter;
 
     //TODO find a way to manage user run queue status
 
@@ -142,8 +155,6 @@ public class IDEActivity extends AppCompatActivity
                             Toast.makeText(IDEActivity.this,
                                     "Request added to queue. Check status from menu.",
                                     Toast.LENGTH_SHORT).show();
-
-                            statusItem.setVisible(true);
                         }
                     });
 
@@ -202,6 +213,19 @@ public class IDEActivity extends AppCompatActivity
 
         ideWebView.loadUrl("file:///android_asset/ide/ide.html");
 
+        logsRecycler = findViewById(R.id.compileLogRecycler);
+        statusView = findViewById(R.id.statusViewInclude);
+        compilationLogsAdapter = new CompilationLogsAdapter();
+
+        RecyclerView.LayoutManager layoutManager =
+                new LinearLayoutManager(getApplicationContext());
+
+        logsRecycler.setLayoutManager(layoutManager);
+        logsRecycler.setItemAnimator(new DefaultItemAnimator());
+        logsRecycler.addItemDecoration(new DividerItemDecoration(this,
+                LinearLayoutManager.VERTICAL));
+        logsRecycler.setAdapter(compilationLogsAdapter);
+
     }
 
     private void initIDE() {
@@ -243,7 +267,6 @@ public class IDEActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.ide_menu, menu);
-        statusItem = menu.findItem(R.id.action_info);
         return true;
     }
 
@@ -259,14 +282,26 @@ public class IDEActivity extends AppCompatActivity
         } else if (id == R.id.action_download) {
             downloadCode();
         } else if (id == R.id.action_status) {
-            viewStatus();
+            viewCompilationLogs();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void viewStatus() {
+    private void viewCompilationLogs() {
 
+        LoaderManager loaderManager = getSupportLoaderManager();
+
+        if (!isLogsLoaderInitiated) {
+            loaderManager.initLoader(IDs.COMPILATION_LOGS_LOADER,
+                    null, this).forceLoad();
+        } else {
+            loaderManager.restartLoader(IDs.COMPILATION_LOGS_LOADER,
+                    null, this).forceLoad();
+        }
+
+        isLogsLoaderInitiated = true;
+        ideLoaderProgress.setVisibility(View.VISIBLE);
     }
 
     private void viewInfo() {
@@ -305,11 +340,46 @@ public class IDEActivity extends AppCompatActivity
         return true;
     }
 
+    private void populateAndShowCompilationLogs(ArrayList<CompilationLog> compilationLogs) {
+        compilationLogsAdapter.updateLogsData(compilationLogs);
+        compilationLogsAdapter.notifyDataSetChanged();
+        ideWebView.setVisibility(View.GONE);
+        ideLoaderProgress.setVisibility(View.GONE);
+        statusView.setVisibility(View.VISIBLE);
+    }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         String lang = preferences.getString(SharedPrefKeys.IDE_AUTOSAVE, "");
         Cache.removeFromCache(this, lang);
+    }
+
+    @NonNull
+    @Override
+    public Loader onCreateLoader(int id, @Nullable Bundle args) {
+        if (id == IDs.COMPILATION_LOGS_LOADER) {
+            return new CompilationLogLoader(this);
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void onLoadFinished(@NonNull Loader loader, Object data) {
+
+        if (data != null) {
+            if (loader.getId() == IDs.COMPILATION_LOGS_LOADER) {
+                ArrayList<CompilationLog> compilationLogs = (ArrayList<CompilationLog>) data;
+                populateAndShowCompilationLogs(compilationLogs);
+            }
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader loader) {
+
     }
 }
