@@ -41,14 +41,14 @@ public class IDECompileRunStatusLoader extends AsyncTaskLoader<CompileRunOutput>
 
             compileRunOutput.setLangName(compileRunStatusObj.getString("langName"));
             compileRunOutput.setLangVersion(compileRunStatusObj.getString("langVersion"));
-            //TODO compileRunOutput.setTime(compileRunStatusObj.getString("time"));
+            compileRunOutput.setTime(compileRunStatusObj.getString("time"));
             compileRunOutput.setDate(compileRunStatusObj.getString("date"));
             compileRunOutput.setStatus(compileRunStatusObj.getString("status"));
             compileRunOutput.setMemory(compileRunStatusObj.getString("memory"));
             compileRunOutput.setSignal(compileRunStatusObj.getString("signal"));
             compileRunOutput.setInput(compileRunStatusObj.getString("input"));
             compileRunOutput.setOutput(compileRunStatusObj.getString("output"));
-            //TODO compileRunOutput.setStdErr(compileRunStatusObj.getString("stderr"));
+            compileRunOutput.setStderr(compileRunStatusObj.getString("stderr"));
             compileRunOutput.setCmpinfo(compileRunStatusObj.getString("cmpinfo"));
 
             return compileRunOutput;

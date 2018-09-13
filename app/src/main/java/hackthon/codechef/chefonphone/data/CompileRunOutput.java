@@ -3,7 +3,7 @@ package hackthon.codechef.chefonphone.data;
 public class CompileRunOutput {
     private String langName;
     private String langVersion;
-    private String date, status, cmpinfo, output, input, signal, memory;
+    private String date, status, cmpinfo, output, input, signal, memory, time, stderr;
 
     public String getLangName() {
         return langName;
@@ -75,5 +75,21 @@ public class CompileRunOutput {
 
     public void setMemory(String memory) {
         this.memory = memory;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getStderr() {
+        return stderr;
+    }
+
+    public void setStderr(String stderr) {
+        this.stderr = stderr;
     }
 }
