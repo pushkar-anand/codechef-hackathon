@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import hackthon.codechef.chefonphone.constants.Urls;
@@ -31,10 +34,26 @@ public class IDECompileRunStatusLoader extends AsyncTaskLoader<CompileRunOutput>
             String result = Internet.getHTTPSGetRequestResponse(url);
             Log.d(getClass().getSimpleName(), result);
 
-            //TODO parse the response at https://jsoneditoronline.org/?id=df284ecc1caa495ca4ffd768604f5b57
-            //CompileRunOutput compileRunOutput = new CompileRunOutput();
+            // parse the response at https://jsoneditoronline.org/?id=df284ecc1caa495ca4ffd768604f5b57
 
-        } catch (IOException e) {
+            JSONObject compileRunStatusObj = new JSONObject(result);
+            CompileRunOutput compileRunOutput = new CompileRunOutput();
+
+            compileRunOutput.setLangName(compileRunStatusObj.getString("langName"));
+            compileRunOutput.setLangVersion(compileRunStatusObj.getString("langVersion"));
+            //TODO compileRunOutput.setTime(compileRunStatusObj.getString("time"));
+            compileRunOutput.setDate(compileRunStatusObj.getString("date"));
+            compileRunOutput.setStatus(compileRunStatusObj.getString("status"));
+            compileRunOutput.setMemory(compileRunStatusObj.getString("memory"));
+            compileRunOutput.setSignal(compileRunStatusObj.getString("signal"));
+            compileRunOutput.setInput(compileRunStatusObj.getString("input"));
+            compileRunOutput.setOutput(compileRunStatusObj.getString("output"));
+            //TODO compileRunOutput.setStdErr(compileRunStatusObj.getString("stderr"));
+            compileRunOutput.setCmpinfo(compileRunStatusObj.getString("cmpinfo"));
+
+            return compileRunOutput;
+
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
