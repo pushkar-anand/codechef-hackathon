@@ -22,6 +22,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +33,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -40,6 +42,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import br.tiagohm.markdownview.MarkdownView;
+import br.tiagohm.markdownview.css.styles.Github;
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.adapters.CompilationLogsAdapter;
 import hackthon.codechef.chefonphone.asyncloaders.CompilationLogLoader;
@@ -65,6 +69,10 @@ public class IDEActivity extends AppCompatActivity
     private View problemView, statusView;
     private Boolean isLogsLoaderInitiated = false, isProblemLoaderInitiated = false;
     private CompilationLogsAdapter compilationLogsAdapter;
+
+    private TextView problemName, problemCode_contest, dateAdded, sourceSizeLimit, maxTimeLimit, challengeType;
+    private TextView successfulSubmissions, author;
+    private MarkdownView problemBody;
 
     private Boolean isLoadViewShowing = false, isProblemViewShowing = false;
 
@@ -221,6 +229,15 @@ public class IDEActivity extends AppCompatActivity
         RecyclerView logsRecycler = findViewById(R.id.compileLogRecycler);
         statusView = findViewById(R.id.statusViewInclude);
         problemView = findViewById(R.id.problemViewInclude);
+        problemName = findViewById(R.id.problem_name);
+        problemCode_contest = findViewById(R.id.problem_code);
+        dateAdded = findViewById(R.id.date_added);
+        sourceSizeLimit = findViewById(R.id.source_size_limit);
+        maxTimeLimit = findViewById(R.id.time_limit);
+        challengeType = findViewById(R.id.challenge_type);
+        successfulSubmissions = findViewById(R.id.successful_submissions);
+        author = findViewById(R.id.author);
+        problemBody = findViewById(R.id.body);
 
         compilationLogsAdapter = new CompilationLogsAdapter();
 
@@ -398,7 +415,29 @@ public class IDEActivity extends AppCompatActivity
     }
 
     private void populateAndShowProblemDetails(Problem problem) {
-        //TODO finish this
+        String problemNameStr = "Problem Name : " + problem.getProblemName();
+        String problemCode_ContestStr = "<br>Problem Code:</br> " + problem.getProblemCode();
+        String dateAddedStr = "<br>Date Added:<br> " + problem.getDateAdded();
+        String sourceSizeLimitStr = "<br>Source Size Limit:<br> " + problem.getSourceSizeLimit();
+        String maxTimeLimitStr = "<br>Max Time Limit:<br> " + problem.getMaxTimeLimit();
+        String challengeTypeStr = "<br>Challenge Type:<br> " + problem.getChallengeType();
+        String successfulSubmissionsStr = "<br>Successful Submissions:<br> " + problem.getSuccessfulSubmissions();
+        String authorStr = "<br>Author:<br> " + problem.getAuthor();
+
+        problemName.setText(Html.fromHtml(problemNameStr));
+        problemCode_contest.setText(Html.fromHtml(problemCode_ContestStr));
+        dateAdded.setText(Html.fromHtml(dateAddedStr));
+        sourceSizeLimit.setText(Html.fromHtml(sourceSizeLimitStr));
+        maxTimeLimit.setText(Html.fromHtml(maxTimeLimitStr));
+        challengeType.setText(Html.fromHtml(challengeTypeStr));
+        successfulSubmissions.setText(Html.fromHtml(successfulSubmissionsStr));
+        author.setText(Html.fromHtml(authorStr));
+
+        problemBody.addStyleSheet(new Github());
+        problemBody.loadMarkdown(Html.fromHtml(problem.getBody()).toString());
+
+        problemView.setVisibility(View.VISIBLE);
+        ideLoaderProgress.setVisibility(View.GONE);
 
         isProblemViewShowing = true;
     }
