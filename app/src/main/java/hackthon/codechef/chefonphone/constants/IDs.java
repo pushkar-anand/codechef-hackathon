@@ -9,5 +9,6 @@ public class IDs {
     public static final Integer CONTEST_DETAILS_LOADER = 500;
     public static final Integer CONTEST_PROBLEMS_DETAILS_LOADER = 600;
     public static final Integer COMPILATION_LOGS_LOADER = 700;
+    public static final Integer COMPILATION_OUTPUT_LOADER = 800;
 
 }

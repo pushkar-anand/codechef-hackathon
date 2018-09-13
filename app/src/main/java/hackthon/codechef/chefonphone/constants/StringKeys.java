@@ -8,6 +8,7 @@ public class StringKeys {
     public static final String IDE_ACTIVITY_INTENT_CONTEST_KEY = "CONTEST";
     public static final String PROBLEM_ACTIVITY_CONTEST_CODE = "contest";
     public static final String PROBLEM_ACTIVITY_PROBLEM_CODE = "problem";
+    public static final String COMPILE_RESULTS_ACTIVITY = "status";
 
     public static final String PRACTICE_LEVEL_BEGINNER = "beginner";
     public static final String PRACTICE_LEVEL_EASY = "easy";
