@@ -17,6 +17,8 @@ public class Problem {
     private String submitStart;
     private String visibleStart;
     private String end;
+    private String dateAdded;
+    private String author;
 
     public Problem() {
     }
@@ -139,5 +141,21 @@ public class Problem {
 
     public void setEnd(String end) {
         this.end = end;
+    }
+
+    public String getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(String dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
