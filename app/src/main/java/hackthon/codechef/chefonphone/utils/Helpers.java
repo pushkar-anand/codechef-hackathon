@@ -3,6 +3,7 @@ package hackthon.codechef.chefonphone.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import hackthon.codechef.chefonphone.activities.MainActivity;
 import hackthon.codechef.chefonphone.activities.PracticeActivity;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 import hackthon.codechef.chefonphone.constants.StringKeys;
+import hackthon.codechef.chefonphone.constants.Urls;
 
 public class Helpers {
 
@@ -97,9 +99,16 @@ public class Helpers {
 
     @SuppressWarnings("StatementWithEmptyBody")
     public static void handleMenuCLicks(Context context, Integer id) {
+        SharedPreferences preferences =
+                context.getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
+
+        String user = preferences.getString(SharedPrefKeys.CODECHEF_HANDLE, "CodeChef Handle");
 
         if (id == R.id.action_settings) {
-            //TODO redirect to codechef settings page or implement a settings page for app.
+
+            String url = Urls.CODECHEF_USERS_PAGE + user;
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            context.startActivity(browserIntent);
         } else if (id == R.id.action_logout) {
             Helpers.logout(context);
         }
@@ -107,7 +116,8 @@ public class Helpers {
     }
 
     public static void updateDrawerNavHeader(Context context, View navHeaderView) {
-        SharedPreferences preferences = context.getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
+        SharedPreferences preferences =
+                context.getSharedPreferences(SharedPrefKeys.LOGIN_PREF, Context.MODE_PRIVATE);
 
         String name = preferences.getString(SharedPrefKeys.FULLNAME, "Full Name");
         TextView fullName = navHeaderView.findViewById(R.id.fullname);
