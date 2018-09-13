@@ -261,12 +261,12 @@ public class IDEActivity extends AppCompatActivity
 
     private void downloadCode() {
 
-        //TODO implement this
         ideWebView.evaluateJavascript("downloadCode()", new ValueCallback<String>() {
             @Override
             public void onReceiveValue(String value) {
                 // value is the result returned by the Javascript as JSON
                 Log.d("JS Response", value);
+                //TODO finish this.
             }
         });
 
