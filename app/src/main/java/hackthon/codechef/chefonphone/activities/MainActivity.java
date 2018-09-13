@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 import hackthon.codechef.chefonphone.constants.Urls;
+import hackthon.codechef.chefonphone.utils.Notifications;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -101,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         loginWebView.loadUrl(Urls.LOGIN_URL);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            Notifications.createAllNotificationChannels(this);
+        }
     }
 
 }

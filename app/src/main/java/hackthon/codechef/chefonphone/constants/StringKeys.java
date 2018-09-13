@@ -14,4 +14,6 @@ public class StringKeys {
     public static final String PRACTICE_LEVEL_HARD = "hard";
     public static final String PRACTICE_LEVEL_CHALLENGE = "challenge";
     public static final String PRACTICE_LEVEL_PEER = "peer";
+
+    public static final String CONTEST_ALARM_BROADCAST_ACTION = "ALARM.TIME";
 }
