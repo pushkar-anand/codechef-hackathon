@@ -32,11 +32,10 @@ public class ContestProblemsDetailsLoader extends AsyncTaskLoader<Problem> {
 
         String url = UrlBuilder.buildProblemDetailsUrl(getContext(), Urls.CONTEST_PROBLEM_DETAILS_LOADER, contest_code, problem_code);
         try {
-            Problem problem = new Problem();
             String result = Internet.getHTTPSGetRequestResponse(url);
             Log.d(getClass().getSimpleName(), result);
 
-            //TODO Parse json FORMAT AT: https://jsoneditoronline.org/?id=d5bbbfc412ab432bad98dd8e4bda3c3f
+            //json FORMAT AT: https://jsoneditoronline.org/?id=d5bbbfc412ab432bad98dd8e4bda3c3f
 
             JSONObject problemObj = new JSONObject(result);
             Problem contestProblem = new Problem();
