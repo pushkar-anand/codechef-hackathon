@@ -10,6 +10,7 @@
     <string name="action_logout">Logout</string>
     <string name="action_info">View Problem Info</string>
     <string name="action_download">Download</string>
+    <string name="action_status">Compilation Status</string>
 
     <string name="ongoing_contest">Ongoing Contests</string>
 
