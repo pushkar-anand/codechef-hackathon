@@ -15,10 +15,10 @@ import hackthon.codechef.chefonphone.data.CompilationLog;
 
 public class AppDatabase extends SQLiteOpenHelper {
 
-    public static final String COMPILE_LOG_TABLE_COLUMN_LANG = "language";
-    public static final String COMPILE_LOG_TABLE_COLUMN_PROBLEM = "problem";
-    public static final String COMPILE_LOG_TABLE_COLUMN_STATUS = "status";
-    public static final String COMPILE_LOG_TABLE_COLUMN_TIMESTAMP = "time";
+    private static final String COMPILE_LOG_TABLE_COLUMN_LANG = "language";
+    private static final String COMPILE_LOG_TABLE_COLUMN_PROBLEM = "problem";
+    private static final String COMPILE_LOG_TABLE_COLUMN_STATUS = "status";
+    private static final String COMPILE_LOG_TABLE_COLUMN_TIMESTAMP = "time";
     private static final String ALARMS_TABLE_COLUMN_ID = "id";
     public static final String ALARMS_TABLE_COLUMN_CONTEST = "contest";
     public static final String ALARMS_TABLE_COLUMN_TIME = "remind";

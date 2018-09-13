@@ -52,9 +52,9 @@
         </receiver>
         <receiver
             android:name=".receivers.ContestAlarmReceiver"
-            android:enabled="true"></receiver>
+            android:enabled="true" />
 
-        <activity android:name=".activities.CompilationResultsActivity"></activity>
+        <activity android:name=".activities.CompilationResultsActivity" />
     </application>
 
 </manifest>

@@ -41,7 +41,6 @@ public class HomeActivity extends AppCompatActivity
     private ProgressBar contestLoaderProgress;
     private ProgressBar recommendLoaderProgress;
     private LinearLayout contestLinear;
-    private LinearLayout recommendLinear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,7 @@ public class HomeActivity extends AppCompatActivity
         contestLoaderProgress = findViewById(R.id.contestProgressBar);
         recommendLoaderProgress = findViewById(R.id.recommendProgressBar);
         contestLinear = findViewById(R.id.contestChildOfChild);
-        recommendLinear = findViewById(R.id.recommendChildOfChild);
+        LinearLayout recommendLinear = findViewById(R.id.recommendChildOfChild);
 
         TextView welcomeView = findViewById(R.id.welcomeTextView);
         welcomeView.setText(welcomeTxt);

@@ -65,7 +65,7 @@ public class ContestActivity extends AppCompatActivity
 
     }
 
-    public void populateViewWithContestProblems(Contest contest) {
+    private void populateViewWithContestProblems(Contest contest) {
 
         contestProblemListAdapter.populateProblemList(contest.getContestProblemsList());
         contest_problemLoaderProgress.setVisibility(View.GONE);

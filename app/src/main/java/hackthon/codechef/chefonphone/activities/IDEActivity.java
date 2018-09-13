@@ -298,12 +298,16 @@ public class IDEActivity extends AppCompatActivity
 
         Helpers.handleMenuCLicks(this, id);
 
-        if (id == R.id.action_info) {
-            viewInfo();
-        } else if (id == R.id.action_download) {
-            downloadCode();
-        } else if (id == R.id.action_status) {
-            viewCompilationLogs();
+        switch (id) {
+            case R.id.action_info:
+                viewInfo();
+                break;
+            case R.id.action_download:
+                downloadCode();
+                break;
+            case R.id.action_status:
+                viewCompilationLogs();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
