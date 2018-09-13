@@ -357,6 +357,13 @@ public class IDEActivity extends AppCompatActivity
         ideLoaderProgress.setVisibility(View.GONE);
         statusView.setVisibility(View.VISIBLE);
         isLoadViewShowing = false;
+
+        compilationLogsAdapter.setStatusItemClick(new CompilationLogsAdapter.StatusItemClick() {
+            @Override
+            public void onStatusItemClick() {
+                
+            }
+        });
     }
 
 
