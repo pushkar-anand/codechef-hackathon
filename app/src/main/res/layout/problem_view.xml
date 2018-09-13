@@ -43,6 +43,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     tools:text="Problem Name" />
 
                 <LinearLayout
@@ -136,17 +137,15 @@
                     tools:text="Challenge Type" />
 
 
-
-                <TextView
+                <br.tiagohm.markdownview.MarkdownView
                     android:id="@+id/body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:textSize="15sp"
-                    tools:text="Body of the problem. Like its details and all. Blah Blah Blah and Blah Blah and last but not the least Blah" />
-
+                    android:layout_marginTop="8dp"
+                    app:escapeHtml="false" />
             </LinearLayout>
         </ScrollView>
     </android.support.v7.widget.CardView>

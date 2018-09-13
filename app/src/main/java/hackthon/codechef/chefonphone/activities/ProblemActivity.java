@@ -7,16 +7,18 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import br.tiagohm.markdownview.MarkdownView;
+import br.tiagohm.markdownview.css.styles.Github;
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.asyncloaders.ContestProblemsDetailsLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.data.Problem;
-import ru.noties.markwon.Markwon;
 
 public class ProblemActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Problem> {
 
@@ -25,7 +27,8 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
     private View includeProblemView;
 
     private TextView problemName, problemCode_contest, dateAdded, sourceSizeLimit, maxTimeLimit, challengeType;
-    private TextView successfulSubmissions, author, problemBody;
+    private TextView successfulSubmissions, author;
+    private MarkdownView problemBody;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,25 +65,26 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
     private void updateViewWithProblemData(Problem problem) {
 
         String problemNameStr = "Problem Name : " + problem.getProblemName();
-        String problemCode_ContestStr = "Problem Code : " + problem.getProblemCode();
-        String dateAddedStr = "Date Added : " + problem.getDateAdded();
-        String sourceSizeLimitStr = "Source Size Limit : " + problem.getSourceSizeLimit();
-        String maxTimeLimitStr = "Max Time Limit : " + problem.getMaxTimeLimit();
-        String challengeTypeStr = "Challenge Type : " + problem.getChallengeType();
-        String successfulSubmissionsStr = "Successful Submissions : " + problem.getSuccessfulSubmissions();
-        String authorStr = "Author : " + problem.getAuthor();
+        String problemCode_ContestStr = "<br>Problem Code:</br> " + problem.getProblemCode();
+        String dateAddedStr = "<br>Date Added:<br> " + problem.getDateAdded();
+        String sourceSizeLimitStr = "<br>Source Size Limit:<br> " + problem.getSourceSizeLimit();
+        String maxTimeLimitStr = "<br>Max Time Limit:<br> " + problem.getMaxTimeLimit();
+        String challengeTypeStr = "<br>Challenge Type:<br> " + problem.getChallengeType();
+        String successfulSubmissionsStr = "<br>Successful Submissions:<br> " + problem.getSuccessfulSubmissions();
+        String authorStr = "<br>Author:<br> " + problem.getAuthor();
 
-        problemName.setText(problemNameStr);
-        problemCode_contest.setText(problemCode_ContestStr);
-        dateAdded.setText(dateAddedStr);
-        sourceSizeLimit.setText(sourceSizeLimitStr);
-        maxTimeLimit.setText(maxTimeLimitStr);
-        challengeType.setText(challengeTypeStr);
-        successfulSubmissions.setText(successfulSubmissionsStr);
-        author.setText(authorStr);
+        problemName.setText(Html.fromHtml(problemNameStr));
+        problemCode_contest.setText(Html.fromHtml(problemCode_ContestStr));
+        dateAdded.setText(Html.fromHtml(dateAddedStr));
+        sourceSizeLimit.setText(Html.fromHtml(sourceSizeLimitStr));
+        maxTimeLimit.setText(Html.fromHtml(maxTimeLimitStr));
+        challengeType.setText(Html.fromHtml(challengeTypeStr));
+        successfulSubmissions.setText(Html.fromHtml(successfulSubmissionsStr));
+        author.setText(Html.fromHtml(authorStr));
 
-        Markwon.setMarkdown(problemBody, problem.getBody());
-        
+        problemBody.addStyleSheet(new Github());
+        problemBody.loadMarkdown(Html.fromHtml(problem.getBody()).toString());
+
         problemDetailsLoader.setVisibility(View.GONE);
         includeProblemView.setVisibility(View.VISIBLE);
     }
