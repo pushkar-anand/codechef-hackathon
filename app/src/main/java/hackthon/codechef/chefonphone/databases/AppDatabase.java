@@ -47,20 +47,20 @@ public class AppDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         String createTableQuery = "CREATE TABLE IF NOT EXISTS " + COMPILE_LOG_TABLE + "(";
-        createTableQuery += COMPILE_LOG_TABLE_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,";
-        createTableQuery += COMPILE_LOG_TABLE_COLUMN_PROBLEM + " TEXT NOT NULL";
-        createTableQuery += COMPILE_LOG_TABLE_COLUMN_LANG + " TEXT NOT NULL";
-        createTableQuery += COMPILE_LOG_TABLE_COLUMN_STATUS + " TEXT NOT NULL";
-        createTableQuery += COMPILE_LOG_TABLE_COLUMN_TIMESTAMP + " TEXT NOT NULL";
+        createTableQuery += COMPILE_LOG_TABLE_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, ";
+        createTableQuery += COMPILE_LOG_TABLE_COLUMN_PROBLEM + " TEXT NOT NULL, ";
+        createTableQuery += COMPILE_LOG_TABLE_COLUMN_LANG + " TEXT NOT NULL, ";
+        createTableQuery += COMPILE_LOG_TABLE_COLUMN_STATUS + " TEXT NOT NULL, ";
+        createTableQuery += COMPILE_LOG_TABLE_COLUMN_TIMESTAMP + " TEXT NOT NULL ";
         createTableQuery += ")";
 
         Log.d("SQL_CREATE: ", createTableQuery);
         sqLiteDatabase.execSQL(createTableQuery);
 
         createTableQuery = "CREATE TABLE IF NOT EXISTS " + ALARMS_TABLE + "(";
-        createTableQuery += ALARMS_TABLE_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,";
-        createTableQuery += ALARMS_TABLE_COLUMN_CONTEST + " TEXT NOT NULL";
-        createTableQuery += ALARMS_TABLE_COLUMN_TIME + " TEXT NOT NULL";
+        createTableQuery += ALARMS_TABLE_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, ";
+        createTableQuery += ALARMS_TABLE_COLUMN_CONTEST + " TEXT NOT NULL, ";
+        createTableQuery += ALARMS_TABLE_COLUMN_TIME + " TEXT NOT NULL ";
         createTableQuery += ")";
 
         Log.d("SQL_CREATE: ", createTableQuery);
