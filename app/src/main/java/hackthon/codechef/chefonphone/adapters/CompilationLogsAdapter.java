@@ -17,6 +17,7 @@ import hackthon.codechef.chefonphone.recycleholders.CompilationLogHolder;
 public class CompilationLogsAdapter extends RecyclerView.Adapter<CompilationLogHolder> {
 
     private ArrayList<CompilationLog> compilationLogs;
+    private StatusItemClick statusItemClick;
 
     @NonNull
     @Override
@@ -31,6 +32,10 @@ public class CompilationLogsAdapter extends RecyclerView.Adapter<CompilationLogH
         this.compilationLogs = compilationLogs;
     }
 
+    public void setStatusItemClick(StatusItemClick statusItemClick) {
+        this.statusItemClick = statusItemClick;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull CompilationLogHolder holder, int position) {
 
@@ -43,10 +48,14 @@ public class CompilationLogsAdapter extends RecyclerView.Adapter<CompilationLogH
         holder.cardConstrain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO finish this.
+                statusItemClick.onStatusItemClick();
             }
         });
 
+    }
+
+    public interface StatusItemClick {
+        void onStatusItemClick();
     }
 
     @Override

@@ -13,7 +13,6 @@
         android:id="@+id/action_status"
         android:icon="@drawable/ic_action_status"
         android:orderInCategory="150"
-        android:visible="false"
         android:title="@string/action_status"
         app:showAsAction="ifRoom" />
 
