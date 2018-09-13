@@ -50,7 +50,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/presentListTitleTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/present_contests"
@@ -65,7 +64,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/futureListTitleTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/upcoming_contests"

@@ -59,10 +59,6 @@ public class Helpers {
 
     }
 
-    public static void updateNavHeader(Context context, String name, String username) {
-
-    }
-
 
     public static void handleDrawerNavigation(Context context, Integer id) {
         switch (id) {
