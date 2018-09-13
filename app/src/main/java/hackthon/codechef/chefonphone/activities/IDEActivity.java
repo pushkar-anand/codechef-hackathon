@@ -34,6 +34,7 @@ import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.constants.Urls;
+import hackthon.codechef.chefonphone.databases.AppDatabase;
 import hackthon.codechef.chefonphone.utils.Cache;
 import hackthon.codechef.chefonphone.utils.Helpers;
 import hackthon.codechef.chefonphone.utils.Internet;
@@ -117,6 +118,12 @@ public class IDEActivity extends AppCompatActivity
 
                     String result = Internet.getHTTPSPostJSONRequestResponse(url, json);
                     Log.d("IDE_RUN_RESPONSE", result);
+
+                    JSONObject response = new JSONObject(result);
+                    String statusCode = response.getString("code");
+
+                    AppDatabase appDatabase = AppDatabase.getInstance(IDEActivity.this);
+                    appDatabase.newCompilationRequest(problem, lang, statusCode);
 
                     ideWebView.post(new Runnable() {
                         @Override
