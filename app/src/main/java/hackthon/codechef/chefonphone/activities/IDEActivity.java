@@ -68,8 +68,7 @@ public class IDEActivity extends AppCompatActivity
 
     private Boolean isLoadViewShowing = false, isProblemViewShowing = false;
 
-    //TODO find a way to manage user run queue status
-
+    
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
