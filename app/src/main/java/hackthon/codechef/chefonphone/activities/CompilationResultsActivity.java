@@ -1,7 +1,9 @@
 package hackthon.codechef.chefonphone.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import hackthon.codechef.chefonphone.R;
 
 public class CompilationResultsActivity extends AppCompatActivity {
 
