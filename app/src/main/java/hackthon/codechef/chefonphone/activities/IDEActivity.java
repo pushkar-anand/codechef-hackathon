@@ -272,11 +272,13 @@ public class IDEActivity extends AppCompatActivity
 
             ideWebView.setVisibility(View.VISIBLE);
             statusView.setVisibility(View.GONE);
+            isLoadViewShowing = false;
 
         } else if (isProblemViewShowing) {
 
             ideWebView.setVisibility(View.VISIBLE);
             problemView.setVisibility(View.GONE);
+            isProblemViewShowing = false;
 
         } else {
             super.onBackPressed();
@@ -385,7 +387,7 @@ public class IDEActivity extends AppCompatActivity
         ideWebView.setVisibility(View.GONE);
         ideLoaderProgress.setVisibility(View.GONE);
         statusView.setVisibility(View.VISIBLE);
-        isLoadViewShowing = false;
+        isLoadViewShowing = true;
 
         compilationLogsAdapter.setStatusItemClick(new CompilationLogsAdapter.StatusItemClick() {
             @Override
