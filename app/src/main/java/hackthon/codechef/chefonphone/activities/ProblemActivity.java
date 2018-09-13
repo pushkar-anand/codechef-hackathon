@@ -9,6 +9,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
     private TextView problemName, problemCode_contest, dateAdded, sourceSizeLimit, maxTimeLimit, challengeType;
     private TextView successfulSubmissions, author;
     private MarkdownView problemBody;
+    private Button solveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
         successfulSubmissions = findViewById(R.id.successful_submissions);
         author = findViewById(R.id.author);
         problemBody = findViewById(R.id.body);
+        solveButton = findViewById(R.id.solveProblemBtn);
 
     }
 
@@ -69,7 +72,7 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
         String dateAddedStr = "<br>Date Added:<br> " + problem.getDateAdded();
         String sourceSizeLimitStr = "<br>Source Size Limit:<br> " + problem.getSourceSizeLimit();
         String maxTimeLimitStr = "<br>Max Time Limit:<br> " + problem.getMaxTimeLimit();
-        String challengeTypeStr = "<br>Challenge Type:<br> " + problem.getChallengeType();
+        final String challengeTypeStr = "<br>Challenge Type:<br> " + problem.getChallengeType();
         String successfulSubmissionsStr = "<br>Successful Submissions:<br> " + problem.getSuccessfulSubmissions();
         String authorStr = "<br>Author:<br> " + problem.getAuthor();
 
@@ -84,6 +87,18 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
 
         problemBody.addStyleSheet(new Github());
         problemBody.loadMarkdown(Html.fromHtml(problem.getBody()).toString());
+
+        solveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =
+                        new Intent(ProblemActivity.this, IDEActivity.class);
+                intent.putExtra(StringKeys.IDE_ACTIVITY_INTENT_KEY, problemCode);
+                intent.putExtra(StringKeys.IDE_ACTIVITY_INTENT_CONTEST_KEY, contestCode);
+                startActivity(intent);
+            }
+        });
+        solveButton.setVisibility(View.VISIBLE);
 
         problemDetailsLoader.setVisibility(View.GONE);
         includeProblemView.setVisibility(View.VISIBLE);

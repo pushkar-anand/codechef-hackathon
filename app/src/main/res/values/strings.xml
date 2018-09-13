@@ -43,6 +43,7 @@
     <string name="problem_code">Problem Code</string>
     <string name="language">Language</string>
     <string name="time">Time</string>
+    <string name="solve">Solve</string>
 
 
 </resources>
