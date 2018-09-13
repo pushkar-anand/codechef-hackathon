@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,7 +41,7 @@ public class HomeActivity extends AppCompatActivity
 
     private ProgressBar contestLoaderProgress;
     private ProgressBar recommendLoaderProgress;
-    private LinearLayout contestLinear;
+    private LinearLayout contestLinear, recommendLinear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class HomeActivity extends AppCompatActivity
         contestLoaderProgress = findViewById(R.id.contestProgressBar);
         recommendLoaderProgress = findViewById(R.id.recommendProgressBar);
         contestLinear = findViewById(R.id.contestChildOfChild);
-        LinearLayout recommendLinear = findViewById(R.id.recommendChildOfChild);
+        recommendLinear = findViewById(R.id.recommendChildOfChild);
 
         TextView welcomeView = findViewById(R.id.welcomeTextView);
         welcomeView.setText(welcomeTxt);
@@ -144,10 +145,12 @@ public class HomeActivity extends AppCompatActivity
                 codeTV.setText(contest.getContestCode());
 
                 TextView startDateTV = view.findViewById(R.id.start_date);
-                startDateTV.setText(contest.getContestStartDate());
+                String contest_start = "<b>Started:</b> " + contest.getContestStartDate();
+                startDateTV.setText(Html.fromHtml(contest_start));
 
                 TextView endDateTV = view.findViewById(R.id.end_date);
-                endDateTV.setText(contest.getContestEndDate());
+                String contest_end = "<b>Ending:</b> " + contest.getContestEndDate();
+                endDateTV.setText(Html.fromHtml(contest_end));
 
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -172,7 +175,9 @@ public class HomeActivity extends AppCompatActivity
     private void updateRecommendation(Problem problem) {
         //TODO finish this.
 
+        recommendLinear.setVisibility(View.VISIBLE);
         recommendLoaderProgress.setVisibility(View.GONE);
+
     }
 
 

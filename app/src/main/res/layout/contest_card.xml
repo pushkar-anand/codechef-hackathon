@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="10dp"
+    app:cardElevation="3dp"
     app:cardUseCompatPadding="true"
     app:contentPadding="15dp">
 
@@ -36,46 +37,47 @@
             app:layout_constraintTop_toBottomOf="@+id/contest_title"
             tools:text="code12" />
 
+
         <TextView
             android:id="@+id/start_date"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/end_date"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/contest_code"
             tools:text="DD/MM/YYYY" />
 
         <TextView
             android:id="@+id/end_date"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/start_date"
-            app:layout_constraintTop_toBottomOf="@+id/contest_code"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/start_date"
             tools:text="DD/MM/YYYY" />
 
         <ImageView
             android:id="@+id/notify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
-            android:adjustViewBounds="true"
             android:contentDescription="@string/notify_me"
             android:cropToPadding="false"
+            android:padding="5dp"
             android:scaleType="center"
             android:textAlignment="textEnd"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/contest_title"
+            app:layout_constraintTop_toBottomOf="@+id/end_date"
             tools:visibility="visible" />
+
 
     </android.support.constraint.ConstraintLayout>
 

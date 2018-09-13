@@ -57,7 +57,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/welcomeTextView"
         tools:visibility="visible">
@@ -78,6 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                tools:visibility="visible"
                 android:visibility="gone">
 
             </LinearLayout>
@@ -87,6 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                tools:visibility="visible"
                 android:visibility="gone">
 
             </LinearLayout>

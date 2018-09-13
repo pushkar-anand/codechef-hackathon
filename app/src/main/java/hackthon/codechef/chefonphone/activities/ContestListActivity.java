@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -133,10 +134,12 @@ public class ContestListActivity extends AppCompatActivity
                 codeTV.setText(contest.getContestCode());
 
                 TextView startDateTV = view.findViewById(R.id.start_date);
-                startDateTV.setText(contest.getContestStartDate());
+                String contest_start = "<b>Started:</b> " + contest.getContestStartDate();
+                startDateTV.setText(Html.fromHtml(contest_start));
 
                 TextView endDateTV = view.findViewById(R.id.end_date);
-                endDateTV.setText(contest.getContestEndDate());
+                String contest_end = "<b>Ending:</b> " + contest.getContestEndDate();
+                endDateTV.setText(Html.fromHtml(contest_end));
 
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -163,10 +166,12 @@ public class ContestListActivity extends AppCompatActivity
                 codeTV.setText(contest.getContestCode());
 
                 TextView startDateTV = view.findViewById(R.id.start_date);
-                startDateTV.setText(contest.getContestStartDate());
+                String start_date = "<b>Starting: </b> " + contest.getContestStartDate();
+                startDateTV.setText(Html.fromHtml(start_date));
 
                 TextView endDateTV = view.findViewById(R.id.end_date);
-                endDateTV.setText(contest.getContestEndDate());
+                String end_date = "<b>Ending: </b> " + contest.getContestEndDate();
+                endDateTV.setText(Html.fromHtml(end_date));
 
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
