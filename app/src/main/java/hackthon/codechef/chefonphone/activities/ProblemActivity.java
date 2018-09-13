@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,10 +24,9 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
     private ProgressBar problemDetailsLoader;
     private View includeProblemView;
 
-    private  TextView problemName,problemCode_contest,dateAdded, sourceSizeLimit, maxTimeLimit, challengeType;
-    private  TextView successfulSubmissions, author,problemBody;
-    private  String problemNameStr, problemCode_ContestStr, dateAddedStr, sourceSizeLimitStr, maxTimeLimitStr, challengeTypeStr;
-    private  String successfulSubmissionsStr, authorStr, problemBodyStr;
+    private TextView problemName, problemCode_contest, dateAdded, sourceSizeLimit, maxTimeLimit, challengeType;
+    private TextView successfulSubmissions, author, problemBody;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +46,7 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
 
         getSupportLoaderManager().initLoader(IDs.CONTEST_PROBLEMS_DETAILS_LOADER,
                 null, this).forceLoad();
+
         problemName = findViewById(R.id.problem_name);
         problemCode_contest = findViewById(R.id.problem_code);
         dateAdded = findViewById(R.id.date_added);
@@ -56,19 +57,18 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
         author = findViewById(R.id.author);
         problemBody = findViewById(R.id.body);
 
-
     }
 
     private void updateViewWithProblemData(Problem problem) {
 
-        problemNameStr = "Problem Name : " + problem.getProblemName();
-        problemCode_ContestStr = "Problem Code : " + problem.getProblemCode();
-        dateAddedStr = "Date Added : " + problem.getDateAdded();
-        sourceSizeLimitStr = "Source Size Limit : " + problem.getSourceSizeLimit();
-        maxTimeLimitStr = "Max Time Limit : " + problem.getMaxTimeLimit();
-        challengeTypeStr = "Challenge Type : " + problem.getChallengeType();
-        successfulSubmissionsStr = "Successful Submissions : " + problem.getSuccessfulSubmissions();
-        authorStr = "Author : " + problem.getAuthor();
+        String problemNameStr = "Problem Name : " + problem.getProblemName();
+        String problemCode_ContestStr = "Problem Code : " + problem.getProblemCode();
+        String dateAddedStr = "Date Added : " + problem.getDateAdded();
+        String sourceSizeLimitStr = "Source Size Limit : " + problem.getSourceSizeLimit();
+        String maxTimeLimitStr = "Max Time Limit : " + problem.getMaxTimeLimit();
+        String challengeTypeStr = "Challenge Type : " + problem.getChallengeType();
+        String successfulSubmissionsStr = "Successful Submissions : " + problem.getSuccessfulSubmissions();
+        String authorStr = "Author : " + problem.getAuthor();
 
         problemName.setText(problemNameStr);
         problemCode_contest.setText(problemCode_ContestStr);
@@ -78,7 +78,7 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
         challengeType.setText(challengeTypeStr);
         successfulSubmissions.setText(successfulSubmissionsStr);
         author.setText(authorStr);
-        problemBody.setText(problem.getBody());
+        problemBody.setText(Html.fromHtml(problem.getBody()));
 
         problemDetailsLoader.setVisibility(View.GONE);
         includeProblemView.setVisibility(View.VISIBLE);
