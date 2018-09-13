@@ -68,7 +68,7 @@ public class IDEActivity extends AppCompatActivity
 
     private Boolean isLoadViewShowing = false, isProblemViewShowing = false;
 
-    
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +98,10 @@ public class IDEActivity extends AppCompatActivity
 
         if (intent.hasExtra(StringKeys.IDE_ACTIVITY_INTENT_KEY)) {
             problem = intent.getStringExtra(StringKeys.IDE_ACTIVITY_INTENT_KEY);
+        }
+
+        if (intent.hasExtra(StringKeys.IDE_ACTIVITY_INTENT_CONTEST_KEY)) {
+            contest = intent.getStringExtra(StringKeys.IDE_ACTIVITY_INTENT_CONTEST_KEY);
         }
 
         ideLoaderProgress = findViewById(R.id.ideLoaderProgress);
