@@ -117,9 +117,13 @@ public class IDEActivity extends AppCompatActivity
 
                     String result = Internet.getHTTPSPostJSONRequestResponse(url, json);
                     Log.d("IDE_RUN_RESPONSE", result);
-                    ideWebView.evaluateJavascript("responseReceived()", null);
 
-                    //TODO fix the above code
+                    ideWebView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ideWebView.evaluateJavascript("responseReceived()", null);
+                        }
+                    });
 
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
