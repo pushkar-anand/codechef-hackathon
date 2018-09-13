@@ -9,10 +9,11 @@ import android.util.Log;
 import java.io.IOException;
 
 import hackthon.codechef.chefonphone.constants.Urls;
+import hackthon.codechef.chefonphone.data.CompileRunOutput;
 import hackthon.codechef.chefonphone.utils.Internet;
 import hackthon.codechef.chefonphone.utils.UrlBuilder;
 
-public class IDECompileRunStatusLoader extends AsyncTaskLoader {
+public class IDECompileRunStatusLoader extends AsyncTaskLoader<CompileRunOutput> {
 
     private String status_code;
 
@@ -23,14 +24,15 @@ public class IDECompileRunStatusLoader extends AsyncTaskLoader {
 
     @Nullable
     @Override
-    public Object loadInBackground() {
+    public CompileRunOutput loadInBackground() {
 
         String url = UrlBuilder.buildStatusUrl(getContext(), Urls.IDE_STATUS_URL, status_code);
         try {
             String result = Internet.getHTTPSGetRequestResponse(url);
             Log.d(getClass().getSimpleName(), result);
 
-            //TODO parse the response.
+            //TODO parse the response at https://jsoneditoronline.org/?id=df284ecc1caa495ca4ffd768604f5b57
+            //CompileRunOutput compileRunOutput = new CompileRunOutput();
 
         } catch (IOException e) {
             e.printStackTrace();
