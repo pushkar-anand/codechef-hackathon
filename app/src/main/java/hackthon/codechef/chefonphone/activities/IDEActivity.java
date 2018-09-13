@@ -65,6 +65,8 @@ public class IDEActivity extends AppCompatActivity
     private RecyclerView logsRecycler;
     private CompilationLogsAdapter compilationLogsAdapter;
 
+    private Boolean isLoadViewShowing = false;
+
     //TODO find a way to manage user run queue status
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -256,11 +258,19 @@ public class IDEActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
+
             drawer.closeDrawer(GravityCompat.START);
+
+        } else if (isLoadViewShowing) {
+
+            ideWebView.setVisibility(View.VISIBLE);
+            statusView.setVisibility(View.GONE);
         } else {
             super.onBackPressed();
         }
+
     }
 
     @Override
@@ -346,6 +356,7 @@ public class IDEActivity extends AppCompatActivity
         ideWebView.setVisibility(View.GONE);
         ideLoaderProgress.setVisibility(View.GONE);
         statusView.setVisibility(View.VISIBLE);
+        isLoadViewShowing = false;
     }
 
 
