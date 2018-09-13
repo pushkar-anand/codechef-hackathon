@@ -43,11 +43,13 @@ import java.util.ArrayList;
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.adapters.CompilationLogsAdapter;
 import hackthon.codechef.chefonphone.asyncloaders.CompilationLogLoader;
+import hackthon.codechef.chefonphone.asyncloaders.ContestProblemsDetailsLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.constants.Urls;
 import hackthon.codechef.chefonphone.data.CompilationLog;
+import hackthon.codechef.chefonphone.data.Problem;
 import hackthon.codechef.chefonphone.databases.AppDatabase;
 import hackthon.codechef.chefonphone.utils.Cache;
 import hackthon.codechef.chefonphone.utils.Helpers;
@@ -61,13 +63,11 @@ public class IDEActivity extends AppCompatActivity
     private String problem = null, contest = null;
     private SharedPreferences preferences;
     private View problemView, statusView;
-    private Boolean isLogsLoaderInitiated = false;
-    private RecyclerView logsRecycler;
+    private Boolean isLogsLoaderInitiated = false, isProblemLoaderInitiated = false;
     private CompilationLogsAdapter compilationLogsAdapter;
 
-    private Boolean isLoadViewShowing = false;
+    private Boolean isLoadViewShowing = false, isProblemViewShowing = false;
 
-    //TODO find a way to manage user run queue status
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -100,9 +100,12 @@ public class IDEActivity extends AppCompatActivity
             problem = intent.getStringExtra(StringKeys.IDE_ACTIVITY_INTENT_KEY);
         }
 
+        if (intent.hasExtra(StringKeys.IDE_ACTIVITY_INTENT_CONTEST_KEY)) {
+            contest = intent.getStringExtra(StringKeys.IDE_ACTIVITY_INTENT_CONTEST_KEY);
+        }
+
         ideLoaderProgress = findViewById(R.id.ideLoaderProgress);
         ideWebView = findViewById(R.id.ideWebView);
-        problemView = findViewById(R.id.problemViewInclude);
 
         class WebAppInterface {
             private Context mContext;
@@ -215,8 +218,10 @@ public class IDEActivity extends AppCompatActivity
 
         ideWebView.loadUrl("file:///android_asset/ide/ide.html");
 
-        logsRecycler = findViewById(R.id.compileLogRecycler);
+        RecyclerView logsRecycler = findViewById(R.id.compileLogRecycler);
         statusView = findViewById(R.id.statusViewInclude);
+        problemView = findViewById(R.id.problemViewInclude);
+
         compilationLogsAdapter = new CompilationLogsAdapter();
 
         RecyclerView.LayoutManager layoutManager =
@@ -267,6 +272,12 @@ public class IDEActivity extends AppCompatActivity
 
             ideWebView.setVisibility(View.VISIBLE);
             statusView.setVisibility(View.GONE);
+
+        } else if (isProblemViewShowing) {
+
+            ideWebView.setVisibility(View.VISIBLE);
+            problemView.setVisibility(View.GONE);
+
         } else {
             super.onBackPressed();
         }
@@ -315,10 +326,24 @@ public class IDEActivity extends AppCompatActivity
     }
 
     private void viewInfo() {
+        LoaderManager loaderManager = getSupportLoaderManager();
 
         if (problem != null && contest != null) {
-            //TODO finish this to show problem
+            if (!isProblemLoaderInitiated) {
+                loaderManager.initLoader(IDs.CONTEST_PROBLEMS_DETAILS_LOADER,
+                        null, this).forceLoad();
+            } else {
+                loaderManager.restartLoader(IDs.CONTEST_PROBLEMS_DETAILS_LOADER,
+                        null, this).forceLoad();
+            }
 
+            isProblemLoaderInitiated = true;
+            ideLoaderProgress.setVisibility(View.VISIBLE);
+
+        } else if (problem != null) {
+
+            Toast.makeText(this, "We only support contest problem right not.",
+                    Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "No problem loaded. Enter problem code to load.",
                     Toast.LENGTH_SHORT).show();
@@ -361,9 +386,15 @@ public class IDEActivity extends AppCompatActivity
         compilationLogsAdapter.setStatusItemClick(new CompilationLogsAdapter.StatusItemClick() {
             @Override
             public void onStatusItemClick() {
-                
+
             }
         });
+    }
+
+    private void populateAndShowProblemDetails(Problem problem) {
+        //TODO finish this
+
+        isProblemViewShowing = true;
     }
 
 
@@ -380,7 +411,7 @@ public class IDEActivity extends AppCompatActivity
         if (id == IDs.COMPILATION_LOGS_LOADER) {
             return new CompilationLogLoader(this);
         }
-        return null;
+        return new ContestProblemsDetailsLoader(this, contest, problem);
     }
 
     @SuppressWarnings("unchecked")
@@ -389,8 +420,13 @@ public class IDEActivity extends AppCompatActivity
 
         if (data != null) {
             if (loader.getId() == IDs.COMPILATION_LOGS_LOADER) {
+
                 ArrayList<CompilationLog> compilationLogs = (ArrayList<CompilationLog>) data;
                 populateAndShowCompilationLogs(compilationLogs);
+
+            } else if (loader.getId() == IDs.CONTEST_PROBLEMS_DETAILS_LOADER) {
+                Problem problem = (Problem) data;
+                populateAndShowProblemDetails(problem);
             }
         }
 
