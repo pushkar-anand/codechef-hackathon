@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -47,6 +49,7 @@ public class IDEActivity extends AppCompatActivity
     private String problem = null;
     private SharedPreferences preferences;
     private View problemView;
+    private MenuItem statusItem;
 
     //TODO find a way to manage user run queue status
 
@@ -131,6 +134,18 @@ public class IDEActivity extends AppCompatActivity
                             ideWebView.evaluateJavascript("responseReceived()", null);
                         }
                     });
+
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        public void run() {
+                            Toast.makeText(IDEActivity.this,
+                                    "Request added to queue. Check status from menu.",
+                                    Toast.LENGTH_SHORT).show();
+
+                            statusItem.setVisible(true);
+                        }
+                    });
+
 
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
@@ -227,6 +242,7 @@ public class IDEActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.ide_menu, menu);
+        statusItem = menu.findItem(R.id.action_info);
         return true;
     }
 
@@ -238,14 +254,18 @@ public class IDEActivity extends AppCompatActivity
         Helpers.handleMenuCLicks(this, id);
 
         if (id == R.id.action_info) {
-
             viewInfo();
-
         } else if (id == R.id.action_download) {
-
             downloadCode();
+        } else if (id == R.id.action_status) {
+            viewStatus();
         }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void viewStatus() {
+
     }
 
     private void viewInfo() {
@@ -261,12 +281,12 @@ public class IDEActivity extends AppCompatActivity
 
     private void downloadCode() {
 
-        //TODO implement this
         ideWebView.evaluateJavascript("downloadCode()", new ValueCallback<String>() {
             @Override
             public void onReceiveValue(String value) {
                 // value is the result returned by the Javascript as JSON
                 Log.d("JS Response", value);
+                //TODO finish this.
             }
         });
 

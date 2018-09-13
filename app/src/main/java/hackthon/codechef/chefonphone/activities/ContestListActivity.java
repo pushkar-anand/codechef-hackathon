@@ -214,6 +214,8 @@ public class ContestListActivity extends AppCompatActivity
                 contest.getContestCode(),
                 contest.getContestStartDate());
 
+        imgView.setImageResource(R.drawable.ic_action_notify_on);
+
         imgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -224,6 +226,8 @@ public class ContestListActivity extends AppCompatActivity
 
     private void doNotNotifyMe(final ImageView imgView, final Contest contest) {
         AlarmHelpers.deleteAlarm(ContestListActivity.this, contest.getContestCode());
+
+        imgView.setImageResource(R.drawable.ic_action_notify);
 
         imgView.setOnClickListener(new View.OnClickListener() {
             @Override
