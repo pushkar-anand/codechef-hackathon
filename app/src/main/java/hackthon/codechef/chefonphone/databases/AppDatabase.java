@@ -133,7 +133,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(ALARMS_TABLE_COLUMN_CONTEST, contest);
         contentValues.put(ALARMS_TABLE_COLUMN_TIME, time);
 
-        return database.insert(COMPILE_LOG_TABLE, null, contentValues);
+        return database.insert(ALARMS_TABLE, null, contentValues);
     }
 
     public ArrayList<Integer> getAlarmsIDs() {
