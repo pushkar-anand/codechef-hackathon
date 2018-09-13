@@ -398,7 +398,7 @@ public class IDEActivity extends AppCompatActivity
         return true;
     }
 
-    private void populateAndShowCompilationLogs(ArrayList<CompilationLog> compilationLogs) {
+    private void populateAndShowCompilationLogs(final ArrayList<CompilationLog> compilationLogs) {
         compilationLogsAdapter.updateLogsData(compilationLogs);
         compilationLogsAdapter.notifyDataSetChanged();
         ideWebView.setVisibility(View.GONE);
@@ -408,9 +408,13 @@ public class IDEActivity extends AppCompatActivity
 
         compilationLogsAdapter.setStatusItemClick(new CompilationLogsAdapter.StatusItemClick() {
             @Override
-            public void onStatusItemClick() {
-
+            public void onStatusItemClick(String code) {
+                Intent intent =
+                        new Intent(IDEActivity.this, CompilationResultsActivity.class);
+                intent.putExtra(StringKeys.COMPILE_RESULTS_ACTIVITY, code);
+                startActivity(intent);
             }
+
         });
     }
 

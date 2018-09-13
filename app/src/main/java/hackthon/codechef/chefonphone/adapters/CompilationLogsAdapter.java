@@ -39,7 +39,7 @@ public class CompilationLogsAdapter extends RecyclerView.Adapter<CompilationLogH
     @Override
     public void onBindViewHolder(@NonNull CompilationLogHolder holder, int position) {
 
-        CompilationLog compilationLog = compilationLogs.get(position);
+        final CompilationLog compilationLog = compilationLogs.get(position);
 
         holder.itemProblemTV.setText(compilationLog.getProblem());
         holder.itemLangTV.setText(compilationLog.getLang());
@@ -48,14 +48,14 @@ public class CompilationLogsAdapter extends RecyclerView.Adapter<CompilationLogH
         holder.cardConstrain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                statusItemClick.onStatusItemClick();
+                statusItemClick.onStatusItemClick(compilationLog.getStatus());
             }
         });
 
     }
 
     public interface StatusItemClick {
-        void onStatusItemClick();
+        void onStatusItemClick(String code);
     }
 
     @Override
