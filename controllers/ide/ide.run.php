@@ -29,8 +29,9 @@ if ($data) {
                 $res = array("status" => 'OK', "code" => $status_code);
                 \PhpUseful\EasyHeaders::json_header();
                 echo json_encode($res);
+            } else {
+                \PhpUseful\EasyHeaders::bad_request();
             }
-
 
         } else {
             \PhpUseful\EasyHeaders::bad_request();
