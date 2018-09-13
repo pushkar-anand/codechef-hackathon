@@ -1,25 +1,47 @@
 var editor = ace.edit("editor");
 
 var resetOnChange = true;
-var languageSelected = "CPP";
+var languageSelected = "C++14";
 //Language Boilerplate Codes
 var langBoilerplate = {};
 langBoilerplate['C'] = "#include <stdio.h>\nint main(void) {\n	// your code goes here\n	return 0;\n}\n";
-langBoilerplate['CPP'] = "#include <iostream>\nusing namespace std;\n\nint main() {\n	// your code goes here\n	return 0;\n}\n";
-langBoilerplate['CSHARP'] = "using System;\n\npublic class Test\n{\n	public static void Main()\n	{\n		// your code goes here\n	}\n}\n";
-langBoilerplate['CSS'] = "/* begin writing below */";
-langBoilerplate['CLOJURE'] = "; your code goes here";
-langBoilerplate['HASKELL'] = "main = -- your code goes here";
+langBoilerplate['C++14'] = "#include <iostream>\nusing namespace std;\n\nint main() {\n	// your code goes here\n	return 0;\n}\n";
+langBoilerplate['C#'] = "using System;\n\npublic class Test\n{\n	public static void Main()\n	{\n		// your code goes here\n	}\n}\n";
+langBoilerplate['CLOJ'] = "; your code goes here";
+langBoilerplate['HASK'] = "main = -- your code goes here";
 langBoilerplate['JAVA'] = "public class TestDriver {\n    public static void main(String[] args) {\n        // Your code goes here\n    }\n}";
-langBoilerplate['JAVASCRIPT'] = "importPackage(java.io);\nimportPackage(java.lang);\n\n// your code goes here\n";
-langBoilerplate['OBJECTIVEC'] = "#import <objc/objc.h>\n#import <objc/Object.h>\n#import <Foundation/Foundation.h>\n\n@implementation TestObj\nint main()\n{\n	// your code goes here\n	return 0;\n}\n@end";
+langBoilerplate['JS'] = "importPackage(java.io);\nimportPackage(java.lang);\n\n// your code goes here\n";
+langBoilerplate['NODEJS'] = "process.stdin.resume();\nprocess.stdin.setEncoding('utf8');\n\n// your code goes here";
 langBoilerplate['PERL'] = "#!/usr/bin/perl\n# your code goes here\n";
+langBoilerplate['PERL6'] = "#!/usr/bin/perl\n# your code goes here\n";
 langBoilerplate['PHP'] = "<?php\n\n// your code goes here\n";
-langBoilerplate['PYTHON'] = "def main():\n    # Your code goes here\n\nif __name__ == \"__main__\":\n    main()";
-langBoilerplate['R'] = "# your code goes here";
+langBoilerplate['PYTH'] = "def main():\n    # Your code goes here\n\nif __name__ == \"__main__\":\n    main()";
+langBoilerplate['PYPY'] = "def main():\n    # Your code goes here\n\nif __name__ == \"__main__\":\n    main()";
+langBoilerplate['PYTH 3.6'] = "def main():\n    # Your code goes here\n\nif __name__ == \"__main__\":\n    main()";
 langBoilerplate['RUBY'] = "# your code goes here";
 langBoilerplate['RUST'] = "fn main() {\n    // The statements here will be executed when the compiled binary is called\n\n    // Print text to the console\n    println!(\"Hello World!\");\n}\n";
 langBoilerplate['SCALA'] = "object Main extends App {\n	// your code goes here\n}\n";
+
+var langMap = {};
+
+langMap['C'] = "c_cpp";
+langMap['C++14'] = 'c_cpp';
+langMap['C#'] = "csharp";
+langMap['CLOJ'] = "clojure";
+langMap['HASK'] = "haskell";
+langMap['JAVA'] = 'java';
+langMap['JS'] = 'javascript';
+langMap['NODEJS'] = 'javascript';
+langMap['PERL'] = 'perl';
+langMap['PERL6'] = 'perl';
+langMap['PHP'] = 'php';
+langMap['PYTH'] = 'python';
+langMap['PYPY'] = 'python';
+langMap['PYTH 3.6'] = 'python';
+langMap['RUBY'] = 'ruby';
+langMap['RUST'] = 'rust';
+langMap['SCALA'] = 'scala';
+
 
 $(document).ready(function () {
 
@@ -39,14 +61,12 @@ $(document).ready(function () {
 
     $("#lang").change(function () {
         languageSelected = $("#lang").val();
+
         // update the language (mode) for the editor
-        if (languageSelected === "C" || languageSelected === "CPP") {
-            editor.getSession().setMode("ace/mode/c_cpp");
-        }
-        else {
-            editor.getSession().setMode("ace/mode/" + languageSelected.toLowerCase());
-        }
-        //Change the contents to the boilerplate code
+
+        var langToMod = "ace/mode/" + langMap[languageSelected];
+        editor.getSession().setMode(langToMod);
+
         if (resetOnChange) {
             editor.setValue(langBoilerplate[languageSelected]);
         }

@@ -84,6 +84,9 @@ public class AppDatabase extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
+        if (problem == null) {
+            problem = "NA";
+        }
 
         contentValues.put(COMPILE_LOG_TABLE_COLUMN_PROBLEM, problem);
         contentValues.put(COMPILE_LOG_TABLE_COLUMN_LANG, lang);
@@ -91,7 +94,6 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(COMPILE_LOG_TABLE_COLUMN_TIMESTAMP, SimpleDateFormat.getDateTimeInstance().format(new Date()));
 
         database.insert(COMPILE_LOG_TABLE, null, contentValues);
-
     }
 
     public ArrayList<Integer> listCompilationLogIDs() {
