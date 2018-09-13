@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,6 +16,7 @@ import hackthon.codechef.chefonphone.asyncloaders.ContestProblemsDetailsLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.data.Problem;
+import ru.noties.markwon.Markwon;
 
 public class ProblemActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Problem> {
 
@@ -78,8 +78,9 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
         challengeType.setText(challengeTypeStr);
         successfulSubmissions.setText(successfulSubmissionsStr);
         author.setText(authorStr);
-        problemBody.setText(Html.fromHtml(problem.getBody()));
 
+        Markwon.setMarkdown(problemBody, problem.getBody());
+        
         problemDetailsLoader.setVisibility(View.GONE);
         includeProblemView.setVisibility(View.VISIBLE);
     }
