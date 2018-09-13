@@ -9,6 +9,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.asyncloaders.ContestProblemsDetailsLoader;
@@ -21,6 +22,11 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
     private String contestCode = null, problemCode;
     private ProgressBar problemDetailsLoader;
     private View includeProblemView;
+
+    private  TextView problemName,problemCode_contest,dateAdded, sourceSizeLimit, maxTimeLimit, challengeType;
+    private  TextView successfulSubmissions, author,problemBody;
+    private  String problemNameStr, problemCode_ContestStr, dateAddedStr, sourceSizeLimitStr, maxTimeLimitStr, challengeTypeStr;
+    private  String successfulSubmissionsStr, authorStr, problemBodyStr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +46,39 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
 
         getSupportLoaderManager().initLoader(IDs.CONTEST_PROBLEMS_DETAILS_LOADER,
                 null, this).forceLoad();
+        problemName = findViewById(R.id.problem_name);
+        problemCode_contest = findViewById(R.id.problem_code);
+        dateAdded = findViewById(R.id.date_added);
+        sourceSizeLimit = findViewById(R.id.source_size_limit);
+        maxTimeLimit = findViewById(R.id.time_limit);
+        challengeType = findViewById(R.id.challenge_type);
+        successfulSubmissions = findViewById(R.id.successful_submissions);
+        author = findViewById(R.id.author);
+        problemBody = findViewById(R.id.body);
+
 
     }
 
     private void updateViewWithProblemData(Problem problem) {
 
+        problemNameStr = "Problem Name : " + problem.getProblemName();
+        problemCode_ContestStr = "Problem Code : " + problem.getProblemCode();
+        dateAddedStr = "Date Added : " + problem.getDateAdded();
+        sourceSizeLimitStr = "Source Size Limit : " + problem.getSourceSizeLimit();
+        maxTimeLimitStr = "Max Time Limit : " + problem.getMaxTimeLimit();
+        challengeTypeStr = "Challenge Type : " + problem.getChallengeType();
+        successfulSubmissionsStr = "Successful Submissions : " + problem.getSuccessfulSubmissions();
+        authorStr = "Author : " + problem.getAuthor();
+
+        problemName.setText(problemNameStr);
+        problemCode_contest.setText(problemCode_ContestStr);
+        dateAdded.setText(dateAddedStr);
+        sourceSizeLimit.setText(sourceSizeLimitStr);
+        maxTimeLimit.setText(maxTimeLimitStr);
+        challengeType.setText(challengeTypeStr);
+        successfulSubmissions.setText(successfulSubmissionsStr);
+        author.setText(authorStr);
+        problemBody.setText(problem.getBody());
 
         problemDetailsLoader.setVisibility(View.GONE);
         includeProblemView.setVisibility(View.VISIBLE);
