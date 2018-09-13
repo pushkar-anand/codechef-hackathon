@@ -46,10 +46,11 @@ public class IDEActivity extends AppCompatActivity
 
     private ProgressBar ideLoaderProgress;
     private WebView ideWebView;
-    private String problem = null;
+    private String problem = null, contest = null;
     private SharedPreferences preferences;
     private View problemView;
     private MenuItem statusItem;
+    private Boolean isLogsLoaderInitiated = false;
 
     //TODO find a way to manage user run queue status
 
@@ -270,7 +271,7 @@ public class IDEActivity extends AppCompatActivity
 
     private void viewInfo() {
 
-        if (problem != null) {
+        if (problem != null && contest != null) {
             //TODO finish this to show problem
 
         } else {
