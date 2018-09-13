@@ -21,8 +21,16 @@ if ($data) {
 
             $response = $api_req->getResult();
             $responseObj = json_decode($response);
-            error_log('IDE: ' . $response);
-            var_dump($responseObj);
+            //{"status":"OK","result":{"data":{"link":"6TgHz2","status":"OK"}}}
+
+            if ($responseObj->status == 'OK') {
+                $status_code = $responseObj->result->data->link;
+
+                $res = array("status" => 'OK', "code" => $status_code);
+                \PhpUseful\EasyHeaders::json_header();
+                echo json_encode($res);
+            }
+
 
         } else {
             \PhpUseful\EasyHeaders::bad_request();
