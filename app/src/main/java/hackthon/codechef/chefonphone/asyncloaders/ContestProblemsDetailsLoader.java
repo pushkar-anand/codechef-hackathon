@@ -42,7 +42,9 @@ public class ContestProblemsDetailsLoader extends AsyncTaskLoader<Problem> {
 
             contestProblem.setProblemName(problemObj.getString("problemName"));
             contestProblem.setProblemCode(problemObj.getString("problemCode"));
-            contestProblem.setDateAdded(problemObj.getString("dateAdded"));
+            if (problemObj.has("dateAdded")) {
+                contestProblem.setDateAdded(problemObj.getString("dateAdded"));
+            }
             contestProblem.setSourceSizeLimit(problemObj.getString("sourceSizeLimit"));
             contestProblem.setMaxTimeLimit(problemObj.getString("maxTimeLimit"));
             contestProblem.setChallengeType(problemObj.getString("challengeType"));

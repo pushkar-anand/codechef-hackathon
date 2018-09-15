@@ -69,7 +69,10 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
 
         String problemNameStr = "Problem Name : " + problem.getProblemName();
         String problemCode_ContestStr = "<br>Problem Code:</br> " + problem.getProblemCode();
-        String dateAddedStr = "<br>Date Added:<br> " + problem.getDateAdded();
+        if (problem.getDateAdded() != null) {
+            String dateAddedStr = "<br>Date Added:<br> " + problem.getDateAdded();
+            dateAdded.setText(Html.fromHtml(dateAddedStr));
+        }
         String sourceSizeLimitStr = "<br>Source Size Limit:<br> " + problem.getSourceSizeLimit();
         String maxTimeLimitStr = "<br>Max Time Limit:<br> " + problem.getMaxTimeLimit();
         final String challengeTypeStr = "<br>Challenge Type:<br> " + problem.getChallengeType();
@@ -78,7 +81,6 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
 
         problemName.setText(Html.fromHtml(problemNameStr));
         problemCode_contest.setText(Html.fromHtml(problemCode_ContestStr));
-        dateAdded.setText(Html.fromHtml(dateAddedStr));
         sourceSizeLimit.setText(Html.fromHtml(sourceSizeLimitStr));
         maxTimeLimit.setText(Html.fromHtml(maxTimeLimitStr));
         challengeType.setText(Html.fromHtml(challengeTypeStr));
