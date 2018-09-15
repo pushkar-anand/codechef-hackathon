@@ -77,7 +77,10 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
         String maxTimeLimitStr = "<br>Max Time Limit:<br> " + problem.getMaxTimeLimit();
         final String challengeTypeStr = "<br>Challenge Type:<br> " + problem.getChallengeType();
         String successfulSubmissionsStr = "<br>Successful Submissions:<br> " + problem.getSuccessfulSubmissions();
-        String authorStr = "<br>Author:<br> " + problem.getAuthor();
+        if (problem.getAuthor() != null) {
+            String authorStr = "<br>Author:<br> " + problem.getAuthor();
+            author.setText(Html.fromHtml(authorStr));
+        }
 
         problemName.setText(Html.fromHtml(problemNameStr));
         problemCode_contest.setText(Html.fromHtml(problemCode_ContestStr));
@@ -85,7 +88,6 @@ public class ProblemActivity extends AppCompatActivity implements LoaderManager.
         maxTimeLimit.setText(Html.fromHtml(maxTimeLimitStr));
         challengeType.setText(Html.fromHtml(challengeTypeStr));
         successfulSubmissions.setText(Html.fromHtml(successfulSubmissionsStr));
-        author.setText(Html.fromHtml(authorStr));
 
         problemBody.addStyleSheet(new Github());
         problemBody.loadMarkdown(Html.fromHtml(problem.getBody()).toString());
