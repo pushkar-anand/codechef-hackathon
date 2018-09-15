@@ -470,16 +470,6 @@ public class IDEActivity extends AppCompatActivity
                 getWritePermission();
             }
 
-            EXTERNAL_WRITE_PERMISSION = ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-            if (EXTERNAL_WRITE_PERMISSION != PackageManager.PERMISSION_GRANTED) {
-
-                Toast.makeText(this,
-                        "Could not download. Write permission is not granted.",
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
 
             File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
@@ -496,7 +486,7 @@ public class IDEActivity extends AppCompatActivity
             if (downloadManager != null) {
 
                 downloadManager.addCompletedDownload(download.getName(),
-                        "",
+                        "Source Code.",
                         true,
                         "text/plain",
                         download.getAbsolutePath(),
