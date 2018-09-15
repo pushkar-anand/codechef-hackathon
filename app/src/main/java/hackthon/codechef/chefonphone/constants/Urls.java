@@ -18,7 +18,6 @@ public class Urls {
     public static final String IDE_RUN_URL = BASE_URL + "/ide/run";
     public static final String IDE_STATUS_URL = BASE_URL + "/ide/status";
 
-    public static final String CODECHEF_PROBLEM_PAGE = CODECHEF_HOME + "/problems/";
     public static final String CODECHEF_USERS_PAGE = CODECHEF_HOME + "/users/";
 
 }

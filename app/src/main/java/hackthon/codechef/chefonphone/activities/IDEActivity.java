@@ -191,6 +191,7 @@ public class IDEActivity extends AppCompatActivity
             @JavascriptInterface
             public void updateProblemCode(String code) {
                 problem = code;
+                contest = "PRACTICE";
             }
         }
 
@@ -363,10 +364,6 @@ public class IDEActivity extends AppCompatActivity
             isProblemLoaderInitiated = true;
             ideLoaderProgress.setVisibility(View.VISIBLE);
 
-        } else if (problem != null) {
-
-            Toast.makeText(this, "We only support contest problem right not.",
-                    Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "No problem loaded. Enter problem code to load.",
                     Toast.LENGTH_SHORT).show();
