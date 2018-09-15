@@ -11,4 +11,6 @@ public class IDs {
     public static final Integer COMPILATION_LOGS_LOADER = 700;
     public static final Integer COMPILATION_OUTPUT_LOADER = 800;
 
+    public static final Integer PERMISSION_REQUEST_STORAGE = 123;
+
 }

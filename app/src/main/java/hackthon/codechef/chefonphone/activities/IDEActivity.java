@@ -1,17 +1,25 @@
 package hackthon.codechef.chefonphone.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -39,6 +47,8 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -377,17 +387,7 @@ public class IDEActivity extends AppCompatActivity
             public void onReceiveValue(String value) {
                 // value is the result returned by the Javascript as JSON
                 Log.d("JS Response", value);
-                //TODO finish this.
-                try {
-                    JSONObject resp = new JSONObject(value);
-                    String source = resp.getString("code");
-                    String lang = resp.getString("lang");
-
-                    String filename = "source" + Helpers.languageToExtension(lang);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                downloadCode(value);
             }
         });
 
@@ -451,6 +451,88 @@ public class IDEActivity extends AppCompatActivity
         ideLoaderProgress.setVisibility(View.GONE);
 
         isProblemViewShowing = true;
+    }
+
+    private void downloadCode(String value) {
+        try {
+            JSONObject resp = new JSONObject(value);
+            String source = resp.getString("code");
+            String lang = resp.getString("lang");
+
+            String filename = "source" + Helpers.languageToExtension(lang);
+
+            int EXTERNAL_WRITE_PERMISSION =
+                    ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+            if (EXTERNAL_WRITE_PERMISSION != PackageManager.PERMISSION_GRANTED) {
+
+                getWritePermission();
+            }
+
+            EXTERNAL_WRITE_PERMISSION = ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+            if (EXTERNAL_WRITE_PERMISSION != PackageManager.PERMISSION_GRANTED) {
+
+                Toast.makeText(this,
+                        "Could not download. Write permission is not granted.",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+
+            File download = new File(downloadsDir, filename);
+
+            FileOutputStream outputStream = new FileOutputStream(download);
+            outputStream.write(source.getBytes());
+            outputStream.flush();
+            outputStream.close();
+
+            DownloadManager downloadManager =
+                    (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+
+            if (downloadManager != null) {
+
+                downloadManager.addCompletedDownload(download.getName(),
+                        "",
+                        true,
+                        "text/plain",
+                        download.getAbsolutePath(),
+                        download.length(),
+                        true);
+            }
+
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getWritePermission() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                Snackbar.make(findViewById(R.id.cl),
+                        "Write permission is required to save the file to you device.",
+                        Snackbar.LENGTH_INDEFINITE)
+                        .setAction("OK", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                ActivityCompat.requestPermissions(IDEActivity.this,
+                                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                        IDs.PERMISSION_REQUEST_STORAGE);
+                            }
+                        }).show();
+
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        IDs.PERMISSION_REQUEST_STORAGE);
+            }
+        }
     }
 
 
