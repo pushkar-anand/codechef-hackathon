@@ -21,6 +21,7 @@ public class Problem {
     private String author;
 
     public Problem() {
+        dateAdded = null;
     }
 
     public String getProblemCode() {
