@@ -515,7 +515,7 @@ public class IDEActivity extends AppCompatActivity
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
-                Snackbar.make(findViewById(R.id.cl),
+                Snackbar.make(findViewById(R.id.clIDE),
                         "Write permission is required to save the file to you device.",
                         Snackbar.LENGTH_INDEFINITE)
                         .setAction("OK", new View.OnClickListener() {
