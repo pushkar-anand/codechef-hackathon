@@ -138,4 +138,8 @@ public class Helpers {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
+
+    public static String languageToExtension(String language) {
+        
+    }
 }

@@ -378,6 +378,14 @@ public class IDEActivity extends AppCompatActivity
                 // value is the result returned by the Javascript as JSON
                 Log.d("JS Response", value);
                 //TODO finish this.
+                try {
+                    JSONObject resp = new JSONObject(value);
+                    String source = resp.getString("code");
+                    String lang = resp.getString("lang");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
