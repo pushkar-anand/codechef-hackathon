@@ -52,7 +52,6 @@ public class Helpers {
     }
 
 
-
     private static void startPracticeActivity(Context context, String level) {
 
         Intent practice_intent = new Intent(context, PracticeActivity.class);
@@ -140,6 +139,45 @@ public class Helpers {
     }
 
     public static String languageToExtension(String language) {
-        
+
+
+        switch (language) {
+            case "C":
+                return ".c";
+            case "C++14":
+                return ".cpp";
+            case "C#":
+                return ".cs";
+            case "CLOJ":
+                return ".clj";
+            case "HASK":
+                return ".hs";
+            case "JAVE":
+                return ".java";
+            case "JS":
+                return ".js";
+            case "NODEJS":
+                return ".js";
+            case "PERL":
+                return ".pl";
+            case "PERL6":
+                return ".pm6";
+            case "PHP":
+                return ".php";
+            case "PYTH":
+                return ".py";
+            case "PYTH 3.6":
+                return ".py3";
+            case "PYPY":
+                return ".py";
+            case "RUBY":
+                return ".rb";
+            case "RUST":
+                return ".rs";
+            case "SCALA":
+                return ".scala";
+            default:
+                return ".txt";
+        }
     }
 }

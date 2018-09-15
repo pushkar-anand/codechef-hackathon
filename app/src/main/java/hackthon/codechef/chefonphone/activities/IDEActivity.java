@@ -383,6 +383,8 @@ public class IDEActivity extends AppCompatActivity
                     String source = resp.getString("code");
                     String lang = resp.getString("lang");
 
+                    String filename = "source" + Helpers.languageToExtension(lang);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
