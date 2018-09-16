@@ -3,6 +3,7 @@ package hackthon.codechef.chefonphone.recycleholders;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import hackthon.codechef.chefonphone.R;
