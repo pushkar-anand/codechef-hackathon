@@ -17,6 +17,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 
 public class Internet {
+    private static final String SECRET_STRING = "a9e73b17ztNMIvl13H7wrNNb5YFza9e73b17";
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted, unused")
     public static boolean checkConnection(Context context) {
@@ -112,6 +113,6 @@ public class Internet {
     }
 
     public static String getSecret() {
-        return "a9e73b17ztNMIvl13H7wrNNb5YFza9e73b17";
+        return SECRET_STRING;
     }
 }
