@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import hackthon.codechef.chefonphone.data.CompilationLog;
 import hackthon.codechef.chefonphone.databases.AppDatabase;
@@ -21,7 +22,10 @@ public class CompilationLogLoader extends AsyncTaskLoader<ArrayList<CompilationL
     public ArrayList<CompilationLog> loadInBackground() {
 
         AppDatabase appDatabase = AppDatabase.getInstance(getContext());
+        ArrayList<CompilationLog> logs = appDatabase.getAllLogs();
 
-        return appDatabase.getAllLogs();
+        Collections.reverse(logs);
+        return logs;
+
     }
 }
