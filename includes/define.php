@@ -16,9 +16,9 @@ define('SUBJECT_EMERGENCY', 'EMERGENCY');
 define('DB_USER', 'codechef_user');
 define('DB_PASSWORD', 'm3Jy7^^l*C2GzE0H7wM2');*/
 
-define('DB_SERVER', 'rm-6gjbnvn6i754558ovzo.mysql.ap-south-1.rds.aliyuncs.com');
+define('DB_SERVER', 'chefonphone.mysql.ap-south-1.rds.aliyuncs.com');
 define('DB_USER', 'root');
-define('DB_PASSWORD', '$7NH&@epPsb25gdJm479');
+define('DB_PASSWORD', 'Bec48UW&^ls5NA^B7#2M');
 define('DB_NAME', 'codechef');
 define('USERS_TABLE', 'users');
 
