@@ -6,30 +6,46 @@
     <title>Login</title>
     <style>
         body {
-            background-color: #3cb4da;
+            background-color: #ffffff;
         }
 
         button:hover {
-            background-color: #80606e;
+            background-color: #36282e;
         }
 
         button {
             position: absolute;
             left: 50%;
-            top: 50%;
-            color: #ffffff;
-            background-color: #326975;
+            top: 75%;
             transform: translateX(-50%) translateY(-50%);
             width: auto;
             height: auto;
-            font-size: 15px;
+            font-size: 20px;
+            background-color: #80606e;
+            cursor: pointer;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .img {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10%);
+            max-width: 100%;
+            height: auto;
         }
     </style>
 
 </head>
 
 <body>
-
+<img src="images/logo.png" class="img"/>
 <a href="{{ url }}" id="login-url">
     <button type="button"> Login with Codechef</button>
 </a>
