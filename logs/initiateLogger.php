@@ -2,8 +2,8 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Monolog\Handler\NativeMailerHandler;
-use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 global $log;
 
