@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.widget.TextView;
 
 import hackthon.codechef.chefonphone.R;
