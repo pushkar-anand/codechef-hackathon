@@ -20,8 +20,6 @@ try {
     $route->addMatch('GET', '/contest/problems/list', __DIR__ . '/../controllers/contest/problems.list.php');
     $route->addMatch('GET', '/contest/problem/details', __DIR__ . '/../controllers/contest/problem.detail.php');
 
-    $route->addMatch('GET', '/recommend', __DIR__ . '/../controllers/recommend.php');
-
     $route->addMatch('GET', '/practice/beginner', __DIR__ . '/../controllers/practice/beginner.php');
     $route->addMatch('GET', '/practice/easy', __DIR__ . '/../controllers/practice/easy.php');
     $route->addMatch('GET', '/practice/medium', __DIR__ . '/../controllers/practice/medium.php');
