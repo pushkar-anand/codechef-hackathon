@@ -1,7 +1,7 @@
 <?php
 
-define('BASE_APP_URL', 'https://codechef-hackathon.pushkaranand.me');
-define('REDIRECT_URI', 'https://codechef-hackathon.pushkaranand.me/login/redirect');
+define('BASE_APP_URL', 'https://chefonphone.pushkaranand.me');
+define('REDIRECT_URI', BASE_APP_URL . '/login/redirect');
 
 //FOR LOGGING
 define('DEV_EMAIL', 'anandpushkar088@gmail.com');
