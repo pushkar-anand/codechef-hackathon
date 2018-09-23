@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="@layout/activity_compilation_results"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,10 +12,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -26,86 +26,95 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/compileRun_lang_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    tools:text="Language Name"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    tools:text="Language Name" />
 
                 <TextView
                     android:id="@+id/compileRun_lang_version"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    tools:text="Language Version"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    tools:text="Language Version" />
+
                 <TextView
                     android:id="@+id/compileRun_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    tools:text="Time"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    tools:text="Time" />
+
                 <TextView
                     android:id="@+id/compileRun_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    tools:text="Date"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    tools:text="Date" />
+
                 <TextView
                     android:id="@+id/compileRun_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    tools:text="Status"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    tools:text="Status" />
+
                 <TextView
                     android:id="@+id/compileRun_memory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    tools:text="Memory"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    tools:text="Memory" />
+
                 <TextView
                     android:id="@+id/compileRun_signal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    tools:text="Signal"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    tools:text="Signal" />
+
                 <TextView
                     android:id="@+id/compileRun_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    tools:text="Input"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    tools:text="Input" />
+
                 <TextView
                     android:id="@+id/compileRun_output"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    tools:text="Output"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    tools:text="Output" />
+
                 <TextView
                     android:id="@+id/compileRun_stderr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    tools:text="stderr"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    tools:text="stderr" />
+
                 <TextView
                     android:id="@+id/compileRun_cmpinfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    tools:text="cmpinfo : prog.cpp:1:1: error: ‘aaaa’ does not name a type\n aaaa\n ^~~~\n"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    tools:text="cmpinfo : prog.cpp:1:1: error: ‘aaaa’ does not name a type\n aaaa\n ^~~~\n" />
 
             </LinearLayout>
         </ScrollView>

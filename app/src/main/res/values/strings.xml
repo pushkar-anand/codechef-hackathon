@@ -44,6 +44,7 @@
     <string name="language">Language</string>
     <string name="time">Time</string>
     <string name="solve">Solve</string>
+    <string name="compilation_result_heading">Details</string>
 
 
 </resources>
