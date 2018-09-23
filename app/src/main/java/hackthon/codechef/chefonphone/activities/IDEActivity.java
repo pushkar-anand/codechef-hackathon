@@ -480,6 +480,11 @@ public class IDEActivity extends AppCompatActivity
             outputStream.flush();
             outputStream.close();
 
+            Toast.makeText(this,
+                    "Download Completed. Check your downloads.",
+                    Toast.LENGTH_SHORT)
+                    .show();
+
             DownloadManager downloadManager =
                     (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
 
