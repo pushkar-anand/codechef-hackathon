@@ -9,7 +9,7 @@ langBoilerplate['C++14'] = "#include <iostream>\nusing namespace std;\n\nint mai
 langBoilerplate['C#'] = "using System;\n\npublic class Test\n{\n	public static void Main()\n	{\n		// your code goes here\n	}\n}\n";
 langBoilerplate['CLOJ'] = "; your code goes here";
 langBoilerplate['HASK'] = "main = -- your code goes here";
-langBoilerplate['JAVA'] = "public class TestDriver {\n    public static void main(String[] args) {\n        // Your code goes here\n    }\n}";
+langBoilerplate['JAVA'] = "class Solution {\n    public static void main(String[] args) {\n        // Your code goes here\n    }\n}";
 langBoilerplate['JS'] = "importPackage(java.io);\nimportPackage(java.lang);\n\n// your code goes here\n";
 langBoilerplate['NODEJS'] = "process.stdin.resume();\nprocess.stdin.setEncoding('utf8');\n\n// your code goes here";
 langBoilerplate['PERL'] = "#!/usr/bin/perl\n# your code goes here\n";
