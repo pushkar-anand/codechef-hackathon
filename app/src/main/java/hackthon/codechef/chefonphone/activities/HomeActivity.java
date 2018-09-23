@@ -28,20 +28,17 @@ import java.util.ArrayList;
 
 import hackthon.codechef.chefonphone.R;
 import hackthon.codechef.chefonphone.asyncloaders.ContestShortListLoader;
-import hackthon.codechef.chefonphone.asyncloaders.RecommendationLoader;
 import hackthon.codechef.chefonphone.constants.IDs;
 import hackthon.codechef.chefonphone.constants.SharedPrefKeys;
 import hackthon.codechef.chefonphone.constants.StringKeys;
 import hackthon.codechef.chefonphone.data.Contest;
-import hackthon.codechef.chefonphone.data.Problem;
 import hackthon.codechef.chefonphone.utils.Helpers;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks {
+        implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<ArrayList<Contest>> {
 
     private ProgressBar contestLoaderProgress;
-    private ProgressBar recommendLoaderProgress;
-    private LinearLayout contestLinear, recommendLinear;
+    private LinearLayout contestLinear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +58,7 @@ public class HomeActivity extends AppCompatActivity
         }
 
         contestLoaderProgress = findViewById(R.id.contestProgressBar);
-        recommendLoaderProgress = findViewById(R.id.recommendProgressBar);
         contestLinear = findViewById(R.id.contestChildOfChild);
-        recommendLinear = findViewById(R.id.recommendChildOfChild);
 
         TextView welcomeView = findViewById(R.id.welcomeTextView);
         welcomeView.setText(welcomeTxt);
@@ -78,7 +73,6 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportLoaderManager().initLoader(IDs.CONTEST_SHORT_LIST_LOADER, null, this).forceLoad();
-        getSupportLoaderManager().initLoader(IDs.RECOMMENDATION_LOADER, null, this).forceLoad();
 
         View navHeaderView = navigationView.getHeaderView(0);
         Helpers.updateDrawerNavHeader(this, navHeaderView);
@@ -172,36 +166,19 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    private void updateRecommendation(Problem problem) {
-        //TODO finish this.
-
-        recommendLinear.setVisibility(View.VISIBLE);
-        recommendLoaderProgress.setVisibility(View.GONE);
-
-    }
-
 
     @NonNull
     @Override
-    public Loader onCreateLoader(int id, Bundle bundle) {
-        if (id == IDs.CONTEST_SHORT_LIST_LOADER) {
-            return new ContestShortListLoader(HomeActivity.this);
-        } else {
-            return new RecommendationLoader(this);
-        }
+    public Loader<ArrayList<Contest>> onCreateLoader(int id, Bundle bundle) {
+        return new ContestShortListLoader(HomeActivity.this);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public void onLoadFinished(@NonNull Loader loader, Object object) {
-        Integer id = loader.getId();
+    public void onLoadFinished(@NonNull Loader<ArrayList<Contest>> loader, ArrayList<Contest> object) {
         if (object != null) {
 
-            if (id.equals(IDs.CONTEST_SHORT_LIST_LOADER)) {
-                updateContestDetails((ArrayList<Contest>) object);
-            } else if (id.equals(IDs.RECOMMENDATION_LOADER)) {
-                updateRecommendation((Problem) object);
-            }
+            updateContestDetails(object);
+
         }
     }
 
