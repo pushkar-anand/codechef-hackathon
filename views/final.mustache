@@ -6,28 +6,42 @@
     <title>Register</title>
     <style>
         body {
-            background-color: #3cb4da;
+            background-color: #e6e6e6;
         }
 
         button:hover {
             background-color: green;
         }
 
-        .center {
+        button {
             position: absolute;
             left: 50%;
-            top: 50%;
+            top: 75%;
             transform: translateX(-50%) translateY(-50%);
+            width: auto;
+            height: auto;
+            font-size: 20px;
+            background-color: #80606e;
+            cursor: pointer;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
     </style>
 
 </head>
 
 <body onload="saveToDevice();">
-<div class="center">
-    <h1>Successfully registered.</h1>
+
+
+<h3 class="msg">Successfully registered.</h3>
     <button onclick="startApp();">Continue</button>
-</div>
+
+
 <div style="display: none">
     <p id="name">{{ name }}</p>
     <p id="login-token">{{ login_token }}</p>
