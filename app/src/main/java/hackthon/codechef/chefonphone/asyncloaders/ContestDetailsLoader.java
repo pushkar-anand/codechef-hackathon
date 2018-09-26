@@ -21,7 +21,7 @@ import hackthon.codechef.chefonphone.utils.UrlBuilder;
 
 public class ContestDetailsLoader extends AsyncTaskLoader<Contest> {
 
-    private String contest_code;
+    private final String contest_code;
 
     public ContestDetailsLoader(@NonNull Context context, String contest_code) {
         super(context);

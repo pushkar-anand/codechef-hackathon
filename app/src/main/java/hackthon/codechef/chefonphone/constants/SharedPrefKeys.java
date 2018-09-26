@@ -9,5 +9,4 @@ public class SharedPrefKeys {
     public static final String CODECHEF_HANDLE = "CODECHEF_HANDLE";
     public static final String IDE_AUTOSAVE = "lang";
 
-    public static final String ALARM_PREF = "alarms";
 }

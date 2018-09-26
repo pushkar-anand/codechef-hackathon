@@ -20,8 +20,8 @@ import hackthon.codechef.chefonphone.utils.UrlBuilder;
 
 public class PracticeProblemLoader extends AsyncTaskLoader<ArrayList<Problem>> {
 
-    private String level;
-    private Integer start;
+    private final String level;
+    private final Integer start;
 
     public PracticeProblemLoader(@NonNull Context context, @NonNull String level, @Nullable Integer start) {
         super(context);

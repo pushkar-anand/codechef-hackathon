@@ -9,8 +9,10 @@ import hackthon.codechef.chefonphone.R;
 
 public class CompilationLogHolder extends RecyclerView.ViewHolder {
 
-    public TextView itemProblemTV, itemLangTV, itemTimeTv;
-    public ConstraintLayout cardConstrain;
+    public final TextView itemProblemTV;
+    public final TextView itemLangTV;
+    public final TextView itemTimeTv;
+    public final ConstraintLayout cardConstrain;
 
     public CompilationLogHolder(View itemView) {
         super(itemView);

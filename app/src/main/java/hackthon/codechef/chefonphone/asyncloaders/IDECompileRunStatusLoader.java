@@ -18,7 +18,7 @@ import hackthon.codechef.chefonphone.utils.UrlBuilder;
 
 public class IDECompileRunStatusLoader extends AsyncTaskLoader<CompileRunOutput> {
 
-    private String status_code;
+    private final String status_code;
 
     public IDECompileRunStatusLoader(@NonNull Context context, String status_code) {
         super(context);
