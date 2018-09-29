@@ -1,0 +1,39 @@
+{
+  "name": "pushkar/codechef-hackathon-backend",
+  "description": "Backend for CODECHEF android app.",
+  "type": "project",
+
+  "require": {
+    "php": ">=7.2",
+    "ext-mysqli": "*",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "pushkar/php-useful": "^0.3.1",
+    "pushkar/easy-router": "^0.1.2",
+    "pushkar/easy-mail": "^1.4",
+    "monolog/monolog": "^1.23",
+    "mustache/mustache": "^2.12"
+  },
+
+
+  "autoload": {
+    "files": [
+      "includes/define.php",
+      "includes/DB.php",
+      "includes/Curl.php",
+      "includes/functions.php",
+      "includes/CodechefApiCall.php",
+      "includes/User.php"
+    ]
+  },
+
+  "license": "proprietary",
+
+  "authors": [
+    {
+      "name": "Pushkar Anand",
+      "email": "anandpushkar088@gmail.com"
+    }
+  ]
+
+}
