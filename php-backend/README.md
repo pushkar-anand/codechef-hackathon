@@ -4,8 +4,8 @@
 ##### SERVER REQUIREMENTS
 
 <ul>
-<li>PHP >=7.2</li>
-<li>MySQL</li>
+	<li>PHP >=7.2</li>
+	<li>MySQL</li>
 </ul>
 
 ### Steps to deploy:
@@ -95,21 +95,36 @@ php-backend/
 `/login` for login page
 `/login/redirect` for OAuth redirect
 	
+
+
 ##### retuning json
 All these routes call related Codechef API endpoint to fetch the data and then parse it to return relavant data. Call to these routes require a valid login token associated with a valid Codechef token and account.
 
 
+
 `/contest/list/short` returns a json object of currently ongoing contest(Max 3)
-`/contest/list/long` returns a json object of all the ongoing and future contests 
+
+`/contest/list/long` returns a json object of all the ongoing and future contests
+ 
 `/contest/problems/list` returns a json of all problems for a particular contests
+
 `/contest/problem/details` returns problem statement for a particular problem
 
+
+
 `/practice/beginner` returns all problems under practice level beginner
+
 `/practice/easy` returns all problems under practice level easy
+
 `/practice/medium` returns all problems under practice level medium
+
 `/practice/hard` returns all problems under practice level hard
+
 `/practice/challenge` returns all problems under practice level challange
+
 `/practice/peer` returns all problems under practice level peer
+
+
 
 `/ide/status` returns compilations status of a code execution
 
